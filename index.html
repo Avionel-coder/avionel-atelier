@@ -5,124 +5,151 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avionel Atelier | Minimalist Leather Footwear & Bags</title>
     <style>
+        :root {
+            --bg-color: #faf9f6;
+            --text-color: #1a1a1a;
+            --muted-color: #666666;
+            --border-color: #e0e0e0;
+            --card-bg: #ffffff;
+            --accent-color: #111111;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
->
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             line-height: 1.6;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
+            padding: 40px 20px;
         }
 
-        .main-container {
+        .container {
             width: 100%;
-            max-width: 440px;
-            padding: 40px 20px;
+            max-width: 480px;
             text-align: center;
         }
 
-        /* Brand Header */
-        .brand-header mb-4 {
-            margin-bottom: 30px;
+        header {
+            margin-bottom: 35px;
         }
 
-        .brand-header h1 {
-            font-size: 26px;
+        h1 {
+            font-size: 1.8rem;
             letter-spacing: 2px;
-            font-weight: 600;
-            text-transform: uppercase;
+            font-weight: 700;
             margin-bottom: 8px;
-            color: #111111;
+            text-transform: uppercase;
         }
 
-        .brand-header p {
-            font-size: 14px;
-            color: #666666;
+        p.subtitle {
+            color: var(--muted-color);
+            font-size: 0.95rem;
             letter-spacing: 0.5px;
         }
 
-        /* Social Links Wrapper */
-        .links-wrapper {
+        /* Social / Link buttons */
+        .links-section {
             display: flex;
             flex-direction: column;
             gap: 15px;
-            margin-top: 30px;
+            margin-bottom: 40px;
         }
 
-        /* Social Button Style */
-        .social-btn {
+        .btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #ffffff;
-            color: #111111;
-            border: 1px solid #dcdcdc;
-            padding: 15px 20px;
+            gap: 12px;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 16px 24px;
             border-radius: 8px;
-            text-decoration: none;
-            font-size: 15px;
+            font-size: 1rem;
             font-weight: 500;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
 
-        .social-btn .icon {
-            margin-right: 12px;
-            font-size: 18px;
-        }
-
-        /* Hover Effect */
-        .social-btn:hover {
-            background-color: #111111;
+        .btn:hover {
+            background-color: var(--accent-color);
             color: #ffffff;
-            border-color: #111111;
+            border-color: var(--accent-color);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
-        /* Footer info */
-        .footer-note {
-            margin-top: 40px;
-            font-size: 12px;
-            color: #888888;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+        /* Features Section (Previous full-site capabilities) */
+        .features-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: left;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .features-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .features-card p {
+            font-size: 0.9rem;
+            color: var(--muted-color);
+            margin-bottom: 16px;
+        }
+
+        footer {
+            font-size: 0.85rem;
+            color: var(--muted-color);
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
 <body>
 
-    <div class="main-container">
-        <!-- Брэндийн толгой хэсэг -->
-        <div class="brand-header">
+    <div class="container">
+        <!-- Brand Header -->
+        <header>
             <h1>Avionel Atelier</h1>
-            <p>Minimalist Leather Footwear & Bags</p>
-        </div>
-        
-        <!-- Сошиал болон вэб линкүүдийг нэгтгэсэн товчлуурууд -->
-        <div class="links-wrapper">
+            <p class="subtitle">Minimalist Leather Footwear & Bags</p>
+        </header>
 
-            <!-- 2. Инстаграм хуудас (Линкээ дараа нь өөрчлөх боломжтой) -->
-            <a href="https://instagram.com/avionel.atelier" class="social-btn" target="_blank">
-                <span class="icon">📸</span> Instagram
+        <!-- Social & Quick Links -->
+        <div class="links-section">
+            <a href="https://www.instagram.com/" target="_blank" class="btn">
+                <span>📸</span> Instagram
             </a>
-
-            <!-- 3. Фэйсбүүк пэйж (Линкээ дараа нь өөрчлөх боломжтой) -->
-            <a href="https://facebook.com/avionel.atelier" class="social-btn" target="_blank">
-                <span class="icon">👥</span> Facebook Page
+            <a href="https://www.facebook.com/" target="_blank" class="btn">
+                <span>👥</span> Facebook Page
             </a>
         </div>
 
-        <!-- Доод тайлбар -->
-        <div class="footer-note">
-            &copy; 2026 Avionel Studio. All rights reserved.
+        <!-- Full Features Section (Restored functionality placeholder / showcase) -->
+        <div class="features-card">
+            <h3>Bespoke Craftsmanship</h3>
+            <p>Minimalist and classic leather footwear and bags crafted with traditional bench techniques and custom precision.</p>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2026 Avionel Studio. All Rights Reserved.
+    </footer>
 
 </body>
 </html>
