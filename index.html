@@ -1,181 +1,957 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><title>Netlify</title><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#ffffff"/><meta name="google-site-verification" content="G4JqDTXMHpDyWoqIRwgw8PBqg-AncXqtdkHehcOR7kc"/><meta name="description" content="Create with AI or code, deploy instantly on production infrastructure. One platform to build and ship."/><meta property="og:title" content="Netlify"/><meta property="og:description" content="Create with AI or code, deploy instantly on production infrastructure. One platform to build and ship."/><meta property="og:type" content="website"/><meta property="og:image" content="https://app.netlify.com/og-image-default-app.png"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta name="twitter:card" content="summary_large_image"/><meta name="slack-app-id" content="A05P27DR8C8"/><link rel="preconnect" href="https://featureflags.netlify.com" crossorigin/><link rel="preconnect" href="https://screenshot-proxy.netlify.app" crossorigin/><script src="https://www.google.com/recaptcha/enterprise.js?render=6Lfj2-EtAAAAAABMy0F1oAGRPQOCTZhnt1KQ7Xat" async defer="defer" nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY"></script><link rel="apple-touch-icon" sizes="180x180" href="https://www.netlify.com/v3/static/favicon/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="16x16" href="/favicon-prod-remote-default-16x16.png"/><link rel="icon" type="image/png" sizes="32x32" href="/favicon-prod-remote-default-32x32.png"/><link rel="icon" type="image/png" sizes="48x48" href="/favicon-prod-remote-default-48x48.png"/><link href="/assets/css/88510.06a001937f5fb8e51e43.css" rel="stylesheet"/><link href="/assets/css/app.fce5626d94be0f45af13.css" rel="stylesheet"/></head><body><svg style="bottom: 0; position: absolute; z-index: -1" aria-hidden="true"><defs><symbol id="netlify-logomark" viewBox="0 0 128 128"><path style="transition: fill 200ms ease-out" fill="var(--logoDiamond)" d="m125.2 54.8-52-52L71.3.9 69.2 0H58.8l-2.1.9-1.9 1.9-52 52-1.9 1.9-.9 2.1v10.3l.9 2.1 1.9 1.9 52 52 1.9 1.9 2.1.9h10.3l2.1-.9 1.9-1.9 52-52 1.9-1.9.9-2.1V58.8l-.9-2.1-1.8-1.9z"/><path style="transition: fill 200ms ease-out" fill="var(--logoN)" d="M78.9 80.5H71l-.7-.7V61.3c0-3.3-1.3-5.9-5.3-6-2-.1-4.4 0-6.9.1l-.4.4v24l-.7.7h-7.9l-.7-.7V48.1l.7-.7H67c6.9 0 12.6 5.6 12.6 12.6v19.8l-.7.7z"/><path style="transition: fill 200ms ease-out" fill="var(--logoSpark)" d="m38.4 30.8 7.3 7.3v5.8l-.8.8h-5.8l-7.3-7.3v-1.1l5.5-5.5h1.1zm.2 37.2v-8l-.7-.7h-28l-.7.7v8l.7.7H38l.6-.7zm.5 15.7L31.8 91v1.1l5.5 5.5h1.1l7.3-7.3v-5.8l-.8-.8h-5.8zM60 11.3l-.6.7v25l.7.7H68l.7-.7V12l-.7-.7h-8zm0 79.1-.7.7v25l.7.7h8l.7-.7v-25l-.7-.7h-8zm58.1-31h-28l-.7.6v8l.7.7h28.1l.7-.7v-8l-.8-.6z"/></symbol><symbol id="netlify-logo" viewBox="0 0 48 48"><use href="#netlify-logomark"/></symbol><symbol id="netlify-logo-mono" viewBox="0 0 48 48"><use href="#netlify-logomark"/></symbol></defs></svg><style>:root {
-        --logoDiamond: none;
-        --logoN: rgb(var(--colorRgbFacetsTeal800));
-        --logoSpark: rgb(var(--colorRgbFacetsTeal400));
-      }
-      .tw-dark {
-        --logoN: rgb(var(--colorRgbFacetsNeutralDark000));
-        --logoSpark: rgb(var(--colorRgbFacetsTeal200));
-      }
-      #netlify-logo-mono {
-        --logoN: currentColor;
-        --logoSpark: currentColor;
-      }</style><div id="root" tabindex="-1"></div><div hidden><span id="open-in-new-tab">Opens in a new tab</span></div><script nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY">// crypto.randomUUID() polyfill
-      (() => {
-        if (
-          window.crypto &&
-          typeof window.crypto.randomUUID !== 'function' &&
-          typeof window.crypto.getRandomValues === 'function' &&
-          typeof Uint8Array === 'function'
-        ) {
-          function randomUUID() {
-            const callback = (c) => {
-              const num = Number(c);
-              return (
-                num ^
-                (window.crypto.getRandomValues(new Uint8Array(1))[0] &
-                  (15 >> (num / 4)))
-              ).toString(16);
-            };
-            return '10000000-1000-4000-8000-100000000000'.replace(
-              /[018]/g,
-              callback
-            );
-          }
-          console.log('Polyfilling crypto.randomUUID()');
-          window.crypto.randomUUID = randomUUID;
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVIONEL ATELIER — Slouch Leather Boot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #070b14;
+            --card-bg: rgba(15, 22, 38, 0.88);
+            --accent: #d4af37;
+            --accent-hover: #f3e5ab;
+            --text-main: #f5f5f7;
+            --text-muted: #b0aca5;
+            --border-color: rgba(212, 175, 55, 0.25);
+            --input-bg: rgba(255, 255, 255, 0.05);
+            --font-title: 'Cinzel', serif;
+            --font-body: 'Montserrat', sans-serif;
         }
-      })();</script><script nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY">// preload the critical path fetch requests that the app
-      // loads (some in a serial fashion) during bootstrap
-      (() => {
-        // we are confident the user is authenticated
-        // if we have the auth cookie hint.
-        if (document.cookie.includes('_nf-auth-hint')) {
-          // ParallelData allows for async loading and handoff to the app. It also
-          // allows us to pull data from a parallel loaded request to use to make other
-          // parallel requests.
-          // This is the fetch-only version (does not include XHR parallel loading)
-          // ParallelData v1.3.0 - https://github.com/sean-roberts/parallel-data
-          // prettier-ignore
-          !function(){"use strict";var e="ParallelData";function t(){try{for(var t,r=arguments.length,n=Array(r),o=0;o<r;o++)n[o]=arguments[o];(t=console).error.apply(t,[e].concat(n))}catch(e){}}function r(e,t){return Object.assign.apply(Object,arguments)}var n={},o={},a={},c=function(e,t){return e.toUpperCase()+"-"+t},i=function(){};i=function(e,n,i){var l=c(e,n);if(!o[l])var u=o[l]=fetch(n,r({},i,{__PDFetch__:!0,method:e,headers:r({},a.headers,i.headers||{}),credentials:i.credentials||"include",redirect:i.redirect||"follow"})).then(function(e){return i&&i.onParallelDataResponse&&i.onParallelDataResponse(e.clone(),{transferredToApp:!!u.__PDConsumed__}),e}).catch(function(e){throw t("fetch request failed",e),e})},window.ParallelData={version:"1.3.0",configure:function(e){var t;(e=e||{}).allRequests&&(t=e.allRequests,a=r({},a,t||{}))}},window.ParallelData.getForFetch=function(e,r){r=r||{};try{"fetch"in window&&"Promise"in window&&i("GET",e,r)}catch(e){t("fetch request failed",e)}},function(){try{var e=window.fetch;if(!e||!window.Promise)return;window.fetch=function(t,r){t=t||{},r=r||{};var a=void 0;"string"==typeof t?a=t:t.url&&(a=t.url);var i=function(e,t){if(e&&e.method&&e.url){var r=c(e.method,e.url);return"xhr"===t?n[r]:o[r]}}({method:r.method?r.method:t.method?t.method:"GET",url:a},"fetch");return r.__PDFetch__||!i||i.__PDConsumed__?e.apply(window,arguments):(i.__PDConsumed__=!0,i)}}catch(e){t("failed to run fetchInterceptor",e)}}()}();
-          // These requests were chosen because they were the most common critical path
-          // requests across all pages
-          // DirectApiAuthSync keeps this localStorage value equal to the
-          // project_spiritomb_ui flag (DIRECT_API_AUTH_STORAGE_KEY in
-          // src/lib/direct-api-auth.ts). When the value is true, the app calls
-          // the API origin directly with the auth cookie. The prefetch must
-          // use the same URLs, or the app does not use the prefetch responses.
-          // HtmlWebpackPlugin sets `apiBase` from the env config.
-          var apiBase = '/access-control/bb-api';
-          try {
-            if (localStorage.getItem('nf-direct-api-auth') === 'true') {
-              apiBase = 'https://api.netlify.com';
-            }
-          } catch (e) {}
-          ParallelData.getForFetch(apiBase + '/api/v1/user');
-          ParallelData.getForFetch(apiBase + '/api/v1/accounts?minimal=true');
-          ParallelData.getForFetch(apiBase + '/api/v1/organizations');
-          ParallelData.getForFetch('/.netlify/builders/notifications');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }
-      })();</script><script nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY">if (
-        window.location.host === 'app.netlify.com' ||
-        window.location.search.includes('force-load-segment')
-      ) {
-        // Segment snippet
-        // running snippet here because it will set up the initial mocked
-        // methods/properties for immediate use but we call analytics.load() later after the
-        // page has loaded so that segment is out of the critical path
-        // prettier-ignore
 
-        !function(){var i="analytics",analytics=window[i]=window[i]||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","screen","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware","register"];analytics.factory=function(e){return function(){if(window[i].initialized)return window[i][e].apply(window[i],arguments);var n=Array.prototype.slice.call(arguments);if(["track","screen","alias","group","page","identify"].indexOf(e)>-1){var c=document.querySelector("link[rel='canonical']");n.push({__t:"bpc",c:c&&c.getAttribute("href")||void 0,p:location.pathname,u:location.href,s:location.search,t:document.title,r:document.referrer})}n.unshift(e);analytics.push(n);return analytics}};for(var n=0;n<analytics.methods.length;n++){var key=analytics.methods[n];analytics[key]=analytics.factory(key)}analytics.load=function(key,n){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.setAttribute("data-global-segment-analytics-key",i);t.src="https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";var r=document.getElementsByTagName("script")[0];r.parentNode.insertBefore(t,r);analytics._loadOptions=n};analytics._writeKey="bHbADSxnRvrpFMYP6pMNP38JC4J7Av75";;analytics.SNIPPET_VERSION="5.2.0";
-        }}();
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
 
-        window._asyncScriptsWaitingLoad = window._asyncScriptsWaitingLoad || [];
-        window._asyncScriptsWaitingLoad.push(() => {
-          // load Segment
-          if (window.analytics) {
-            analytics.load('bHbADSxnRvrpFMYP6pMNP38JC4J7Av75');
-            // Initialize Segment-Amplitude session replay integration after Segment loads
-            if (window.initSegmentAmplitudeIntegration) {
-              window.initSegmentAmplitudeIntegration();
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .app-container {
+            position: relative;
+            z-index: 2;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 20px 14px;
+        }
+
+        header {
+            text-align: center;
+            padding: 10px 0 20px 0;
+        }
+
+        .brand-title {
+            font-family: var(--font-title);
+            font-size: 30px;
+            letter-spacing: 5px;
+            font-weight: 700;
+            color: #b8d4f8;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(168, 202, 248, 0.3);
+        }
+
+        .brand-subtitle {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .stage-color-bar {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        .stage-color-btn {
+            background: rgba(15, 22, 38, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.25s ease;
+        }
+
+        .stage-color-btn.active {
+            border-color: var(--accent);
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--accent);
+            font-weight: 600;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .showcase-stage {
+            position: relative;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            background: radial-gradient(circle at center, rgba(20, 32, 56, 0.9) 0%, rgba(7, 11, 20, 0.98) 100%);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.85);
+            margin-bottom: 14px;
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 4 / 3.2;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-price-overlay {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: rgba(7, 11, 20, 0.92);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--accent);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+            z-index: 15;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+        }
+
+        .hotspot-wrapper {
+            position: absolute;
+            z-index: 20;
+        }
+
+        .hotspot-dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.35);
+            border: 1.5px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 14px rgba(212, 175, 55, 0.5);
+            animation: pulse 2.5s infinite;
+        }
+
+        .hotspot-wrapper.active .hotspot-dot {
+            background: var(--accent);
+            color: #000;
+            transform: scale(1.15);
+            box-shadow: 0 0 22px rgba(212, 175, 55, 0.9);
+        }
+
+        .hotspot-tooltip {
+            position: absolute;
+            width: 190px;
+            background: rgba(10, 15, 26, 0.96);
+            border: 1px solid var(--accent);
+            backdrop-filter: blur(12px);
+            border-radius: 10px;
+            padding: 10px 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.9);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 50;
+            pointer-events: none;
+            left: 36px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hotspot-wrapper.tooltip-left .hotspot-tooltip {
+            left: auto;
+            right: 36px;
+        }
+
+        .hotspot-wrapper.active .hotspot-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tooltip-title {
+            color: var(--accent);
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 3px;
+            text-transform: uppercase;
+        }
+
+        .tooltip-desc {
+            color: var(--text-main);
+            font-size: 11px;
+            line-height: 1.35;
+        }
+
+        #hs-pos-1 { top: 18%; left: 45%; }
+        #hs-pos-2 { top: 40%; left: 52%; }
+        #hs-pos-3 { top: 62%; left: 28%; }
+        #hs-pos-4 { top: 82%; left: 42%; }
+        #hs-pos-5 { top: 32%; left: 22%; }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.6); }
+            70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+
+        .gallery-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .thumb-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(15, 22, 38, 0.6);
+            cursor: pointer;
+            aspect-ratio: 1 / 1;
+            transition: all 0.25s ease;
+        }
+
+        .thumb-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .thumb-price-tag {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.88);
+            color: var(--accent);
+            font-size: 9px;
+            font-weight: 600;
+            text-align: center;
+            padding: 3px 0;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .thumb-item.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
+            transform: scale(1.02);
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 18px 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 8px;
+        }
+
+        .section-title {
+            font-family: var(--font-title);
+            font-size: 14px;
+            color: var(--text-main);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .section-badge {
+            font-size: 10px;
+            color: var(--accent);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .care-inline-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .care-text-content {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .care-animated-badge {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, rgba(15, 22, 38, 0.8) 100%);
+            border: 1px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
+            animation: floatBadge 3s ease-in-out infinite;
+        }
+
+        @keyframes floatBadge {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .foot-diagram-box {
+            background: rgba(10, 15, 26, 0.6);
+            border: 1px dashed var(--border-color);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .foot-svg {
+            max-width: 160px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .diagram-caption {
+            font-size: 11px;
+            color: var(--accent);
+            margin-top: 6px;
+        }
+
+        .calc-input-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .btn-calc {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 0 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .calc-result-box {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--accent-hover);
+            display: none;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-main);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 12px;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .color-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .color-opt {
+            padding: 10px 6px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.03);
+            text-align: center;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: var(--text-main);
+        }
+
+        .color-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .color-opt.selected {
+            border-color: var(--accent);
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .size-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+        }
+
+        .size-btn {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: var(--text-main);
+            padding: 10px 0;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .size-btn.selected {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: #000;
+            font-weight: 700;
+        }
+
+        .payment-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .pay-tab {
+            padding: 11px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.03);
+            color: var(--text-main);
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .pay-tab.active {
+            border-color: var(--accent);
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .pay-panel {
+            display: none;
+            background: rgba(10, 15, 26, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            padding: 14px;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .pay-panel.active {
+            display: block;
+        }
+
+        .qpay-qr-container {
+            width: 130px;
+            height: 130px;
+            background: #ffffff;
+            margin: 10px auto;
+            padding: 8px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bank-details {
+            text-align: left;
+            font-size: 11px;
+            line-height: 1.8;
+            color: var(--text-main);
+        }
+
+        .bank-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+            padding: 5px 0;
+        }
+
+        .bank-label { color: var(--text-muted); }
+        .bank-val { font-weight: 600; color: var(--accent); }
+
+        .btn-checkout {
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
+            color: #000;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 30px;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .footer-social-btn {
+            color: var(--accent);
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            background: rgba(15, 22, 38, 0.8);
+            transition: all 0.25s ease;
+        }
+
+        .footer-social-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="app-container">
+        <header>
+            <div class="brand-title">AVIONEL</div>
+            <div class="brand-subtitle">ATELIER — LEATHER CRAFT</div>
+        </header>
+
+        <div class="stage-color-bar">
+            <button class="stage-color-btn" onclick="selectColorFromStage(this, 'Хар (Classic Black)', 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80')">
+                <span class="color-dot" style="background:#000;"></span> Хар
+            </button>
+            <button class="stage-color-btn" onclick="selectColorFromStage(this, 'Бор (Deep Burgundy)', 'https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=800&q=80')">
+                <span class="color-dot" style="background:#4a1521;"></span> Бор
+            </button>
+            <button class="stage-color-btn active" onclick="selectColorFromStage(this, 'Бэйж (Ivory Cream)', 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80')">
+                <span class="color-dot" style="background:#e8e3d5;"></span> Бэйж
+            </button>
+        </div>
+
+        <div class="showcase-stage">
+            <div class="image-wrapper">
+                <img id="main-product-img" src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80" alt="Avionel Boot" class="product-image">
+                <div class="image-price-overlay" id="main-price-display">510,000 ₮</div>
+            </div>
+            
+            <div class="hotspot-wrapper active" id="hs-pos-1">
+                <div class="hotspot-dot" onclick="toggleHotspot(this)">1</div>
+                <div class="hotspot-tooltip">
+                    <div class="tooltip-title">① Урт түрий (Upper Shaft)</div>
+                    <div class="tooltip-desc">Байгалийн цэвэр зөөлөн үхрийн арьс.</div>
+                </div>
+            </div>
+
+            <div class="hotspot-wrapper" id="hs-pos-2">
+                <div class="hotspot-dot" onclick="toggleHotspot(this)">2</div>
+                <div class="hotspot-tooltip">
+                    <div class="tooltip-title">② Нугалаас (Slouch Folds)</div>
+                    <div class="tooltip-desc">Гар аргаар суулгасан нугалаас.</div>
+                </div>
+            </div>
+
+            <div class="hotspot-wrapper tooltip-left" id="hs-pos-3">
+                <div class="hotspot-dot" onclick="toggleHotspot(this)">3</div>
+                <div class="hotspot-tooltip">
+                    <div class="tooltip-title">③ Толгойн хэсэг (Toe Box)</div>
+                    <div class="tooltip-desc">Хэлбэрээ алдахгүй зөөлөвчтэй.</div>
+                </div>
+            </div>
+
+            <div class="hotspot-wrapper tooltip-left" id="hs-pos-4">
+                <div class="hotspot-dot" onclick="toggleHotspot(this)">4</div>
+                <div class="hotspot-tooltip">
+                    <div class="tooltip-title">④ Халилтаас хамгаалах ул</div>
+                    <div class="tooltip-desc">Премиум резинэн ул.</div>
+                </div>
+            </div>
+
+            <div class="hotspot-wrapper" id="hs-pos-5">
+                <div class="hotspot-dot" onclick="toggleHotspot(this)">5</div>
+                <div class="hotspot-tooltip">
+                    <div class="tooltip-title">⑤ Шевро Доторлогоо</div>
+                    <div class="tooltip-desc">Амьсгалдаг шевро дотор.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="gallery-thumbnails">
+            <div class="thumb-item" onclick="switchMainImage(this, 0, 480000, 'Classic Black Slouch')">
+                <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80" alt="Thumb 1">
+                <span class="thumb-price-tag">480,000₮</span>
+            </div>
+            <div class="thumb-item active" onclick="switchMainImage(this, 1, 510000, 'Burgundy Heritage Boot')">
+                <img src="https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=800&q=80" alt="Thumb 2">
+                <span class="thumb-price-tag">510,000₮</span>
+            </div>
+            <div class="thumb-item" onclick="switchMainImage(this, 2, 490000, 'Ivory Cream Luxe Boot')">
+                <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80" alt="Thumb 3">
+                <span class="thumb-price-tag">490,000₮</span>
+            </div>
+            <div class="thumb-item" onclick="switchMainImage(this, 3, 520000, 'Custom Edition Boot')">
+                <img src="https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?auto=format&fit=crop&w=800&q=80" alt="Thumb 4">
+                <span class="thumb-price-tag">520,000₮</span>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <div class="section-header">
+                <span class="section-title">Цэвэр арьс арчилгаа</span>
+                <span class="section-badge">Leather Care</span>
+            </div>
+            <div class="care-inline-box">
+                <div class="care-text-content">
+                    • Чийгээс хол байлгаж, зөөлөн алчуураар арчина.<br>
+                    • Зориулалтын тосоор үе үе тослоно.<br>
+                    • Хэлбэр хадгалах тулгуур хэрэглэнэ.
+                </div>
+                <div class="care-animated-badge">✨</div>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <div class="section-header">
+                <span class="section-title">Хөлийн хэмжээ авах ба Тооцоолох</span>
+                <span class="section-badge">Size Guide</span>
+            </div>
+            <div class="foot-diagram-box">
+                <svg class="foot-svg" viewBox="0 0 200 280" fill="none">
+                    <path d="M100 20 C130 20, 150 40, 150 80 C150 120, 140 160, 140 210 C140 240, 125 255, 100 255 C75 255, 60 240, 60 210 C60 160, 50 120, 50 80 C50 40, 70 20, 100 20 Z" stroke="#d4af37" stroke-width="2" stroke-dasharray="4 4" fill="rgba(212, 175, 55, 0.05)"></path>
+                    <line x1="100" y1="12" x2="100" y2="263" stroke="#d4af37" stroke-width="1.5"></line>
+                    <text x="108" y="145" fill="#d4af37" font-size="11" font-weight="bold">Урт (мм)</text>
+                </svg>
+                <div class="diagram-caption">Өсгийн ардаас хамгийн урт хурууны үзүүр хүртэл хэмжинэ</div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" style="color: var(--accent);">📐 Хэмжээ тооцоолох (мм-ээр бичих):</label>
+                <div class="calc-input-group">
+                    <input type="number" id="user-mm-input" class="form-control" placeholder="Жишээ нь: 245">
+                    <button class="btn-calc" onclick="calculateEUSize()">Бодох</button>
+                </div>
+                <div id="calc-result" class="calc-result-box"></div>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <div class="section-header">
+                <span class="section-title">Захиалгын сонголт</span>
+                <span class="section-badge">Custom Order</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Сонгосон загвар:</label>
+                <input type="text" id="selected-model-name" class="form-control" value="Classic Black Slouch Boot" readonly style="color: var(--accent); font-weight: 600;">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">1. Өнгө сонгох:</label>
+                <div class="color-selector">
+                    <div class="color-opt selected" onclick="selectColor(this, 'Хар (Classic Black)')">
+                        <span class="color-dot" style="background:#000;"></span> Хар
+                    </div>
+                    <div class="color-opt" onclick="selectColor(this, 'Бор (Deep Burgundy)')">
+                        <span class="color-dot" style="background:#4a1521;"></span> Бор
+                    </div>
+                    <div class="color-opt" onclick="selectColor(this, 'Бэйж (Ivory Cream)')">
+                        <span class="color-dot" style="background:#e8e3d5;"></span> Бэйж
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">2. Стандарт хэмжээ (Размер):</label>
+                <div class="size-grid">
+                    <div class="size-btn" onclick="selectSize(this, '35')">35</div>
+                    <div class="size-btn" onclick="selectSize(this, '36')">36</div>
+                    <div class="size-btn" onclick="selectSize(this, '37')">37</div>
+                    <div class="size-btn" onclick="selectSize(this, '38')">38</div>
+                    <div class="size-btn selected" onclick="selectSize(this, '39')">39</div>
+                    <div class="size-btn" onclick="selectSize(this, '40')">40</div>
+                    <div class="size-btn" onclick="selectSize(this, '41')">41</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">3. Захиалагчийн мэдээлэл:</label>
+                <input type="text" id="cust-name" class="form-control" placeholder="Захиалагчийн нэр" style="margin-bottom:8px;">
+                <input type="tel" id="cust-phone" class="form-control" placeholder="Утасны дугаар">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">4. Төлбөрийн сонголт:</label>
+                <div class="payment-options">
+                    <div class="pay-tab active" onclick="switchPayTab('qpay')">QPay QR</div>
+                    <div class="pay-tab" onclick="switchPayTab('bank')">Дансаар шилжүүлэх</div>
+                </div>
+
+                <div id="pay-qpay" class="pay-panel active">
+                    <div class="qpay-qr-container">
+                        <svg viewBox="0 0 100 100" width="100" height="100">
+                            <rect width="100" height="100" fill="#fff"/>
+                            <path d="M10 10h30v30H10zM60 10h30v30H60zM10 60h30v30H10z" fill="#000"/>
+                            <path d="M20 20h10v10H20zM70 20h10v10H70zM20 70h10v10H20z" fill="#fff"/>
+                        </svg>
+                    </div>
+                    <div style="font-size:11px; color:var(--text-muted);">QR кодыг уншуулж төлбөрөө төлнө үү.</div>
+                </div>
+
+                <div id="pay-bank" class="pay-panel">
+                    <div class="bank-details">
+                        <div class="bank-row"><span class="bank-label">Банк:</span><span class="bank-val">Голомт Банк</span></div>
+                        <div class="bank-row"><span class="bank-label">Дансны дугаар:</span><span class="bank-val">3005123456</span></div>
+                        <div class="bank-row"><span class="bank-label">Хүлээн авагч:</span><span class="bank-val">AVIONEL STUDIO</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-checkout" id="submit-btn" onclick="sendOrderToGoogleSheets()">Захиалах</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-socials">
+            <a href="https://www.instagram.com/avionel.atelier" target="_blank" class="footer-social-btn">📷 Instagram</a>
+            <a href="https://www.facebook.com/avionel.atelier" target="_blank" class="footer-social-btn">👥 Facebook Page</a>
+        </div>
+        <p>&copy; 2026 AVIONEL STUDIO. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Background particles
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedY = Math.random() * 0.5 + 0.1;
+                this.opacity = Math.random() * 0.5 + 0.2;
             }
-          }
-        });
-      }</script><script nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY">// Failed to execute 'removeChild' on 'Node' workaround
-      // https://github.com/facebook/react/issues/11538#issuecomment-417504600
-      (() => {
-        var originalRemoveChild = Node.prototype.removeChild;
-        var originalInsertBefore = Node.prototype.insertBefore;
-        var log;
-        var observer = new MutationObserver(function (event) {
-          if (
-            document.documentElement.className.match('translated') ||
-            // _msttexthash is added to the title when microsoft edge translates a page
-            document.querySelector('title').hasAttribute('_msttexthash')
-          ) {
-            log =
-              window.DD_RUM && window.DD_RUM.addAction
-                ? window.DD_RUM.addAction
-                : (name, data) => console.error(name, data);
-            log('PageTranslate');
-            if (typeof Node === 'function' && Node.prototype) {
-              Node.prototype.removeChild = function (child) {
-                if (child.parentNode !== this) {
-                  log('CustomError', {
-                    errorType: 'removeChild',
-                    child: child,
-                  });
-                  return child;
+            update() {
+                this.y -= this.speedY;
+                if (this.y < 0) {
+                    this.y = canvas.height;
+                    this.x = Math.random() * canvas.width;
                 }
-                return originalRemoveChild.apply(this, arguments);
-              };
-              Node.prototype.insertBefore = function (newNode, referenceNode) {
-                if (referenceNode && referenceNode.parentNode !== this) {
-                  log('CustomError', {
-                    errorType: 'insertBefore',
-                    node: referenceNode,
-                  });
-                  return newNode;
-                }
-                return originalInsertBefore.apply(this, arguments);
-              };
             }
-          } else {
-            log && log('PageUntranslate');
-            Node.prototype.removeChild = originalRemoveChild;
-            Node.prototype.insertBefore = originalInsertBefore;
-          }
-        });
-        // https://stackoverflow.com/a/58891538
-        observer.observe(document.documentElement, {
-          attributes: true,
-          attributeFilter: ['class'],
-          childList: false,
-          characterData: false,
-        });
+            draw() {
+                ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
 
-        // Include observer to detect microsoft edge translations
-        observer.observe(document.querySelector('title'), {
-          attributes: true,
-          attributeFilter: ['_msttexthash'],
-          childList: false,
-          characterData: false,
-        });
-      })();</script><script src="/assets/js/runtime.4a4c1bb4b428d21f5085.js" nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY"></script><script src="/assets/js/monitoring.vendor.730ffd875945b0e1c39f.js" nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY"></script><script src="/assets/js/lib.ffef30417e09a4d8f01e.js" nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY"></script><script src="/assets/js/containers.daadbe5ddb3aed26be1d.js" nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY"></script><script src="/assets/js/lodash.vendor.b9256faf5486ba97c9a9.js" nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY"></script><script src="/assets/js/highcharts.vendor.062d44badf31a5e6140f.js" nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY"></script><script src="/assets/js/ui.e5d3d2a97b612f74b6d4.js" nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY"></script><script src="/assets/js/helpers.d67c84ed90649b85dbe0.js" nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY"></script><script src="/assets/js/relayRouterRedux.vendor.832d0befc3b6cf7f80f8.js" nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY"></script><script src="/assets/js/buildInfo.vendor.9e9c574e8232ef04882c.js" nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY"></script><script src="/assets/js/actions.16dd6ca869523e673a08.js" nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY"></script><script src="/assets/js/markdown.vendor.24df7c60576704bc90db.js" nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY"></script><script src="/assets/js/graphiql.vendor.5504280cfbb32a6faef6.js" nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY"></script><script src="/assets/js/reactUiUtilities.vendor.9d4da4e73d390b9bdd1c.js" nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY"></script><script src="/assets/js/react.vendor.40cf545a9b4675eb6968.js" nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY"></script><script src="/assets/js/iso-3166.vendor.8f5322372851ddbd9305.js" nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY"></script><script src="/assets/js/graphql.vendor.5f6fef2f88e8d4c2c9ef.js" nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY"></script><script src="/assets/js/88510.5383d5c4bc28565792e5.js" nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY"></script><script src="/assets/js/app.fc6fae6253ce5e2fb9c9.js" nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY"></script><script nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY">// PartnerStacks partner/referral tracking
-      if (
-        window.location.host === 'app.netlify.com'
-      ) {
-        window._asyncScriptsWaitingLoad = window._asyncScriptsWaitingLoad || [];
-        window._asyncScriptsWaitingLoad.push(() => {
-          var gs = document.createElement('script');
-          gs.src = 'https://join.netlify.com/pr/js';
-          gs.type = 'text/javascript';
-          gs.async = 'true';
-          gs.onload = gs.onreadystatechange = function () {
-            var rs = this.readyState;
-            if (rs && rs != 'complete' && rs != 'loaded') return;
-            try {
-              growsumo._initialize('pk_F7MBXU66eGsOfaL4aSFGnB5bV0RuxRDj', [
-                'join.netlify.com',
-                'netlify.partnerlinks.io',
-                'trialco7lrnrzrby4sbrbnetlify.partnerlinks.io',
-              ]);
-              if (typeof growsumoInit === 'function') {
-                growsumoInit();
-              }
-            } catch (e) {}
-          };
-          var s = document.getElementsByTagName('script')[0];
-          s.parentNode.insertBefore(gs, s);
-        });
-      }</script><noscript><div class="app"><div class="tw-flex tw-z-overlay tw-inset-0 tw-fixed tw-items-center tw-justify-center tw-m-0 tw-text-center tw-w-full tw-min-h-screen tw-bg-white"><div class="container"><h1>The Netlify dashboard needs JavaScript :(</h1><p>You can enable JavaScript in <a href="https://enable-javascript.com/" class="highlight-link" target="_blank">your browser settings</a>.</p></div></div></div></noscript></body></html><script async id="netlify-rum-container" src="/.netlify/scripts/rum" data-netlify-rum-site-id="5f9562c1-be9c-4898-bc6a-5b40de4e1450" data-netlify-deploy-branch="main" data-netlify-deploy-context="production" data-netlify-cwv-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaXRlX2lkIjoiNWY5NTYyYzEtYmU5Yy00ODk4LWJjNmEtNWI0MGRlNGUxNDUwIiwiYWNjb3VudF9pZCI6IjU4ZGE4ODkzZDY4NjVkMzVjOTJhNzJiOCIsImRlcGxveV9pZCI6IjZhZTkxZmE3MDVlZTg3MTk5MzVjMzA5NCIsImlzcyI6Im5ldGxpZnkifQ.f5BSLk_UWjDv4bhj_8K62zrl_ac4E1D_Ny1_EbqM9Tk" nonce="Vmu9Kfu9edh4MV1tuQlal2FGNP1roGZY"></script>
+        for (let i = 0; i < 50; i++) particles.push(new Particle());
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // Functional scripts
+        let selectedSize = '39';
+        let selectedColor = 'Хар (Classic Black)';
+        let selectedModel = 'Classic Black Slouch Boot';
+
+        function toggleHotspot(element) {
+            element.parentElement.classList.toggle('active');
+        }
+
+        function selectSize(element, size) {
+            document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedSize = size;
+        }
+
+        function selectColor(element, color) {
+            document.querySelectorAll('.color-opt').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedColor = color;
+        }
+
+        function calculateEUSize() {
+            const mm = parseFloat(document.getElementById('user-mm-input').value);
+            const resultBox = document.getElementById('calc-result');
+            if (mm) {
+                let eu = Math.round((mm + 15) / 6.66);
+                resultBox.innerText = `Таны хөлийн урт: ${mm} mm → Санал болгох размер: EU ${eu}`;
+                resultBox.style.display = 'block';
+            }
+        }
+
+        function switchMainImage(element, index, price, modelName) {
+            document.querySelectorAll('.thumb-item').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('main-price-display').innerText = price.toLocaleString() + ' ₮';
+            document.getElementById('selected-model-name').value = modelName;
+            selectedModel = modelName;
+        }
+
+        function selectColorFromStage(element, colorName, imgUrl) {
+            document.querySelectorAll('.stage-color-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('main-product-img').src = imgUrl;
+        }
+
+        function switchPayTab(type) {
+            document.querySelectorAll('.pay-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.pay-panel').forEach(panel => panel.classList.remove('active'));
+            if (type === 'qpay') {
+                document.querySelectorAll('.pay-tab')[0].classList.add('active');
+                document.getElementById('pay-qpay').classList.add('active');
+            } else {
+                document.querySelectorAll('.pay-tab')[1].classList.add('active');
+                document.getElementById('pay-bank').classList.add('active');
+            }
+        }
+
+        function sendOrderToGoogleSheets() {
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const btn = document.getElementById('submit-btn');
+
+            if (!name || !phone) {
+                alert('Нэр болон утасны дугаараа бүрэн оруулна уу!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = 'Илгээж байна...';
+
+            const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
+            const formData = new FormData();
+            formData.append('Model', selectedModel);
+            formData.append('Color', selectedColor);
+            formData.append('Size', selectedSize);
+            formData.append('Name', name);
+            formData.append('Phone', phone);
+
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => {
+                    alert('Захиалга амжилттай бүртгэгдлээ!');
+                    btn.disabled = false;
+                    btn.innerText = 'Захиалах';
+                })
+                .catch(error => {
+                    alert('Захиалга бүртгэгдлээ!');
+                    btn.disabled = false;
+                    btn.innerText = 'Захиалах';
+                });
+        }
+    </script>
+</body>
+</html>
