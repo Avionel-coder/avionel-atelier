@@ -465,8 +465,8 @@
 
         .size-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 6px;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
         }
 
         .size-btn {
@@ -475,7 +475,7 @@
             color: var(--text-main);
             padding: 10px 0;
             border-radius: 8px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             cursor: pointer;
             text-align: center;
@@ -579,8 +579,8 @@
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(5px);
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(6px);
             display: none;
             justify-content: center;
             align-items: center;
@@ -594,27 +594,30 @@
             border-radius: 14px;
             padding: 20px;
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.9);
         }
 
         .modal-title {
             font-family: var(--font-title);
             color: var(--accent);
-            font-size: 16px;
-            margin-bottom: 12px;
+            font-size: 15px;
+            margin-bottom: 14px;
             text-align: center;
             text-transform: uppercase;
+            border-bottom: 1px stroke rgba(212, 175, 55, 0.2);
+            padding-bottom: 6px;
         }
 
         .modal-body {
             font-size: 12px;
             color: var(--text-main);
             margin-bottom: 16px;
-            line-height: 1.6;
+            line-height: 1.8;
             background: rgba(255,255,255,0.03);
-            padding: 10px;
+            padding: 14px;
             border-radius: 8px;
+            border: 1px dashed var(--border-color);
         }
 
         .modal-buttons {
@@ -624,10 +627,10 @@
 
         .modal-btn {
             flex: 1;
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             border: none;
         }
@@ -763,7 +766,7 @@
             </div>
             <div class="care-inline-box">
                 <div class="care-text-content">
-                    • Чийгнээс хол байлгаж, зөөлөн алчуураар арчина.<br>
+                    • Чийгээс хол байлгаж, зөөлөн алчуураар арчина.<br>
                     • Зориулалтын тосоор үе үе тослоно.<br>
                     • Хэлбэр хадгалах тулгуур хэрэглэнэ.
                 </div>
@@ -831,6 +834,9 @@
                     <div class="size-btn selected" onclick="selectSize(this, '39')">39</div>
                     <div class="size-btn" onclick="selectSize(this, '40')">40</div>
                     <div class="size-btn" onclick="selectSize(this, '41')">41</div>
+                    <div class="size-btn" onclick="selectSize(this, '42')">42</div>
+                    <div class="size-btn" onclick="selectSize(this, '43')">43</div>
+                    <div class="size-btn" onclick="selectSize(this, '44')">44</div>
                 </div>
             </div>
 
@@ -893,7 +899,6 @@
     </footer>
 
     <script>
-        // Background particles
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -937,13 +942,28 @@
         }
         animateParticles();
 
-        // Functional scripts & syncing
         let selectedSize = '39';
         let selectedColor = 'Бэйж (Ivory Cream)';
         let selectedModel = 'Ivory Cream Luxe Boot';
+        let currentPrice = 510000;
+        let measuredMM = '';
+        let currentTxCode = 'AV-' + Math.floor(1000 + Math.random() * 9000);
 
         function toggleHotspot(element) {
             element.parentElement.classList.toggle('active');
+        }
+
+        function getEUSizeFromMM(mm) {
+            if (mm <= 225) return '35';
+            if (mm <= 230) return '36';
+            if (mm <= 235) return '37';
+            if (mm <= 245) return '38';
+            if (mm <= 250) return '39';
+            if (mm <= 255) return '40';
+            if (mm <= 265) return '41';
+            if (mm <= 270) return '42';
+            if (mm <= 280) return '43';
+            return '44';
         }
 
         function selectSize(element, size) {
@@ -952,12 +972,29 @@
             selectedSize = size;
         }
 
-        // Өнгө сонгох функц (Дээд талын бар болон доод захиалгын форм хооронд синк хийгдэнэ)
+        function calculateEUSize() {
+            const mm = parseFloat(document.getElementById('user-mm-input').value);
+            const resultBox = document.getElementById('calc-result');
+            if (mm) {
+                let eu = getEUSizeFromMM(mm);
+                measuredMM = mm + 'mm';
+                resultBox.innerText = `Таны хөлийн урт: ${mm} mm → Санал болгох размер: EU ${eu}`;
+                resultBox.style.display = 'block';
+
+                document.querySelectorAll('.size-btn').forEach(btn => {
+                    if (btn.innerText === eu) {
+                        selectSize(btn, eu);
+                    }
+                });
+            } else {
+                alert('Хөлийн урт mm утгаа оруулна уу!');
+            }
+        }
+
         function selectColor(colorName, imgUrl) {
             selectedColor = colorName;
             document.getElementById('main-product-img').src = imgUrl;
 
-            // Дээд талын товчлуурын active төлөвийг тааруулах
             document.querySelectorAll('.stage-color-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if(btn.innerText.includes(colorName.split(' ')[0])) {
@@ -965,7 +1002,6 @@
                 }
             });
 
-            // Доод талын захиалгын форм дээрх өнгө сонголтыг идэвхжүүлэх
             document.querySelectorAll('.color-opt').forEach(opt => {
                 opt.classList.remove('selected');
                 if(opt.innerText.includes(colorName.split(' ')[0])) {
@@ -988,19 +1024,10 @@
             selectColor(colorName, imgUrl);
         }
 
-        function calculateEUSize() {
-            const mm = parseFloat(document.getElementById('user-mm-input').value);
-            const resultBox = document.getElementById('calc-result');
-            if (mm) {
-                let eu = Math.round((mm + 15) / 6.66);
-                resultBox.innerText = `Таны хөлийн урт: ${mm} mm → Санал болгох размер: EU ${eu}`;
-                resultBox.style.display = 'block';
-            }
-        }
-
         function switchMainImage(element, index, price, modelName) {
             document.querySelectorAll('.thumb-item').forEach(item => item.classList.remove('active'));
             element.classList.add('active');
+            currentPrice = price;
             document.getElementById('main-price-display').innerText = price.toLocaleString() + ' ₮';
             document.getElementById('selected-model-name').value = modelName;
             selectedModel = modelName;
@@ -1018,7 +1045,6 @@
             }
         }
 
-        // Захиалгын попап цонх харуулах
         function showOrderModal() {
             const name = document.getElementById('cust-name').value;
             const phone = document.getElementById('cust-phone').value;
@@ -1029,13 +1055,20 @@
                 return;
             }
 
+            // Шинэ гүйлгээний код үүсгэх
+            currentTxCode = 'AV-' + Math.floor(1000 + Math.random() * 9000);
+
+            let mmDisplay = measuredMM ? ` (${measuredMM})` : '';
+
             const summaryHTML = `
-                <b>Загвар:</b> ${selectedModel}<br>
-                <b>Өнгө:</b> ${selectedColor}<br>
-                <b>Размер:</b> ${selectedSize}<br>
-                <b>Нэр:</b> ${name}<br>
-                <b>Утас:</b> ${phone}<br>
-                <b>Хаяг:</b> ${address}
+                📌 <b>Загвар:</b> ${selectedModel}<br>
+                💰 <b>Үнэ / Нийт дүн:</b> ${currentPrice.toLocaleString()} ₮<br>
+                🎨 <b>Өнгө:</b> ${selectedColor}<br>
+                📏 <b>Размер:</b> EU ${selectedSize}${mmDisplay}<br>
+                👤 <b>Захиалагчийн нэр:</b> ${name}<br>
+                📞 <b>Утас:</b> ${phone}<br>
+                📍 <b>Хүргэлтийн хаяг:</b> ${address}<br>
+                🔑 <b>Гүйлгээний утга / Код:</b> <span style="color:var(--accent); font-weight:bold;">${currentTxCode}</span>
             `;
             document.getElementById('modal-summary-text').innerHTML = summaryHTML;
             document.getElementById('order-modal').style.display = 'flex';
@@ -1045,7 +1078,6 @@
             document.getElementById('order-modal').style.display = 'none';
         }
 
-        // Баталгаажуулж Telegram болон Google Sheets рүү илгээх
         function confirmAndSendOrder() {
             closeModal();
             const name = document.getElementById('cust-name').value;
@@ -1059,13 +1091,17 @@
             const botToken = '9214691951:AAHZrtZ8I7NCRsDIfrw8NPLV_lH0uVIPmZg';
             const chatId = '1512971066';
 
+            let mmDisplay = measuredMM ? ` (${measuredMM})` : '';
+
             const telegramMessage = `🛍 *ШИНЭ ЗАХИАЛГА ИРЛЭЭ!*\n\n` +
                                     `👠 *Загвар:* ${selectedModel}\n` +
+                                    `💰 *Нийт дүн:* ${currentPrice.toLocaleString()} ₮\n` +
                                     `🎨 *Өнгө:* ${selectedColor}\n` +
-                                    `📏 *Размер:* ${selectedSize}\n` +
+                                    `📏 *Размер:* EU ${selectedSize}${mmDisplay}\n` +
                                     `👤 *Захиалагч:* ${name}\n` +
                                     `📞 *Утас:* ${phone}\n` +
-                                    `📍 *Хаяг:* ${address}`;
+                                    `📍 *Хаяг:* ${address}\n` +
+                                    `🔑 *Гүйлгээний утга:* ${currentTxCode}`;
 
             // 1. Telegram руу илгээх
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
@@ -1076,17 +1112,20 @@
                     text: telegramMessage,
                     parse_mode: 'Markdown'
                 })
-            });
+            }).catch(err => console.log('Telegram err:', err));
 
-            // 2. Google Sheets руу илгээх (Та өөрийн Apps Script Web App линкээ энд тавина)
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbz1y-Lgytua7dnKqzq1jNnYMZ91Ov3Nu8KMWNk9jUCFdSsmpiNnJemZ8LlyB48ROOn8VA/exec';
+            // 2. Google Sheets руу илгээх
+            const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
             const formData = new FormData();
             formData.append('Model', selectedModel);
+            formData.append('Price', currentPrice.toLocaleString() + ' ₮');
             formData.append('Color', selectedColor);
-            formData.append('Size', selectedSize);
+            formData.append('Size', 'EU ' + selectedSize);
+            formData.append('FootMM', measuredMM || 'Заагаагүй');
             formData.append('Name', name);
             formData.append('Phone', phone);
             formData.append('Address', address);
+            formData.append('TransactionCode', currentTxCode);
 
             fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => {
