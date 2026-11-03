@@ -575,6 +575,73 @@
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
         }
 
+        /* Modal Popup Design */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 15px;
+        }
+
+        .modal-card {
+            background: #0f1626;
+            border: 1px solid var(--accent);
+            border-radius: 14px;
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.9);
+        }
+
+        .modal-title {
+            font-family: var(--font-title);
+            color: var(--accent);
+            font-size: 16px;
+            margin-bottom: 12px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .modal-body {
+            font-size: 12px;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            line-height: 1.6;
+            background: rgba(255,255,255,0.03);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+        }
+
+        .modal-btn.cancel {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-main);
+        }
+
+        .modal-btn.confirm {
+            background: var(--accent);
+            color: #000;
+        }
+
         footer {
             text-align: center;
             font-size: 11px;
@@ -598,11 +665,6 @@
             font-size: 11px;
             background: rgba(15, 22, 38, 0.8);
             transition: all 0.25s ease;
-        }
-
-        .footer-social-btn:hover {
-            background: rgba(212, 175, 55, 0.2);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
         }
     </style>
 </head>
@@ -701,7 +763,7 @@
             </div>
             <div class="care-inline-box">
                 <div class="care-text-content">
-                    • Чийгээс хол байлгаж, зөөлөн алчуураар арчина.<br>
+                    • Чийгнээс хол байлгаж, зөөлөн алчуураар арчина.<br>
                     • Зориулалтын тосоор үе үе тослоно.<br>
                     • Хэлбэр хадгалах тулгуур хэрэглэнэ.
                 </div>
@@ -741,19 +803,19 @@
 
             <div class="form-group">
                 <label class="form-label">Сонгосон загвар:</label>
-                <input type="text" id="selected-model-name" class="form-control" value="Classic Black Slouch Boot" readonly style="color: var(--accent); font-weight: 600;">
+                <input type="text" id="selected-model-name" class="form-control" value="Ivory Cream Luxe Boot" readonly style="color: var(--accent); font-weight: 600;">
             </div>
 
             <div class="form-group">
                 <label class="form-label">1. Өнгө сонгох:</label>
                 <div class="color-selector">
-                    <div class="color-opt selected" onclick="selectColor(this, 'Хар (Classic Black)')">
+                    <div class="color-opt" onclick="syncColorSelection('Хар (Classic Black)')">
                         <span class="color-dot" style="background:#000;"></span> Хар
                     </div>
-                    <div class="color-opt" onclick="selectColor(this, 'Бор (Deep Burgundy)')">
+                    <div class="color-opt" onclick="syncColorSelection('Бор (Deep Burgundy)')">
                         <span class="color-dot" style="background:#4a1521;"></span> Бор
                     </div>
-                    <div class="color-opt" onclick="selectColor(this, 'Бэйж (Ivory Cream)')">
+                    <div class="color-opt selected" onclick="syncColorSelection('Бэйж (Ivory Cream)')">
                         <span class="color-dot" style="background:#e8e3d5;"></span> Бэйж
                     </div>
                 </div>
@@ -775,7 +837,8 @@
             <div class="form-group">
                 <label class="form-label">3. Захиалагчийн мэдээлэл:</label>
                 <input type="text" id="cust-name" class="form-control" placeholder="Захиалагчийн нэр" style="margin-bottom:8px;">
-                <input type="tel" id="cust-phone" class="form-control" placeholder="Утасны дугаар">
+                <input type="tel" id="cust-phone" class="form-control" placeholder="Утасны дугаар" style="margin-bottom:8px;">
+                <input type="text" id="cust-address" class="form-control" placeholder="Хүргэлтийн хаяг (Дүүрэг, Хороо, Байр)">
             </div>
 
             <div class="form-group">
@@ -805,7 +868,19 @@
                 </div>
             </div>
 
-            <button class="btn-checkout" id="submit-btn" onclick="sendOrderToGoogleSheets()">Захиалах</button>
+            <button class="btn-checkout" id="submit-btn" onclick="showOrderModal()">Захиалах</button>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" id="order-modal">
+        <div class="modal-card">
+            <div class="modal-title">Захиалга баталгаажуулах</div>
+            <div class="modal-body" id="modal-summary-text"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn cancel" onclick="closeModal()">Буцах</button>
+                <button class="modal-btn confirm" id="modal-confirm-btn" onclick="confirmAndSendOrder()">Тийм, Баталгаажуулах</button>
+            </div>
         </div>
     </div>
 
@@ -862,10 +937,10 @@
         }
         animateParticles();
 
-        // Functional scripts
+        // Functional scripts & syncing
         let selectedSize = '39';
-        let selectedColor = 'Хар (Classic Black)';
-        let selectedModel = 'Classic Black Slouch Boot';
+        let selectedColor = 'Бэйж (Ivory Cream)';
+        let selectedModel = 'Ivory Cream Luxe Boot';
 
         function toggleHotspot(element) {
             element.parentElement.classList.toggle('active');
@@ -877,10 +952,40 @@
             selectedSize = size;
         }
 
-        function selectColor(element, color) {
-            document.querySelectorAll('.color-opt').forEach(opt => opt.classList.remove('selected'));
-            element.classList.add('selected');
-            selectedColor = color;
+        // Өнгө сонгох функц (Дээд талын бар болон доод захиалгын форм хооронд синк хийгдэнэ)
+        function selectColor(colorName, imgUrl) {
+            selectedColor = colorName;
+            document.getElementById('main-product-img').src = imgUrl;
+
+            // Дээд талын товчлуурын active төлөвийг тааруулах
+            document.querySelectorAll('.stage-color-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.innerText.includes(colorName.split(' ')[0])) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Доод талын захиалгын форм дээрх өнгө сонголтыг идэвхжүүлэх
+            document.querySelectorAll('.color-opt').forEach(opt => {
+                opt.classList.remove('selected');
+                if(opt.innerText.includes(colorName.split(' ')[0])) {
+                    opt.classList.add('selected');
+                }
+            });
+        }
+
+        function selectColorFromStage(element, colorName, imgUrl) {
+            selectColor(colorName, imgUrl);
+        }
+
+        function syncColorSelection(colorName) {
+            let imgUrl = 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80';
+            if(colorName.includes('Хар')) {
+                imgUrl = 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80';
+            } else if(colorName.includes('Бор')) {
+                imgUrl = 'https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=800&q=80';
+            }
+            selectColor(colorName, imgUrl);
         }
 
         function calculateEUSize() {
@@ -901,12 +1006,6 @@
             selectedModel = modelName;
         }
 
-        function selectColorFromStage(element, colorName, imgUrl) {
-            document.querySelectorAll('.stage-color-btn').forEach(btn => btn.classList.remove('active'));
-            element.classList.add('active');
-            document.getElementById('main-product-img').src = imgUrl;
-        }
-
         function switchPayTab(type) {
             document.querySelectorAll('.pay-tab').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.pay-panel').forEach(panel => panel.classList.remove('active'));
@@ -919,35 +1018,84 @@
             }
         }
 
-        function sendOrderToGoogleSheets() {
+        // Захиалгын попап цонх харуулах
+        function showOrderModal() {
             const name = document.getElementById('cust-name').value;
             const phone = document.getElementById('cust-phone').value;
-            const btn = document.getElementById('submit-btn');
+            const address = document.getElementById('cust-address').value;
 
-            if (!name || !phone) {
-                alert('Нэр болон утасны дугаараа бүрэн оруулна уу!');
+            if (!name || !phone || !address) {
+                alert('Нэр, утасны дугаар болон хүргэлтийн хаягаа бүрэн оруулна уу!');
                 return;
             }
+
+            const summaryHTML = `
+                <b>Загвар:</b> ${selectedModel}<br>
+                <b>Өнгө:</b> ${selectedColor}<br>
+                <b>Размер:</b> ${selectedSize}<br>
+                <b>Нэр:</b> ${name}<br>
+                <b>Утас:</b> ${phone}<br>
+                <b>Хаяг:</b> ${address}
+            `;
+            document.getElementById('modal-summary-text').innerHTML = summaryHTML;
+            document.getElementById('order-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('order-modal').style.display = 'none';
+        }
+
+        // Баталгаажуулж Telegram болон Google Sheets рүү илгээх
+        function confirmAndSendOrder() {
+            closeModal();
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const address = document.getElementById('cust-address').value;
+            const btn = document.getElementById('submit-btn');
 
             btn.disabled = true;
             btn.innerText = 'Илгээж байна...';
 
-            const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
+            const botToken = '9214691951:AAHZrtZ8I7NCRsDIfrw8NPLV_lH0uVIPmZg';
+            const chatId = '1512971066';
+
+            const telegramMessage = `🛍 *ШИНЭ ЗАХИАЛГА ИРЛЭЭ!*\n\n` +
+                                    `👠 *Загвар:* ${selectedModel}\n` +
+                                    `🎨 *Өнгө:* ${selectedColor}\n` +
+                                    `📏 *Размер:* ${selectedSize}\n` +
+                                    `👤 *Захиалагч:* ${name}\n` +
+                                    `📞 *Утас:* ${phone}\n` +
+                                    `📍 *Хаяг:* ${address}`;
+
+            // 1. Telegram руу илгээх
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: telegramMessage,
+                    parse_mode: 'Markdown'
+                })
+            });
+
+            // 2. Google Sheets руу илгээх (Та өөрийн Apps Script Web App линкээ энд тавина)
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbz1y-Lgytua7dnKqzq1jNnYMZ91Ov3Nu8KMWNk9jUCFdSsmpiNnJemZ8LlyB48ROOn8VA/exec';
             const formData = new FormData();
             formData.append('Model', selectedModel);
             formData.append('Color', selectedColor);
             formData.append('Size', selectedSize);
             formData.append('Name', name);
             formData.append('Phone', phone);
+            formData.append('Address', address);
 
             fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => {
-                    alert('Захиалга амжилттай бүртгэгдлээ!');
+                    alert('Захиалга амжилттай баталгаажиж бүртгэгдлээ!');
                     btn.disabled = false;
                     btn.innerText = 'Захиалах';
                 })
                 .catch(error => {
-                    alert('Захиалга бүртгэгдлээ!');
+                    alert('Захиалга амжилттай илгээгдлээ!');
                     btn.disabled = false;
                     btn.innerText = 'Захиалах';
                 });
