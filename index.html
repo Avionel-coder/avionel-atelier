@@ -3,153 +3,753 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avionel Atelier | Minimalist Leather Footwear & Bags</title>
+    <title>AVIONEL ATELIER — Slouch Leather Boot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --bg-color: #faf9f6;
-            --text-color: #1a1a1a;
-            --muted-color: #666666;
-            --border-color: #e0e0e0;
-            --card-bg: #ffffff;
-            --accent-color: #111111;
+            --bg-color: #070b14;
+            --card-bg: rgba(15, 22, 38, 0.88);
+            --accent: #d4af37;
+            --accent-hover: #f3e5ab;
+            --text-main: #f5f5f7;
+            --text-muted: #b0aca5;
+            --border-color: rgba(212, 175, 55, 0.25);
+            --input-bg: rgba(255, 255, 255, 0.05);
+            --font-title: 'Cinzel', serif;
+            --font-body: 'Montserrat', sans-serif;
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            overflow-x: hidden;
             line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            justify-content: space-between;
-            align-items: center;
-            padding: 40px 20px;
+            padding-bottom: 60px;
         }
 
-        .container {
-            width: 100%;
-            max-width: 480px;
-            text-align: center;
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .app-container {
+            position: relative;
+            z-index: 2;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 20px 14px;
         }
 
         header {
-            margin-bottom: 35px;
+            text-align: center;
+            padding: 10px 0 15px 0;
         }
 
-        h1 {
-            font-size: 1.8rem;
-            letter-spacing: 2px;
+        .brand-title {
+            font-family: var(--font-title);
+            font-size: 30px;
+            letter-spacing: 5px;
             font-weight: 700;
-            margin-bottom: 8px;
+            color: #b8d4f8;
             text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(168, 202, 248, 0.3);
         }
 
-        p.subtitle {
-            color: var(--muted-color);
-            font-size: 0.95rem;
-            letter-spacing: 0.5px;
+        .brand-subtitle {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-top: 4px;
         }
 
-        /* Social / Link buttons */
-        .links-section {
+        /* Social Link Buttons */
+        .social-links {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 40px;
+            justify-content: center;
+            gap: 12px;
+            margin: 15px 0 20px 0;
         }
 
-        .btn {
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(15, 22, 38, 0.8);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .social-btn:hover {
+            border-color: var(--accent);
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--accent);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .stage-color-bar {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        .stage-color-btn {
+            background: rgba(15, 22, 38, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.25s ease;
+        }
+
+        .stage-color-btn.active {
+            border-color: var(--accent);
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--accent);
+            font-weight: 600;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .showcase-stage {
+            position: relative;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            background: radial-gradient(circle at center, rgba(20, 32, 56, 0.9) 0%, rgba(7, 11, 20, 0.98) 100%);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.85);
+            margin-bottom: 14px;
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 4 / 3.2;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-price-overlay {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: rgba(7, 11, 20, 0.92);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--accent);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+            z-index: 15;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+        }
+
+        .hotspot-wrapper {
+            position: absolute;
+            z-index: 20;
+        }
+
+        .hotspot-dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.35);
+            border: 1.5px solid var(--accent);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            background-color: var(--card-bg);
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            padding: 16px 24px;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-
-        .btn:hover {
-            background-color: var(--accent-color);
             color: #ffffff;
-            border-color: var(--accent-color);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 14px rgba(212, 175, 55, 0.5);
+            animation: pulse 2.5s infinite;
         }
 
-        /* Features Section (Previous full-site capabilities) */
-        .features-card {
+        .hotspot-wrapper.active .hotspot-dot {
+            background: var(--accent);
+            color: #000;
+            transform: scale(1.15);
+            box-shadow: 0 0 22px rgba(212, 175, 55, 0.9);
+        }
+
+        .hotspot-tooltip {
+            position: absolute;
+            width: 190px;
+            background: rgba(10, 15, 26, 0.96);
+            border: 1px solid var(--accent);
+            backdrop-filter: blur(12px);
+            border-radius: 10px;
+            padding: 10px 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.9);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 50;
+            pointer-events: none;
+            left: 36px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hotspot-wrapper.tooltip-left .hotspot-tooltip {
+            left: auto;
+            right: 36px;
+        }
+
+        .hotspot-wrapper.active .hotspot-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tooltip-title {
+            color: var(--accent);
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 3px;
+            text-transform: uppercase;
+        }
+
+        .tooltip-desc {
+            color: var(--text-main);
+            font-size: 11px;
+            line-height: 1.35;
+        }
+
+        #hs-pos-1 { top: 18%; left: 45%; }
+        #hs-pos-2 { top: 40%; left: 52%; }
+        #hs-pos-3 { top: 62%; left: 28%; }
+        #hs-pos-4 { top: 82%; left: 42%; }
+        #hs-pos-5 { top: 32%; left: 22%; }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.6); }
+            70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+
+        .gallery-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .thumb-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(15, 22, 38, 0.6);
+            cursor: pointer;
+            aspect-ratio: 1 / 1;
+            transition: all 0.25s ease;
+        }
+
+        .thumb-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .thumb-price-tag {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.88);
+            color: var(--accent);
+            font-size: 9px;
+            font-weight: 600;
+            text-align: center;
+            padding: 3px 0;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .thumb-item.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
+            transform: scale(1.02);
+        }
+
+        .section-card {
             background: var(--card-bg);
+            backdrop-filter: blur(14px);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 24px;
-            text-align: left;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            border-radius: 14px;
+            padding: 18px 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
         }
 
-        .features-card h3 {
-            font-size: 1.1rem;
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 8px;
+        }
+
+        .section-title {
+            font-family: var(--font-title);
+            font-size: 14px;
+            color: var(--text-main);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .section-badge {
+            font-size: 10px;
+            color: var(--accent);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .foot-diagram-box {
+            background: rgba(10, 15, 26, 0.6);
+            border: 1px dashed var(--border-color);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .foot-svg {
+            max-width: 160px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .diagram-caption {
+            font-size: 11px;
+            color: var(--accent);
+            margin-top: 6px;
+        }
+
+        .calc-input-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .btn-calc {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 0 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .calc-result-box {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--accent-hover);
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-main);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 12px;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .color-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .color-opt {
+            padding: 10px 6px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.03);
+            text-align: center;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: var(--text-main);
+        }
+
+        .color-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .color-opt.selected {
+            border-color: var(--accent);
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--accent);
             font-weight: 600;
         }
 
-        .features-card p {
-            font-size: 0.9rem;
-            color: var(--muted-color);
-            margin-bottom: 16px;
+        .size-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+        }
+
+        .size-btn {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: var(--text-main);
+            padding: 10px 0;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .size-btn.selected {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: #000;
+            font-weight: 700;
+        }
+
+        .btn-checkout {
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
+            color: #000;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
         }
 
         footer {
-            font-size: 0.85rem;
-            color: var(--muted-color);
-            letter-spacing: 0.5px;
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 30px;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Brand Header -->
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="app-container">
+        <!-- Header -->
         <header>
-            <h1>Avionel Atelier</h1>
-            <p class="subtitle">Minimalist Leather Footwear & Bags</p>
+            <div class="brand-title">AVIONEL</div>
+            <div class="brand-subtitle">ATELIER — LEATHER CRAFT</div>
+            
+            <!-- Social Link-in-Bio Buttons -->
+            <div class="social-links">
+                <a href="https://www.instagram.com/" target="_blank" class="social-btn">
+                    <span>📸</span> Instagram
+                </a>
+                <a href="https://www.facebook.com/" target="_blank" class="social-btn">
+                    <span>👥</span> Facebook
+                </a>
+            </div>
         </header>
 
-        <!-- Social & Quick Links -->
-        <div class="links-section">
-            <a href="https://www.instagram.com/" target="_blank" class="btn">
-                <span>📸</span> Instagram
-            </a>
-            <a href="https://www.facebook.com/" target="_blank" class="btn">
-                <span>👥</span> Facebook Page
-            </a>
+        <!-- Color Bar -->
+        <div class="stage-color-bar">
+            <button class="stage-color-btn" onclick="selectColorFromStage(this, 'Хар (Classic Black)', 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80')">
+                <span class="color-dot" style="background:#000;"></span> Хар
+            </button>
+            <button class="stage-color-btn" onclick="selectColorFromStage(this, 'Бор (Deep Burgundy)', 'https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=800&q=80')">
+                <span class="color-dot" style="background:#4a1521;"></span> Бор
+            </button>
+            <button class="stage-color-btn active" onclick="selectColorFromStage(this, 'Бэйж (Ivory Cream)', 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80')">
+                <span class="color-dot" style="background:#e8e3d5;"></span> Бэйж
+            </button>
         </div>
 
-        <!-- Full Features Section (Restored functionality placeholder / showcase) -->
-        <div class="features-card">
-            <h3>Bespoke Craftsmanship</h3>
-            <p>Minimalist and classic leather footwear and bags crafted with traditional bench techniques and custom precision.</p>
+        <!-- Showcase Stage -->
+        <div class="showcase-stage">
+            <div class="image-wrapper">
+                <img id="main-product-img" src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80" alt="Avionel Boot" class="product-image">
+                <div class="image-price-overlay" id="main-price-display">510,000 ₮</div>
+            </div>
+
+            <div class="hotspot-wrapper active" id="hs-pos-1">
+                <div class="hotspot-dot" onclick="toggleHotspot(this)">1</div>
+                <div class="hotspot-tooltip">
+                    <div class="tooltip-title">① Урт түрий (Upper Shaft)</div>
+                    <div class="tooltip-desc">Байгалийн цэвэр зөөлөн үхрийн арьс.</div>
+                </div>
+            </div>
+
+            <div class="hotspot-wrapper" id="hs-pos-2">
+                <div class="hotspot-dot" onclick="toggleHotspot(this)">2</div>
+                <div class="hotspot-tooltip">
+                    <div class="tooltip-title">② Нугалаас (Slouch Folds)</div>
+                    <div class="tooltip-desc">Гар аргаар суулгасан нугалаас.</div>
+                </div>
+            </div>
+
+            <div class="hotspot-wrapper tooltip-left" id="hs-pos-3">
+                <div class="hotspot-dot" onclick="toggleHotspot(this)">3</div>
+                <div class="hotspot-tooltip">
+                    <div class="tooltip-title">③ Толгойн хэсэг (Toe Box)</div>
+                    <div class="tooltip-desc">Хэлбэрээ алдахгүй зөөлөвчтэй.</div>
+                </div>
+            </div>
+
+            <div class="hotspot-wrapper tooltip-left" id="hs-pos-4">
+                <div class="hotspot-dot" onclick="toggleHotspot(this)">4</div>
+                <div class="hotspot-tooltip">
+                    <div class="tooltip-title">④ Халилтаас хамгаалах ул</div>
+                    <div class="tooltip-desc">Премиум резинэн ул.</div>
+                </div>
+            </div>
+
+            <div class="hotspot-wrapper" id="hs-pos-5">
+                <div class="hotspot-dot" onclick="toggleHotspot(this)">5</div>
+                <div class="hotspot-tooltip">
+                    <div class="tooltip-title">⑤ Шевро Доторлогоо</div>
+                    <div class="tooltip-desc">Амьсгалдаг шевро дотор.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thumbnails -->
+        <div class="gallery-thumbnails">
+            <div class="thumb-item" onclick="switchMainImage(this, 0, 480000, 'Classic Black Slouch')">
+                <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80" alt="Black">
+                <span class="thumb-price-tag">480,000₮</span>
+            </div>
+            <div class="thumb-item active" onclick="switchMainImage(this, 1, 510000, 'Burgundy Heritage Boot')">
+                <img src="https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=800&q=80" alt="Burgundy">
+                <span class="thumb-price-tag">510,000₮</span>
+            </div>
+            <div class="thumb-item" onclick="switchMainImage(this, 2, 490000, 'Ivory Cream Luxe Boot')">
+                <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80" alt="Beige">
+                <span class="thumb-price-tag">490,000₮</span>
+            </div>
+            <div class="thumb-item" onclick="switchMainImage(this, 3, 520000, 'Custom Edition Boot')">
+                <img src="https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?auto=format&fit=crop&w=800&q=80" alt="Custom">
+                <span class="thumb-price-tag">520,000₮</span>
+            </div>
+        </div>
+
+        <!-- Size Guide Section -->
+        <div class="section-card">
+            <div class="section-header">
+                <span class="section-title">Хөлийн хэмжээ авах ба Тооцоолох</span>
+                <span class="section-badge">Size Guide</span>
+            </div>
+            <div class="foot-diagram-box">
+                <svg class="foot-svg" viewBox="0 0 200 280" fill="none">
+                    <path d="M100 20 C130 20, 150 40, 150 80 C150 120, 140 160, 140 210 C140 240, 125 255, 100 255 C75 255, 60 240, 60 210 C60 160, 50 120, 50 80 C50 40, 70 20, 100 20 Z" stroke="#d4af37" stroke-width="2" stroke-dasharray="4 4" fill="rgba(212, 175, 55, 0.05)"></path>
+                    <line x1="100" y1="12" x2="100" y2="263" stroke="#d4af37" stroke-width="1.5"></line>
+                    <text x="108" y="145" fill="#d4af37" font-size="11" font-weight="bold">Урт (мм)</text>
+                </svg>
+            </div>
+            <div class="form-group">
+                <label class="form-label" style="color: var(--accent);">📐 Хэмжээ тооцоолох (мм-ээр бичих):</label>
+                <div class="calc-input-group">
+                    <input type="number" id="user-mm-input" class="form-control" placeholder="Жишээ нь: 245">
+                    <button class="btn-calc" onclick="calculateEUSize()">Бодох</button>
+                </div>
+                <div id="calc-result" class="calc-result-box">Санал болгох размер: EU 39</div>
+            </div>
+        </div>
+
+        <!-- Custom Order Section -->
+        <div class="section-card">
+            <div class="section-header">
+                <span class="section-title">Захиалгын сонголт</span>
+                <span class="section-badge">Custom Order</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Сонгосон загвар:</label>
+                <input type="text" id="selected-model-name" class="form-control" value="Classic Black Slouch Boot" readonly style="color: var(--accent); font-weight: 600;">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">1. Стандарт хэмжээ:</label>
+                <div class="size-grid">
+                    <div class="size-btn" onclick="selectSize(this, '35')">35</div>
+                    <div class="size-btn" onclick="selectSize(this, '36')">36</div>
+                    <div class="size-btn" onclick="selectSize(this, '37')">37</div>
+                    <div class="size-btn" onclick="selectSize(this, '38')">38</div>
+                    <div class="size-btn selected" onclick="selectSize(this, '39')">39</div>
+                    <div class="size-btn" onclick="selectSize(this, '40')">40</div>
+                    <div class="size-btn" onclick="selectSize(this, '41')">41</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">2. Захиалагчийн нэр & Утас:</label>
+                <input type="text" id="cust-name" class="form-control" placeholder="Нэр" style="margin-bottom:8px;">
+                <input type="tel" id="cust-phone" class="form-control" placeholder="Утасны дугаар">
+            </div>
+
+            <button class="btn-checkout" id="submit-btn" onclick="sendOrderToGoogleSheets()">Захиалах & Google Sheets-рүү илгээх</button>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
-        &copy; 2026 Avionel Studio. All Rights Reserved.
+        &copy; 2026 AVIONEL STUDIO. All Rights Reserved.
     </footer>
 
+    <!-- Scripts -->
+    <script>
+        let selectedSize = '39';
+        let selectedModel = 'Classic Black Slouch Boot';
+
+        function toggleHotspot(element) {
+            const wrapper = element.parentElement;
+            wrapper.classList.toggle('active');
+        }
+
+        function selectSize(element, size) {
+            document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedSize = size;
+        }
+
+        function calculateEUSize() {
+            const mm = parseFloat(document.getElementById('user-mm-input').value);
+            const resultBox = document.getElementById('calc-result');
+            if (mm) {
+                let eu = Math.round((mm + 15) / 6.66);
+                resultBox.innerText = `Таны хөлийн урт: ${mm} mm → Санал болгох размер: EU ${eu}`;
+                resultBox.style.display = 'block';
+            }
+        }
+
+        function switchMainImage(element, index, price, modelName) {
+            document.querySelectorAll('.thumb-item').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('main-price-display').innerText = price.toLocaleString() + ' ₮';
+            document.getElementById('selected-model-name').value = modelName;
+        }
+
+        function selectColorFromStage(element, colorName, imgUrl) {
+            document.querySelectorAll('.stage-color-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('main-product-img').src = imgUrl;
+        }
+
+        // Google Sheets Sync
+        function sendOrderToGoogleSheets() {
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const btn = document.getElementById('submit-btn');
+
+            if (!name || !phone) {
+                alert('Нэр болон утасны дугаараа бүрэн оруулна уу!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = 'Илгээж байна...';
+
+            // Google Apps Script URL-аа энд солино
+            const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
+
+            const formData = new FormData();
+            formData.append('Model', selectedModel);
+            formData.append('Size', selectedSize);
+            formData.append('Name', name);
+            formData.append('Phone', phone);
+
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => {
+                    alert('Захиалга амжилттай бүртгэгдлээ!');
+                    btn.disabled = false;
+                    btn.innerText = 'Захиалах & Google Sheets-рүү илгээх';
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    alert('Холболтод алдаа гарлаа. Дахин оролдоно уу.');
+                    btn.disabled = false;
+                    btn.innerText = 'Захиалах & Google Sheets-рүү илгээх';
+                });
+        }
+    </script>
 </body>
 </html>
