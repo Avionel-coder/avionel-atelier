@@ -605,7 +605,7 @@
             margin-bottom: 14px;
             text-align: center;
             text-transform: uppercase;
-            border-bottom: 1px stroke rgba(212, 175, 55, 0.2);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
             padding-bottom: 6px;
         }
 
@@ -862,7 +862,8 @@
                             <path d="M20 20h10v10H20zM70 20h10v10H70zM20 70h10v10H20z" fill="#fff"/>
                         </svg>
                     </div>
-                    <div style="font-size:11px; color:var(--text-muted);">QR кодыг уншуулж төлбөрөө төлнө үү.</div>
+                    <div style="font-size:11px; color:var(--text-muted); margin-bottom: 6px;">QR кодыг уншуулж төлбөрөө төлнө үү.</div>
+                    <div style="font-size:11px; color:var(--accent);" id="qpay-code-display">Гүйлгээний утга: Ачаалж байна...</div>
                 </div>
 
                 <div id="pay-bank" class="pay-panel">
@@ -870,6 +871,7 @@
                         <div class="bank-row"><span class="bank-label">Банк:</span><span class="bank-val">Голомт Банк</span></div>
                         <div class="bank-row"><span class="bank-label">Дансны дугаар:</span><span class="bank-val">3005123456</span></div>
                         <div class="bank-row"><span class="bank-label">Хүлээн авагч:</span><span class="bank-val">AVIONEL STUDIO</span></div>
+                        <div class="bank-row"><span class="bank-label">Гүйлгээний утга:</span><span class="bank-val" id="bank-code-display" style="color:var(--accent); font-weight:bold;">Ачаалж байна...</span></div>
                     </div>
                 </div>
             </div>
@@ -948,6 +950,13 @@
         let currentPrice = 510000;
         let measuredMM = '';
         let currentTxCode = 'AV-' + Math.floor(1000 + Math.random() * 9000);
+
+        // Хуудас ачаалагдахад гүйлгээний кодыг шууд харуулах
+        function updateTransactionCodeDisplay() {
+            document.getElementById('qpay-code-display').innerText = 'Гүйлгээний утга: ' + currentTxCode;
+            document.getElementById('bank-code-display').innerText = currentTxCode;
+        }
+        updateTransactionCodeDisplay();
 
         function toggleHotspot(element) {
             element.parentElement.classList.toggle('active');
@@ -1055,20 +1064,17 @@
                 return;
             }
 
-            // Шинэ гүйлгээний код үүсгэх
-            currentTxCode = 'AV-' + Math.floor(1000 + Math.random() * 9000);
-
-            let mmDisplay = measuredMM ? ` (${measuredMM})` : '';
+            let mmDisplay = measuredMM ? ` (${measuredMM})` : ' (Заагаагүй)';
 
             const summaryHTML = `
                 📌 <b>Загвар:</b> ${selectedModel}<br>
-                💰 <b>Үнэ / Нийт дүн:</b> ${currentPrice.toLocaleString()} ₮<br>
+                💰 <b>Нийт дүн:</b> ${currentPrice.toLocaleString()} ₮<br>
                 🎨 <b>Өнгө:</b> ${selectedColor}<br>
                 📏 <b>Размер:</b> EU ${selectedSize}${mmDisplay}<br>
-                👤 <b>Захиалагчийн нэр:</b> ${name}<br>
+                👤 <b>Захиалагч:</b> ${name}<br>
                 📞 <b>Утас:</b> ${phone}<br>
-                📍 <b>Хүргэлтийн хаяг:</b> ${address}<br>
-                🔑 <b>Гүйлгээний утга / Код:</b> <span style="color:var(--accent); font-weight:bold;">${currentTxCode}</span>
+                📍 <b>Хаяг:</b> ${address}<br>
+                🔑 <b>Гүйлгээний утга:</b> <span style="color:var(--accent); font-weight:bold;">${currentTxCode}</span>
             `;
             document.getElementById('modal-summary-text').innerHTML = summaryHTML;
             document.getElementById('order-modal').style.display = 'flex';
@@ -1103,7 +1109,7 @@
                                     `📍 *Хаяг:* ${address}\n` +
                                     `🔑 *Гүйлгээний утга:* ${currentTxCode}`;
 
-            // 1. Telegram руу илгээх
+            // 1. Telegram руу илгээх (mode: 'no-cors' ашиглан блок гарахаас сэргийлэв)
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -1114,8 +1120,10 @@
                 })
             }).catch(err => console.log('Telegram err:', err));
 
-            // 2. Google Sheets руу илгээх
+            // 2. Google Sheets руу илгээх 
+            // !! ДООРХ ЛИНКИЙН ОРОД ӨӨРИЙН APPS SCRIPT WEB APP ЛИНКЭЭ ТАВИАРАЙ !!
             const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
+            
             const formData = new FormData();
             formData.append('Model', selectedModel);
             formData.append('Price', currentPrice.toLocaleString() + ' ₮');
@@ -1132,11 +1140,16 @@
                     alert('Захиалга амжилттай баталгаажиж бүртгэгдлээ!');
                     btn.disabled = false;
                     btn.innerText = 'Захиалах';
+                    // Шинэ код үүсгэх дараагийн захиалгад зориулж
+                    currentTxCode = 'AV-' + Math.floor(1000 + Math.random() * 9000);
+                    updateTransactionCodeDisplay();
                 })
                 .catch(error => {
                     alert('Захиалга амжилттай илгээгдлээ!');
                     btn.disabled = false;
                     btn.innerText = 'Захиалах';
+                    currentTxCode = 'AV-' + Math.floor(1000 + Math.random() * 9000);
+                    updateTransactionCodeDisplay();
                 });
         }
     </script>
