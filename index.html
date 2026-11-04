@@ -1080,69 +1080,58 @@
             document.getElementById('order-modal').style.display = 'flex';
         }
 
-        function closeModal() {
-            document.getElementById('order-modal').style.display = 'none';
-        }
+     function confirmAndSendOrder() {
+            closeModal();
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const address = document.getElementById('cust-address').value;
+            const btn = document.getElementById('submit-btn');
 
-        function confirmAndSendOrder() {
-    closeModal();
-    const name = document.getElementById('cust-name').value;
-    const phone = document.getElementById('cust-phone').value;
-    const address = document.getElementById('cust-address').value;
-    const btn = document.getElementById('submit-btn');
+            btn.disabled = true;
+            btn.innerText = 'Илгээж байна...';
 
-    btn.disabled = true;
-    btn.innerText = 'Илгээж байна...';
+            const botToken = '9214691951:AAHZrtZ8I7NCRsDIfrw8NPLV_lH0uVIPmZg';
+            const chatId = '1512971066';
 
-    const botToken = '9214691951:AAHZrtZ8I7NCRsDIfrw8NPLV_lH0uVIPmZg';
-    const chatId = '1512971066';
+            let mmDisplay = measuredMM ? ` (${measuredMM})` : '';
 
-    let mmDisplay = measuredMM ? ` (${measuredMM})` : '';
+            const telegramMessage = `🛍 *ШИНЭ ЗАХИАЛГА ИРЛЭЭ!*\n\n` +
+                                    `👠 *Загвар:* ${selectedModel}\n` +
+                                    `💰 *Нийт дүн:* ${currentPrice.toLocaleString()} ₮\n` +
+                                    `🎨 *Өнгө:* ${selectedColor}\n` +
+                                    `📏 *Размер:* EU ${selectedSize}${mmDisplay}\n` +
+                                    `👤 *Захиалагч:* ${name}\n` +
+                                    `📞 *Утас:* ${phone}\n` +
+                                    `📍 *Хаяг:* ${address}\n` +
+                                    `💡 *Гүйлгээний утга:* ${phone}`;
 
-    const telegramMessage = `🛍 *ШИНЭ ЗАХИАЛГА ИРЛЭЭ!*\n\n` +
-                            `👠 *Загвар:* ${selectedModel}\n` +
-                            `💰 *Нийт дүн:* ${currentPrice.toLocaleString()} ₮\n` +
-                            `🎨 *Өнгө:* ${selectedColor}\n` +
-                            `📏 *Размер:* EU ${selectedSize}${mmDisplay}\n` +
-                            `👤 *Захиалагч:* ${name}\n` +
-                            `📞 *Утас:* ${phone}\n` +
-                            `📍 *Хаяг:* ${address}\n` +
-                            `💡 *Гүйлгээний утга:* ${phone}`;
+            // 1. Telegram руу илгээх
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(telegramMessage)}&parse_mode=Markdown`)
+            .catch(err => console.log('Telegram err:', err));
 
-    // 1. Telegram руу шууд илгээх (Блок хийхээс хамгаалсан)
-    fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(telegramMessage)}&parse_mode=Markdown`)
-    .catch(err => console.log('Telegram err:', err));
+            // 2. Google Sheets руу илгээх 
+            // !! ДООРХ ЛИНКНИЙ ОРОНД APPS SCRIPT WEB APP URL-АА ТАВИНА !!
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxpPT2uetDllSPgKlpFnG7L7xgxSFOtPAr61FF8nhkItOoJ5CP5NUXjP_Xs1gPlmvNTEw/exec';
+            
+            const formData = new FormData();
+            formData.append('Model', selectedModel);
+            formData.append('Color', selectedColor);
+            formData.append('Size', 'EU ' + selectedSize);
+            formData.append('FootMM', measuredMM || 'Заагаагүй');
+            formData.append('Name', name);
+            formData.append('Phone', phone);
+            formData.append('Address', address);
+            formData.append('Price', currentPrice.toLocaleString() + ' ₮');
 
-    // 2. Google Sheets руу яг таарсан багануудын дарааллаар илгээх
-    // !! ЭНЭ ЛИНКНИЙ ОРОНД ШИНЭЕЭР ДЕПЛОЙ ХИЙСЭН WEB APP URL-АА ТАВИНА !!
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxpPT2uetDllSPgKlpFnG7L7xgxSFOtPAr61FF8nhkItOoJ5CP5NUXjP_Xs1gPlmvNTEw/exec';
-    
-    const formData = new FormData();
-    formData.append('Model', selectedModel);
-    formData.append('Color', selectedColor);
-    formData.append('Size', 'EU ' + selectedSize);
-    formData.append('FootMM', measuredMM || 'Заагаагүй');
-    formData.append('Name', name);
-    formData.append('Phone', phone);
-    formData.append('Address', address);
-    formData.append('Price', currentPrice.toLocaleString() + ' ₮');
-
-    fetch(scriptURL, { method: 'POST', body: formData })
-        .then(response => {
-            alert('Захиалга амжилттай баталгаажиж бүртгэгдлээ!');
-            btn.disabled = false;
-            btn.innerText = 'Захиалах';
-        })
-        .catch(error => {
-            alert('Захиалга бүртгэгдлээ!');
-            btn.disabled = false;
-            btn.innerText = 'Захиалах';
-        });
-}
-                    currentTxCode = 'AV-' + Math.floor(1000 + Math.random() * 9000);
-                    updateTransactionCodeDisplay();
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => {
+                    alert('Захиалга амжилттай баталгаажиж бүртгэгдлээ!');
+                    btn.disabled = false;
+                    btn.innerText = 'Захиалах';
+                })
+                .catch(error => {
+                    alert('Захиалга бүртгэгдлээ!');
+                    btn.disabled = false;
+                    btn.innerText = 'Захиалах';
                 });
         }
-    </script>
-</body>
-</html>
