@@ -1101,11 +1101,19 @@
                                     `📍 *Хаяг:* ${address}\n` +
                                     `💡 *Тайлбар:* Гүйлгээний утга дээр утасны дугаараа бичих ёстой.`;
 
-            // 1. Telegram руу илгээх
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(telegramMessage)}&parse_mode=Markdown`)
-            .catch(err => console.log('Telegram err:', err));
+            // 1. Telegram руу илгээх (Fetch ашиглан хүсэлт явуулах)
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: telegramMessage,
+                    parse_mode: 'Markdown'
+                })
+            }).catch(err => console.log('Telegram err:', err));
 
             // 2. Google Sheets руу илгээх 
+            // ⚠️ ДООРХ YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL гэдгийг өөрийн Google Web App линкээр солино уу!
             const scriptURL = 'https://script.google.com/macros/s/AKfycbyCN5ri9C30dOXHStvbncFMJJXeS7gnynkB4LNG84hZlueHh5quIv_uxtZ2UXoNXnNrNQ/exec';
             
             const formData = new FormData();
