@@ -856,14 +856,23 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label">4. Төлбөрийн сонголт: <span style="font-size:10px; color:var(--accent);">(Хүргэлт: 8,000₮)</span></label>
+                <label class="form-label">4. Төлбөрийн сонголт: <span style="font-size:10px; color:var(--accent);">(Хүргэлтийн төлбөр: 8,000₮)</span></label>
                 <div class="payment-options">
-                    <div class="pay-tab active" onclick="switchPayTab('qpay')">QR Код</div>
-                    <div class="pay-tab" onclick="switchPayTab('bank')">Дансаар шилжүүлэх</div>
+                    <div class="pay-tab active" onclick="switchPayTab('bank')">Дансаар шилжүүлэх</div>
+                    <div class="pay-tab" onclick="switchPayTab('qpay')">QR Уншуулах</div>
                 </div>
-...
 
-                <div id="pay-qpay" class="pay-panel active">
+                <div id="pay-bank" class="pay-panel active">
+                    <div class="bank-details">
+                        <div class="bank-row"><span class="bank-label">Банк:</span><span class="bank-val">Голомт банк</span></div>
+                        <div class="bank-row"><span class="bank-label">Дансны дугаар:</span><span class="bank-val">1205138717</span></div>
+                        <div class="bank-row"><span class="bank-label">Дансны нэр:</span><span class="bank-val">Г.Янжиндулам</span></div>
+                        <div class="bank-row"><span class="bank-label">IBAN:</span><span class="bank-val">40001500</span></div>
+                        <div class="bank-row" style="border-bottom:none; margin-top:6px;"><span class="bank-label" style="color:var(--accent);">Анхааруулга:</span><span class="bank-val" style="color:var(--accent); font-size:10px;">Гүйлгээний утга дээр УТАCНЫ ДУГААРАА бичнэ үү!</span></div>
+                    </div>
+                </div>
+
+                <div id="pay-qpay" class="pay-panel">
                     <div class="qpay-qr-container">
                         <svg viewBox="0 0 100 100" width="100" height="100">
                             <rect width="100" height="100" fill="#fff"/>
@@ -873,15 +882,6 @@
                     </div>
                     <div style="font-size:11px; color:var(--text-muted); margin-bottom: 4px;">QR уншуулж төлөх үед:</div>
                     <div style="font-size:11px; color:var(--accent); font-weight:bold;">⚠️ Гүйлгээний утга дээр Утасны дугаараа бичнэ үү!</div>
-                </div>
-
-                <div id="pay-bank" class="pay-panel">
-                    <div class="bank-details">
-                        <div class="bank-row"><span class="bank-label">Банк:</span><span class="bank-val">Голомт Банк</span></div>
-                        <div class="bank-row"><span class="bank-label">Дансны дугаар:</span><span class="bank-val">3005123456</span></div>
-                        <div class="bank-row"><span class="bank-label">Хүлээн авагч:</span><span class="bank-val">AVIONEL STUDIO</span></div>
-                        <div class="bank-row" style="border-bottom:none; margin-top:4px;"><span class="bank-label" style="color:var(--accent);">Анхааруулга:</span><span class="bank-val" style="color:var(--accent); font-size:10px;">Гүйлгээний утга дээр Утасны дугаараа бичнэ үү!</span></div>
-                    </div>
                 </div>
             </div>
 
@@ -960,7 +960,7 @@
         let selectedColor = 'Бэйж (Ivory Cream)';
         let selectedModel = 'Ivory Cream Luxe Boot';
         let currentPrice = 510000;
-        const deliveryFee = 8000; // Хүргэлтийн төлбөр
+        const deliveryFee = 8000;
         let measuredMM = '';
 
         function toggleHotspot(element) {
@@ -1051,10 +1051,10 @@
             document.querySelectorAll('.pay-tab').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.pay-panel').forEach(panel => panel.classList.remove('active'));
             if (type === 'qpay') {
-                document.querySelectorAll('.pay-tab')[0].classList.add('active');
+                document.querySelectorAll('.pay-tab')[1].classList.add('active');
                 document.getElementById('pay-qpay').classList.add('active');
             } else {
-                document.querySelectorAll('.pay-tab')[1].classList.add('active');
+                document.querySelectorAll('.pay-tab')[0].classList.add('active');
                 document.getElementById('pay-bank').classList.add('active');
             }
         }
@@ -1119,12 +1119,10 @@
                                     `📍 *Хаяг:* ${address}\n` +
                                     `💡 *Гүйлгээний утга:* ${phone}`;
 
-            // 1. Telegram руу шууд Telegram API ашиглан найдвартай илгээх
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(telegramMessage)}&parse_mode=Markdown`)
             .then(res => console.log('Telegram success'))
             .catch(err => console.log('Telegram err:', err));
 
-            // 2. Google Sheets руу илгээх 
             // ⚠️ ЭНЭ ХЭСЭГТ ӨӨРИЙН GOOGLE SCRIPT WEB APP URL-АА ЗААВАЛ ТАВИНА УУ!
             const scriptURL = 'https://script.google.com/macros/s/AKfycbwNer2ceOnolKIOrpq_a83oGrXka_tRPxa1-277ZD-IS3zGNTKbcAwkKNSs4OVCqcuIZQ/exec';
             
