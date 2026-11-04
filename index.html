@@ -1084,74 +1084,7 @@
             document.getElementById('order-modal').style.display = 'none';
         }
 
-        function confirmAndSendOrder() {
-            closeModal();
-            const name = document.getElementById('cust-name').value;
-            const phone = document.getElementById('cust-phone').value;
-            const address = document.getElementById('cust-address').value;
-            const btn = document.getElementById('submit-btn');
-
-            btn.disabled = true;
-            btn.innerText = 'Илгээж байна...';
-
-            const botToken = '9214691951:AAHZrtZ8I7NCRsDIfrw8NPLV_lH0uVIPmZg';
-            const chatId = '1512971066';
-
-            let mmDisplay = measuredMM ? ` (${measuredMM})` : '';
-
-            const telegramMessage = `🛍 *ШИНЭ ЗАХИАЛГА ИРЛЭЭ!*\n\n` +
-                                    `👠 *Загвар:* ${selectedModel}\n` +
-                                    `💰 *Нийт дүн:* ${currentPrice.toLocaleString()} ₮\n` +
-                                    `🎨 *Өнгө:* ${selectedColor}\n` +
-                                    `📏 *Размер:* EU ${selectedSize}${mmDisplay}\n` +
-                                    `👤 *Захиалагч:* ${name}\n` +
-                                    `📞 *Утас:* ${phone}\n` +
-                                    `📍 *Хаяг:* ${address}\n` +
-                                    `🔑 *Гүйлгээний утга:* ${currentTxCode}`;
-
-            // 1. Telegram руу илгээх (mode: 'no-cors' ашиглан блок гарахаас сэргийлэв)
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: telegramMessage,
-                    parse_mode: 'Markdown'
-                })
-            }).catch(err => console.log('Telegram err:', err));
-
-            // 2. Google Sheets руу илгээх 
-            // !! ДООРХ ЛИНКИЙН ОРОД ӨӨРИЙН APPS SCRIPT WEB APP ЛИНКЭЭ ТАВИАРАЙ !!
-            const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
-            
-            const formData = new FormData();
-            formData.append('Model', selectedModel);
-            formData.append('Price', currentPrice.toLocaleString() + ' ₮');
-            formData.append('Color', selectedColor);
-            formData.append('Size', 'EU ' + selectedSize);
-            formData.append('FootMM', measuredMM || 'Заагаагүй');
-            formData.append('Name', name);
-            formData.append('Phone', phone);
-            formData.append('Address', address);
-            formData.append('TransactionCode', currentTxCode);
-
-            fetch(scriptURL, { method: 'POST', body: formData })
-                .then(response => {
-                    alert('Захиалга амжилттай баталгаажиж бүртгэгдлээ!');
-                    btn.disabled = false;
-                    btn.innerText = 'Захиалах';
-                    // Шинэ код үүсгэх дараагийн захиалгад зориулж
-                    currentTxCode = 'AV-' + Math.floor(1000 + Math.random() * 9000);
-                    updateTransactionCodeDisplay();
-                })
-                .catch(error => {
-                    alert('Захиалга амжилттай илгээгдлээ!');
-                    btn.disabled = false;
-                    btn.innerText = 'Захиалах';
-                    currentTxCode = 'AV-' + Math.floor(1000 + Math.random() * 9000);
-                    updateTransactionCodeDisplay();
-                });
-        }
+ https://script.google.com/macros/s/AKfycbyh94ncvdHIdS5HqOcLgcFxgoFC2S-4OYzTIQ6OW1CkgIurg6ZU-Beh1w4NeBh1xn-kbg/exec
     </script>
 </body>
 </html>
