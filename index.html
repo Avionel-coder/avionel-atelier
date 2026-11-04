@@ -862,8 +862,8 @@
                             <path d="M20 20h10v10H20zM70 20h10v10H70zM20 70h10v10H20z" fill="#fff"/>
                         </svg>
                     </div>
-                    <div style="font-size:11px; color:var(--text-muted); margin-bottom: 6px;">QR кодыг уншуулж төлбөрөө төлнө үү.</div>
-                    <div style="font-size:11px; color:var(--accent);" id="qpay-code-display">Гүйлгээний утга: Ачаалж байна...</div>
+                    <div style="font-size:11px; color:var(--text-muted); margin-bottom: 4px;">QR уншуулж төлөх үед:</div>
+                    <div style="font-size:11px; color:var(--accent); font-weight:bold;">⚠️ Гүйлгээний утга дээр Утасны дугаараа бичнэ үү!</div>
                 </div>
 
                 <div id="pay-bank" class="pay-panel">
@@ -871,7 +871,7 @@
                         <div class="bank-row"><span class="bank-label">Банк:</span><span class="bank-val">Голомт Банк</span></div>
                         <div class="bank-row"><span class="bank-label">Дансны дугаар:</span><span class="bank-val">3005123456</span></div>
                         <div class="bank-row"><span class="bank-label">Хүлээн авагч:</span><span class="bank-val">AVIONEL STUDIO</span></div>
-                        <div class="bank-row"><span class="bank-label">Гүйлгээний утга:</span><span class="bank-val" id="bank-code-display" style="color:var(--accent); font-weight:bold;">Ачаалж байна...</span></div>
+                        <div class="bank-row" style="border-bottom:none; margin-top:4px;"><span class="bank-label" style="color:var(--accent);">Анхааруулга:</span><span class="bank-val" style="color:var(--accent); font-size:10px;">Гүйлгээний утга дээр Утасны дугаараа бичнэ үү!</span></div>
                     </div>
                 </div>
             </div>
@@ -949,14 +949,6 @@
         let selectedModel = 'Ivory Cream Luxe Boot';
         let currentPrice = 510000;
         let measuredMM = '';
-        let currentTxCode = 'AV-' + Math.floor(1000 + Math.random() * 9000);
-
-        // Хуудас ачаалагдахад гүйлгээний кодыг шууд харуулах
-        function updateTransactionCodeDisplay() {
-            document.getElementById('qpay-code-display').innerText = 'Гүйлгээний утга: ' + currentTxCode;
-            document.getElementById('bank-code-display').innerText = currentTxCode;
-        }
-        updateTransactionCodeDisplay();
 
         function toggleHotspot(element) {
             element.parentElement.classList.toggle('active');
@@ -1074,7 +1066,7 @@
                 👤 <b>Захиалагч:</b> ${name}<br>
                 📞 <b>Утас:</b> ${phone}<br>
                 📍 <b>Хаяг:</b> ${address}<br>
-                🔑 <b>Гүйлгээний утга:</b> <span style="color:var(--accent); font-weight:bold;">${currentTxCode}</span>
+                💡 <span style="color:var(--accent);">Шилжүүлэг хийхдээ гүйлгээний утга дээр УТАСНЫ ДУГААРАА бичнэ үү!</span>
             `;
             document.getElementById('modal-summary-text').innerHTML = summaryHTML;
             document.getElementById('order-modal').style.display = 'flex';
@@ -1084,7 +1076,60 @@
             document.getElementById('order-modal').style.display = 'none';
         }
 
- https://script.google.com/macros/s/AKfycbyh94ncvdHIdS5HqOcLgcFxgoFC2S-4OYzTIQ6OW1CkgIurg6ZU-Beh1w4NeBh1xn-kbg/exec
+        function confirmAndSendOrder() {
+            closeModal();
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const address = document.getElementById('cust-address').value;
+            const btn = document.getElementById('submit-btn');
+
+            btn.disabled = true;
+            btn.innerText = 'Илгээж байна...';
+
+            const botToken = '9214691951:AAHZrtZ8I7NCRsDIfrw8NPLV_lH0uVIPmZg';
+            const chatId = '1512971066';
+
+            let mmDisplay = measuredMM ? ` (${measuredMM})` : '';
+
+            const telegramMessage = `🛍 *ШИНЭ ЗАХИАЛГА ИРЛЭЭ!*\n\n` +
+                                    `👠 *Загвар:* ${selectedModel}\n` +
+                                    `💰 *Нийт дүн:* ${currentPrice.toLocaleString()} ₮\n` +
+                                    `🎨 *Өнгө:* ${selectedColor}\n` +
+                                    `📏 *Размер:* EU ${selectedSize}${mmDisplay}\n` +
+                                    `👤 *Захиалагч:* ${name}\n` +
+                                    `📞 *Утас:* ${phone}\n` +
+                                    `📍 *Хаяг:* ${address}\n` +
+                                    `💡 *Тайлбар:* Гүйлгээний утга дээр утасны дугаараа бичих ёстой.`;
+
+            // 1. Telegram руу илгээх
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(telegramMessage)}&parse_mode=Markdown`)
+            .catch(err => console.log('Telegram err:', err));
+
+            // 2. Google Sheets руу илгээх 
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbyCN5ri9C30dOXHStvbncFMJJXeS7gnynkB4LNG84hZlueHh5quIv_uxtZ2UXoNXnNrNQ/exec';
+            
+            const formData = new FormData();
+            formData.append('Model', selectedModel);
+            formData.append('Color', selectedColor);
+            formData.append('Size', 'EU ' + selectedSize);
+            formData.append('FootMM', measuredMM || 'Заагаагүй');
+            formData.append('Name', name);
+            formData.append('Phone', phone);
+            formData.append('Address', address);
+            formData.append('Price', currentPrice.toLocaleString() + ' ₮');
+
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => {
+                    alert('Захиалга амжилттай баталгаажиж бүртгэгдлээ!');
+                    btn.disabled = false;
+                    btn.innerText = 'Захиалах';
+                })
+                .catch(error => {
+                    alert('Захиалга амжилттай илгээгдлээ!');
+                    btn.disabled = false;
+                    btn.innerText = 'Захиалах';
+                });
+        }
     </script>
 </body>
 </html>
