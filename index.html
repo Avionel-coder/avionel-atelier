@@ -620,7 +620,7 @@
             border-radius: 14px;
             padding: 20px;
             width: 100%;
-            max-width: 420px;
+            max-width: 440px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.9);
         }
 
@@ -681,8 +681,9 @@
         .footer-socials {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             margin-bottom: 12px;
+            flex-wrap: wrap;
         }
 
         .footer-social-btn {
@@ -699,10 +700,20 @@
             gap: 6px;
         }
 
+        .footer-social-btn:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        .footer-social-btn:hover .social-icon {
+            fill: #000;
+        }
+
         .social-icon {
             width: 14px;
             height: 14px;
             fill: var(--accent);
+            transition: fill 0.25s ease;
         }
     </style>
 </head>
@@ -721,13 +732,13 @@
         </header>
 
         <div class="stage-color-bar">
-            <button class="stage-color-btn" onclick="selectColorFromStage(this, 'Хар (Classic Black)', 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80')">
+            <button class="stage-color-btn" onclick="selectColorFromStage(this, 'Хар (Classic Black)', 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80', 480000)">
                 <span class="color-dot" style="background:#000;"></span> <span data-tr="color_black">Хар</span>
             </button>
-            <button class="stage-color-btn" onclick="selectColorFromStage(this, 'Бор (Deep Burgundy)', 'https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=800&q=80')">
+            <button class="stage-color-btn" onclick="selectColorFromStage(this, 'Бор (Deep Burgundy)', 'https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=800&q=80', 510000)">
                 <span class="color-dot" style="background:#4a1521;"></span> <span data-tr="color_burgundy">Бор</span>
             </button>
-            <button class="stage-color-btn active" onclick="selectColorFromStage(this, 'Бэйж (Ivory Cream)', 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80')">
+            <button class="stage-color-btn active" onclick="selectColorFromStage(this, 'Бэйж (Ivory Cream)', 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80', 490000)">
                 <span class="color-dot" style="background:#e8e3d5;"></span> <span data-tr="color_ivory">Бэйж</span>
             </button>
         </div>
@@ -735,7 +746,7 @@
         <div class="showcase-stage">
             <div class="image-wrapper">
                 <img id="main-product-img" src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80" alt="Avionel Boot" class="product-image">
-                <div class="image-price-overlay" id="main-price-display">510,000 ₮</div>
+                <div class="image-price-overlay" id="main-price-display">490,000 ₮</div>
             </div>
             
             <div class="hotspot-wrapper active" id="hs-pos-1">
@@ -780,19 +791,19 @@
         </div>
 
         <div class="gallery-thumbnails">
-            <div class="thumb-item" onclick="switchMainImage(this, 0, 480000, 'Classic Black Slouch')">
+            <div class="thumb-item" onclick="switchMainImage(this, 0, 480000, 'Classic Black Slouch', 'Хар (Classic Black)')">
                 <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80" alt="Thumb 1">
                 <span class="thumb-price-tag">480,000₮</span>
             </div>
-            <div class="thumb-item active" onclick="switchMainImage(this, 1, 510000, 'Burgundy Heritage Boot')">
+            <div class="thumb-item" onclick="switchMainImage(this, 1, 510000, 'Burgundy Heritage Boot', 'Бор (Deep Burgundy)')">
                 <img src="https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=800&q=80" alt="Thumb 2">
                 <span class="thumb-price-tag">510,000₮</span>
             </div>
-            <div class="thumb-item" onclick="switchMainImage(this, 2, 490000, 'Ivory Cream Luxe Boot')">
+            <div class="thumb-item active" onclick="switchMainImage(this, 2, 490000, 'Ivory Cream Luxe Boot', 'Бэйж (Ivory Cream)')">
                 <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80" alt="Thumb 3">
                 <span class="thumb-price-tag">490,000₮</span>
             </div>
-            <div class="thumb-item" onclick="switchMainImage(this, 3, 520000, 'Custom Edition Boot')">
+            <div class="thumb-item" onclick="switchMainImage(this, 3, 520000, 'Custom Edition Boot', 'Бэйж (Ivory Cream)')">
                 <img src="https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?auto=format&fit=crop&w=800&q=80" alt="Thumb 4">
                 <span class="thumb-price-tag">520,000₮</span>
             </div>
@@ -936,10 +947,11 @@
         </div>
     </div>
 
+    <!-- ORDER SUMMARY MODAL -->
     <div class="modal-overlay" id="order-modal">
         <div class="modal-card">
             <div class="modal-title" data-tr="modal_ord_title">Захиалга баталгаажуулах</div>
-            <div class="modal-body" id="modal-summary-text"></div>
+            <div class="modal-body" id="modal-summary-text" style="text-align: left;"></div>
             <div class="modal-buttons">
                 <button class="modal-btn cancel" onclick="closeModal()" data-tr="modal_back">Буцах</button>
                 <button class="modal-btn confirm" id="modal-confirm-btn" onclick="confirmAndSendOrder()" data-tr="modal_confirm">Тийм, Баталгаажуулах</button>
@@ -947,18 +959,28 @@
         </div>
     </div>
 
-    <footer>
+    <footer id="contact">
         <div class="footer-socials">
             <a href="https://www.instagram.com/avionel.atelier" target="_blank" class="footer-social-btn">
                 <svg class="social-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                 Instagram
+            </a>
+            <a href="https://www.facebook.com/avionel.atelier" target="_blank" class="footer-social-btn">
+                <svg class="social-icon" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                Facebook
             </a>
         </div>
         &copy; 2026 Avionel Atelier. All rights reserved.
     </footer>
 
     <script>
+        // GOOGLE APPS SCRIPT WEB APP URL (Энд өөрийн Deploy хийсэн URL-аа тавина уу)
+        const GOOGLE_SHEETS_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+
         let currentLang = 'mn';
+        let currentProductPrice = 490000;
+        let currentSelectedColor = 'Бэйж (Ivory Cream)';
+        const deliveryFee = 8000;
 
         const translations = {
             mn: {
@@ -1073,7 +1095,7 @@
             });
         }
 
-        // Particle Background Effect
+        // Particle Animation (Larger Floating Bubbles Moving Upward)
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -1085,14 +1107,14 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        for (let i = 0; i < 35; i++) {
+        for (let i = 0; i < 40; i++) {
             particles.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                radius: Math.random() * 1.5 + 0.5,
-                speedY: (Math.random() - 0.5) * 0.3,
-                speedX: (Math.random() - 0.5) * 0.3,
-                alpha: Math.random() * 0.5 + 0.2
+                radius: Math.random() * 3.5 + 1.5,
+                speedY: -(Math.random() * 0.8 + 0.3),
+                speedX: (Math.random() - 0.5) * 0.4,
+                alpha: Math.random() * 0.4 + 0.15
             });
         }
 
@@ -1102,8 +1124,10 @@
             particles.forEach(p => {
                 p.y += p.speedY;
                 p.x += p.speedX;
-                if (p.y < 0) p.y = canvas.height;
-                if (p.y > canvas.height) p.y = 0;
+                if (p.y < -10) {
+                    p.y = canvas.height + 10;
+                    p.x = Math.random() * canvas.width;
+                }
                 if (p.x < 0) p.x = canvas.width;
                 if (p.x > canvas.width) p.x = 0;
 
@@ -1116,7 +1140,6 @@
         }
         animateParticles();
 
-        // Hotspots Interaction
         function toggleHotspot(element) {
             const wrapper = element.parentElement;
             const isActive = wrapper.classList.contains('active');
@@ -1130,8 +1153,7 @@
             }
         }
 
-        // Gallery & Stage Management
-        function switchMainImage(thumbElement, index, price, modelName) {
+        function switchMainImage(thumbElement, index, price, modelName, colorName) {
             document.querySelectorAll('.thumb-item').forEach(el => el.classList.remove('active'));
             thumbElement.classList.add('active');
 
@@ -1143,6 +1165,8 @@
                 mainImg.style.opacity = '1';
             }, 150);
 
+            currentProductPrice = price;
+            currentSelectedColor = colorName;
             document.getElementById('main-price-display').innerText = price.toLocaleString() + ' ₮';
             document.getElementById('selected-model-name').value = modelName;
 
@@ -1150,12 +1174,10 @@
             colorBtns.forEach(btn => btn.classList.remove('active'));
             if(colorBtns[index]) colorBtns[index].classList.add('active');
 
-            const colorOpts = document.querySelectorAll('.color-opt');
-            colorOpts.forEach(opt => opt.classList.remove('selected'));
-            if(colorOpts[index]) colorOpts[index].classList.add('selected');
+            syncColorSelection(colorName);
         }
 
-        function selectColorFromStage(btn, colorName, imageUrl) {
+        function selectColorFromStage(btn, colorName, imageUrl, price) {
             document.querySelectorAll('.stage-color-btn').forEach(el => el.classList.remove('active'));
             btn.classList.add('active');
 
@@ -1166,18 +1188,15 @@
                 mainImg.style.opacity = '1';
             }, 150);
 
-            document.getElementById('selected-model-name').value = colorName;
+            currentProductPrice = price;
+            currentSelectedColor = colorName;
+            document.getElementById('main-price-display').innerText = price.toLocaleString() + ' ₮';
 
-            document.querySelectorAll('.color-opt').forEach(opt => {
-                opt.classList.remove('selected');
-                if (opt.textContent.includes(colorName.split(' ')[0])) {
-                    opt.classList.add('selected');
-                }
-            });
+            syncColorSelection(colorName);
         }
 
         function syncColorSelection(colorName) {
-            document.getElementById('selected-model-name').value = colorName;
+            currentSelectedColor = colorName;
             document.querySelectorAll('.color-opt').forEach(opt => {
                 opt.classList.remove('selected');
                 if (opt.textContent.includes(colorName.split(' ')[0])) {
@@ -1191,13 +1210,12 @@
             element.classList.add('selected');
         }
 
-        // Size Calculator
         function calculateEUSize() {
             const mmInput = document.getElementById('user-mm-input').value;
             const resultBox = document.getElementById('calc-result');
             const mm = parseFloat(mmInput);
 
-            if (!mm || mm < 200 || mm-0 > 320) {
+            if (!mm || mm < 200 || mm > 320) {
                 resultBox.style.display = 'block';
                 resultBox.innerText = currentLang === 'mn' ? '⚠️ Зөв хөлийн урт (мм) оруулна уу (Жишээ нь: 245)' : '⚠️ Please enter a valid mm length (e.g. 245)';
                 return;
@@ -1226,7 +1244,6 @@
             resultBox.innerText = currentLang === 'mn' ? `✨ Таны тохирох размер: EU ${eu} (${mm} мм)` : `✨ Recommended Size: EU ${eu} (${mm} mm)`;
         }
 
-        // Payment Tabs
         function switchPayTab(type) {
             document.querySelectorAll('.pay-tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.pay-panel').forEach(p => p.classList.remove('active'));
@@ -1240,7 +1257,6 @@
             }
         }
 
-        // QR Modal
         function openQRModal() {
             document.getElementById('qr-modal').style.display = 'flex';
         }
@@ -1248,7 +1264,8 @@
             document.getElementById('qr-modal').style.display = 'none';
         }
 
-        // Order Modal Confirmation
+        let activeOrderData = null;
+
         function showOrderModal() {
             const name = document.getElementById('cust-name').value.trim();
             const phone = document.getElementById('cust-phone').value.trim();
@@ -1262,14 +1279,34 @@
                 return;
             }
 
-            const activeTab = document.querySelector('.pay-tab.active').innerText;
+            const totalPrice = currentProductPrice + deliveryFee;
+            const transactionNote = `${phone} - ${model}`;
+
+            activeOrderData = {
+                model: model,
+                color: currentSelectedColor,
+                size: `EU ${size}`,
+                productPrice: currentProductPrice.toLocaleString() + ' ₮',
+                deliveryFee: deliveryFee.toLocaleString() + ' ₮',
+                totalPrice: totalPrice.toLocaleString() + ' ₮',
+                name: name,
+                phone: phone,
+                address: address,
+                transactionNote: transactionNote
+            };
+
             const summaryHTML = `
-                <b>Загвар:</b> ${model}<br>
-                <b>Размер:</b> EU ${size}<br>
-                <b>Нэр:</b> ${name}<br>
-                <b>Утас:</b> ${phone}<br>
-                <b>Хаяг:</b> ${address}<br>
-                <b>Төлбөр:</b> ${activeTab} (+8,000₮ хүргэлт)
+                <p><strong>1. Загвар:</strong> <span style="color:var(--accent);">${activeOrderData.model}</span></p>
+                <p><strong>2. Өнгө:</strong> ${activeOrderData.color}</p>
+                <p><strong>3. Размер:</strong> ${activeOrderData.size}</p>
+                <p><strong>4. Бүтээгдэхүүний үнэ:</strong> ${activeOrderData.productPrice}</p>
+                <p><strong>5. Хүргэлтийн үнэ:</strong> ${activeOrderData.deliveryFee}</p>
+                <p style="font-size:13px; color:var(--accent);"><strong>6. Нийт дүн:</strong> <b>${activeOrderData.totalPrice}</b></p>
+                <hr style="border-color:rgba(255,255,255,0.1); margin:8px 0;">
+                <p><strong>7. Захиалагчийн нэр:</strong> ${activeOrderData.name}</p>
+                <p><strong>8. Утасны дугаар:</strong> ${activeOrderData.phone}</p>
+                <p><strong>9. Хүргэлтийн хаяг:</strong> ${activeOrderData.address}</p>
+                <p style="color:var(--accent); margin-top:4px;"><strong>10. Гүйлгээний утга:</strong> <b>${activeOrderData.transactionNote}</b></p>
             `;
 
             document.getElementById('modal-summary-text').innerHTML = summaryHTML;
@@ -1280,9 +1317,29 @@
             document.getElementById('order-modal').style.display = 'none';
         }
 
+        // Send Data to Google Apps Script (which handles both Google Sheets & Telegram)
         function confirmAndSendOrder() {
-            alert(currentLang === 'mn' ? 'Таны захиалга амжилттай бүртгэгдлээ! Баярлалаа.' : 'Order successfully submitted! Thank you.');
-            closeModal();
+            if (!activeOrderData) return;
+
+            const confirmBtn = document.getElementById('modal-confirm-btn');
+            confirmBtn.innerText = currentLang === 'mn' ? 'Илгээж байна...' : 'Sending...';
+            confirmBtn.disabled = true;
+
+            if (GOOGLE_SHEETS_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbwz-yz_yMq_izDxXdTlrbNUR31__FkSidUpfhvw7uIUhZlG1kw0HTdHeuFD_eHTTeN8Yg/exec') {
+                fetch(GOOGLE_SHEETS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(activeOrderData)
+                }).catch(err => console.error('Submission Error:', err));
+            }
+
+            setTimeout(() => {
+                alert(currentLang === 'mn' ? 'Таны захиалга амжилттай бүртгэгдэж илгээгдлээ! Баярлалаа.' : 'Order successfully submitted! Thank you.');
+                confirmBtn.innerText = currentLang === 'mn' ? 'Тийм, Баталгаажуулах' : 'Yes, Confirm';
+                confirmBtn.disabled = false;
+                closeModal();
+            }, 800);
         }
     </script>
 </body>
