@@ -3,398 +3,1151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avionel Atelier | Luxury Handcrafted Footwear & Leather Goods</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        luxuryGold: '#C5A059',
-                        luxuryDark: '#111111',
-                        luxuryGray: '#f9f9f9',
-                    },
-                    fontFamily: {
-                        serif: ['"Cormorant Garamond"', 'serif'],
-                        sans: ['"Montserrat"', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <title>AVIONEL ATELIER — Slouch Leather Boot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Montserrat', sans-serif; background-color: #faf9f6; color: #1a1a1a; }
-        h1, h2, h3, .serif-font { font-family: 'Cormorant Garamond', serif; }
-        .fade-in { animation: fadeIn 0.4s ease-in-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        :root {
+            --bg-color: #070b14;
+            --card-bg: rgba(15, 22, 38, 0.88);
+            --accent: #d4af37;
+            --accent-hover: #f3e5ab;
+            --text-main: #f5f5f7;
+            --text-muted: #b0aca5;
+            --border-color: rgba(212, 175, 55, 0.25);
+            --input-bg: rgba(255, 255, 255, 0.05);
+            --font-title: 'Cinzel', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .app-container {
+            position: relative;
+            z-index: 2;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 20px 14px;
+        }
+
+        header {
+            text-align: center;
+            padding: 10px 0 20px 0;
+        }
+
+        .brand-title {
+            font-family: var(--font-title);
+            font-size: 30px;
+            letter-spacing: 5px;
+            font-weight: 700;
+            color: #b8d4f8;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(168, 202, 248, 0.3);
+        }
+
+        .brand-subtitle {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .stage-color-bar {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        .stage-color-btn {
+            background: rgba(15, 22, 38, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.25s ease;
+        }
+
+        .stage-color-btn.active {
+            border-color: var(--accent);
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--accent);
+            font-weight: 600;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .showcase-stage {
+            position: relative;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            background: radial-gradient(circle at center, rgba(20, 32, 56, 0.9) 0%, rgba(7, 11, 20, 0.98) 100%);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.85);
+            margin-bottom: 14px;
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 4 / 3.2;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-price-overlay {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: rgba(7, 11, 20, 0.92);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--accent);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+            z-index: 15;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+        }
+
+        .hotspot-wrapper {
+            position: absolute;
+            z-index: 20;
+        }
+
+        .hotspot-dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.35);
+            border: 1.5px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 14px rgba(212, 175, 55, 0.5);
+            animation: pulse 2.5s infinite;
+        }
+
+        .hotspot-wrapper.active .hotspot-dot {
+            background: var(--accent);
+            color: #000;
+            transform: scale(1.15);
+            box-shadow: 0 0 22px rgba(212, 175, 55, 0.9);
+        }
+
+        .hotspot-tooltip {
+            position: absolute;
+            width: 190px;
+            background: rgba(10, 15, 26, 0.96);
+            border: 1px solid var(--accent);
+            backdrop-filter: blur(12px);
+            border-radius: 10px;
+            padding: 10px 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.9);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 50;
+            pointer-events: none;
+            left: 36px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hotspot-wrapper.tooltip-left .hotspot-tooltip {
+            left: auto;
+            right: 36px;
+        }
+
+        .hotspot-wrapper.active .hotspot-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tooltip-title {
+            color: var(--accent);
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 3px;
+            text-transform: uppercase;
+        }
+
+        .tooltip-desc {
+            color: var(--text-main);
+            font-size: 11px;
+            line-height: 1.35;
+        }
+
+        #hs-pos-1 { top: 18%; left: 45%; }
+        #hs-pos-2 { top: 40%; left: 52%; }
+        #hs-pos-3 { top: 62%; left: 28%; }
+        #hs-pos-4 { top: 82%; left: 42%; }
+        #hs-pos-5 { top: 32%; left: 22%; }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.6); }
+            70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+
+        .gallery-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .thumb-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(15, 22, 38, 0.6);
+            cursor: pointer;
+            aspect-ratio: 1 / 1;
+            transition: all 0.25s ease;
+        }
+
+        .thumb-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .thumb-price-tag {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.88);
+            color: var(--accent);
+            font-size: 9px;
+            font-weight: 600;
+            text-align: center;
+            padding: 3px 0;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .thumb-item.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
+            transform: scale(1.02);
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 18px 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 8px;
+        }
+
+        .section-title {
+            font-family: var(--font-title);
+            font-size: 14px;
+            color: var(--text-main);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .section-badge {
+            font-size: 10px;
+            color: var(--accent);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .care-inline-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .care-text-content {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .care-animated-badge {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, rgba(15, 22, 38, 0.8) 100%);
+            border: 1px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
+            animation: floatBadge 3s ease-in-out infinite;
+        }
+
+        @keyframes floatBadge {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .foot-diagram-box {
+            background: rgba(10, 15, 26, 0.6);
+            border: 1px dashed var(--border-color);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .foot-svg {
+            max-width: 160px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .diagram-caption {
+            font-size: 11px;
+            color: var(--accent);
+            margin-top: 6px;
+        }
+
+        .calc-input-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .btn-calc {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 0 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .calc-result-box {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--accent-hover);
+            display: none;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-main);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 12px;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .color-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .color-opt {
+            padding: 10px 6px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.03);
+            text-align: center;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: var(--text-main);
+        }
+
+        .color-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .color-opt.selected {
+            border-color: var(--accent);
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .size-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .size-btn {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: var(--text-main);
+            padding: 10px 0;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .size-btn.selected {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: #000;
+            font-weight: 700;
+        }
+
+        .payment-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .pay-tab {
+            padding: 11px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.03);
+            color: var(--text-main);
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .pay-tab.active {
+            border-color: var(--accent);
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .pay-panel {
+            display: none;
+            background: rgba(10, 15, 26, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            padding: 14px;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .pay-panel.active {
+            display: block;
+        }
+
+        .qpay-qr-container {
+            width: 130px;
+            height: 130px;
+            background: #ffffff;
+            margin: 10px auto;
+            padding: 8px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bank-details {
+            text-align: left;
+            font-size: 11px;
+            line-height: 1.8;
+            color: var(--text-main);
+        }
+
+        .bank-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+            padding: 5px 0;
+        }
+
+        .bank-label { color: var(--text-muted); }
+        .bank-val { font-weight: 600; color: var(--accent); }
+
+        .btn-checkout {
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
+            color: #000;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(6px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 15px;
+        }
+
+        .modal-card {
+            background: #0f1626;
+            border: 1px solid var(--accent);
+            border-radius: 14px;
+            padding: 20px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.9);
+        }
+
+        .modal-title {
+            font-family: var(--font-title);
+            color: var(--accent);
+            font-size: 15px;
+            margin-bottom: 14px;
+            text-align: center;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding-bottom: 6px;
+        }
+
+        .modal-body {
+            font-size: 12px;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            line-height: 1.8;
+            background: rgba(255,255,255,0.03);
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px dashed var(--border-color);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+        }
+
+        .modal-btn.cancel {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-main);
+        }
+
+        .modal-btn.confirm {
+            background: var(--accent);
+            color: #000;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 30px;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .footer-social-btn {
+            color: var(--accent);
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            background: rgba(15, 22, 38, 0.8);
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .social-icon {
+            width: 14px;
+            height: 14px;
+            fill: var(--accent);
+        }
     </style>
 </head>
-<body class="bg-[#faf9f6] text-[#1a1a1a] min-h-screen flex flex-col justify-between selection:bg-luxuryGold selection:text-white">
+<body>
 
-    <!-- HEADER / NAVIGATION -->
-    <header class="sticky top-0 z-40 bg-[#faf9f6]/90 backdrop-blur-md border-b border-stone-200">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <!-- Brand Logo -->
-            <a href="#" class="text-2xl md:text-3xl tracking-[0.2em] font-serif uppercase font-semibold text-stone-900">
-                Avionel Atelier
-            </a>
+    <canvas id="particle-canvas"></canvas>
 
-            <!-- Navigation Links -->
-            <nav class="hidden md:flex items-center space-x-8 text-xs uppercase tracking-[0.2em] font-medium text-stone-700">
-                <a href="#collection" class="hover:text-luxuryGold transition" data-translate="nav_catalog">Каталог</a>
-                <a href="#about" class="hover:text-luxuryGold transition" data-translate="nav_about">Тухай</a>
-                <a href="#qr-section" class="hover:text-luxuryGold transition" data-translate="nav_passport">QR Паспорт</a>
-                <a href="#contact" class="hover:text-luxuryGold transition" data-translate="nav_contact">Холбоо барих</a>
-            </nav>
+    <div class="app-container">
+        <header>
+            <div class="brand-title">AVIONEL</div>
+            <div class="brand-subtitle">ATELIER — LEATHER CRAFT</div>
+        </header>
 
-            <!-- Right Actions (Language Switcher & Cart) -->
-            <div class="flex items-center space-x-4">
-                <!-- Language Switcher Button -->
-                <button onclick="toggleLanguage()" id="lang-btn" class="px-3 py-1.5 border border-stone-300 text-xs tracking-widest font-semibold uppercase hover:bg-stone-900 hover:text-white transition rounded-full">
-                    EN
-                </button>
-                <button onclick="openCartModal()" class="relative p-2 text-stone-800 hover:text-luxuryGold transition">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>
-                    <span id="cart-badge" class="absolute top-0 right-0 bg-luxuryGold text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- HERO SECTION -->
-    <section class="relative h-[80vh] flex items-center justify-center bg-stone-900 text-white overflow-hidden">
-        <div class="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=1920&auto=format&fit=crop')] bg-cover bg-center"></div>
-        <div class="relative z-10 text-center max-w-3xl px-6">
-            <span class="text-luxuryGold tracking-[0.3em] uppercase text-xs font-semibold mb-4 block" data-translate="hero_subtitle">Гар урлалын дээд зэрэглэлийн бренд</span>
-            <h1 class="text-4xl md:text-6xl font-serif tracking-wide mb-6" data-translate="hero_title">Байгалийн арьс, төгс шийдэл</h1>
-            <p class="text-stone-300 font-light tracking-wide text-sm md:text-base mb-8 max-w-xl mx-auto" data-translate="hero_desc">Цэвэр арьсаар гараар урласан гутал, цүнх болон тансаг зэрэглэлийн аксесуарууд.</p>
-            <a href="#collection" class="inline-block px-8 py-3.5 bg-luxuryGold text-white uppercase text-xs tracking-[0.2em] font-medium hover:bg-[#b08d4c] transition shadow-lg" data-translate="hero_btn">Каталог үзэх</a>
-        </div>
-    </section>
-
-    <!-- CATALOG & FILTER SECTION -->
-    <section id="collection" class="max-w-7xl mx-auto px-6 py-20 w-full">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-serif mb-3" data-translate="catalog_heading">Бүтээгдэхүүний Каталог</h2>
-            <p class="text-stone-500 text-sm" data-translate="catalog_subheading">Та өөрт тохирох ангиллаар шүүж үзнэ үү.</p>
-            
-            <!-- Category Filter Buttons -->
-            <div class="flex flex-wrap justify-center gap-3 mt-8">
-                <button onclick="filterCatalog('all')" id="filter-all" class="px-6 py-2 text-xs uppercase tracking-widest font-semibold border border-stone-900 bg-stone-900 text-white transition filter-btn">Бүгд</button>
-                <button onclick="filterCatalog('shoes')" id="filter-shoes" class="px-6 py-2 text-xs uppercase tracking-widest font-semibold border border-stone-300 text-stone-700 hover:border-stone-900 transition filter-btn" data-translate="cat_shoes">Гутал</button>
-                <button onclick="filterCatalog('bags')" id="filter-bags" class="px-6 py-2 text-xs uppercase tracking-widest font-semibold border border-stone-300 text-stone-700 hover:border-stone-900 transition filter-btn" data-translate="cat_bags">Цүнх</button>
-                <button onclick="filterCatalog('accessories')" id="filter-accessories" class="px-6 py-2 text-xs uppercase tracking-widest font-semibold border border-stone-300 text-stone-700 hover:border-stone-900 transition filter-btn" data-translate="cat_acc">Аксессуар</button>
-            </div>
-        </div>
-
-        <!-- Product Grid -->
-        <div id="product-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Dynamically populated via JS -->
-        </div>
-    </section>
-
-    <!-- QR & PACKAGING PASSPORT SECTION -->
-    <section id="qr-section" class="bg-stone-100 py-20 border-y border-stone-200">
-        <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div>
-                <span class="text-luxuryGold tracking-[0.2em] uppercase text-xs font-semibold mb-2 block" data-translate="qr_tag">Баглаа боодлын инноваци</span>
-                <h2 class="text-3xl font-serif mb-4" data-translate="qr_title">Бүтээгдэхүүний Дижитал Паспорт & QR Код</h2>
-                <p class="text-stone-600 text-sm leading-relaxed mb-6" data-translate="qr_desc">
-                    Avionel Atelier-ийн хайрцаг бүр дээрх QR кодыг гар утсаараа уншуулснаар тухайн загварын гарал үүсэл, гар урчуудын зарцуулсан цаг, арьсны онцлог болон арчилгааны зааврыг шууд үзэх боломжтой.
-                </p>
-                <button onclick="openQRModal()" class="px-6 py-3 bg-stone-900 text-white uppercase text-xs tracking-widest font-medium hover:bg-luxuryGold transition" data-translate="qr_btn">
-                    Жишээ Паспорт Үзэх
-                </button>
-            </div>
-            <div class="flex justify-center">
-                <div class="bg-white p-8 shadow-xl border border-stone-200 text-center max-w-xs w-full">
-                    <div class="w-48 h-48 mx-auto bg-stone-900 text-white flex flex-col items-center justify-center p-4 mb-4">
-                        <svg class="w-32 h-32 mb-2" fill="currentColor" viewBox="0 0 24 24"><path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm12-2h2v2h-2v-2zm4 0h2v2h-2v-2zm-4 4h2v2h-2v-2zm4 0h2v2h-2v-2zm-6 2h2v2h-2v-2zm2 2h2v2h-2v-2zm2-2h2v2h-2v-2zm2 2h2v2h-2v-2z"/></svg>
-                        <span class="text-[10px] tracking-widest text-luxuryGold font-mono">AVIONEL PASSPORT</span>
-                    </div>
-                    <p class="text-xs text-stone-500" data-translate="qr_scan_hint">Сав баглаа боодлын шошго дээрх QR</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer id="contact" class="bg-stone-900 text-white py-14">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-            <div>
-                <h3 class="text-xl font-serif tracking-widest mb-4">AVIONEL ATELIER</h3>
-                <p class="text-xs text-stone-400 leading-relaxed" data-translate="footer_desc">Гар урлалын дээд зэрэглэлийн гутал, цүнх болон арьсан эдлэлийн бренд.</p>
-            </div>
-            <div>
-                <h4 class="text-xs uppercase tracking-[0.2em] font-semibold mb-4 text-luxuryGold" data-translate="footer_links">Цэс</h4>
-                <ul class="space-y-2 text-xs text-stone-400">
-                    <li><a href="#collection" class="hover:text-white transition" data-translate="nav_catalog">Каталог</a></li>
-                    <li><a href="#about" class="hover:text-white transition" data-translate="nav_about">Тухай</a></li>
-                    <li><a href="#qr-section" class="hover:text-white transition" data-translate="nav_passport">QR Паспорт</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-xs uppercase tracking-[0.2em] font-semibold mb-4 text-luxuryGold" data-translate="footer_contact">Холбоо барих</h4>
-                <p class="text-xs text-stone-400 mb-2">Ulaanbaatar, Mongolia</p>
-                <p class="text-xs text-stone-400 mb-2">Email: contact@avionel.com</p>
-                <p class="text-xs text-stone-400">Instagram / Facebook: @AvionelAtelier</p>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto px-6 pt-6 border-t border-stone-800 text-center text-xs text-stone-500">
-            &copy; 2026 Avionel Atelier. All rights reserved.
-        </div>
-    </footer>
-
-    <!-- PRODUCT DETAIL & ORDER MODAL -->
-    <div id="product-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white max-w-2xl w-full p-8 relative rounded-none shadow-2xl border border-stone-200 fade-in">
-            <button onclick="closeProductModal()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-900 text-xl font-bold">&times;</button>
-            <div id="modal-content" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Content injected dynamically -->
-            </div>
-        </div>
-    </div>
-
-    <!-- QR PASSPORT MODAL -->
-    <div id="qr-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white max-w-xl w-full p-8 relative rounded-none shadow-2xl border border-stone-200 fade-in">
-            <button onclick="closeQRModal()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-900 text-xl font-bold">&times;</button>
-            <div class="text-center mb-6">
-                <span class="text-luxuryGold tracking-widest uppercase text-xs font-semibold" data-translate="passport_badge">Дижитал Паспорт & Арчилгаа</span>
-                <h3 class="text-2xl font-serif mt-1" data-translate="passport_title">L'Éclat Oxford Boot #04</h3>
-                <p class="text-xs text-stone-500">Batch ID: AV-2026-0901</p>
-            </div>
-            <div class="space-y-4 text-xs text-stone-700 leading-relaxed border-t border-b border-stone-200 py-4 my-4">
-                <div>
-                    <strong class="text-stone-900 block mb-1" data-translate="p_origin">Гарал үүсэл & Материал:</strong>
-                    <span data-translate="p_origin_desc">Италийн дээд зэрэглэлийн үхрийн арьс, 100% гар аргаар saddle stitch оёдлоор бүтээгдсэн.</span>
-                </div>
-                <div>
-                    <strong class="text-stone-900 block mb-1" data-translate="p_care">Арьс арчилгааны заавар:</strong>
-                    <span data-translate="p_care_desc">Чийгтэй үед зөөлөн давуугаар арчиж хатаана. Сард 1 удаа зориулалтын арьсны тос/ваксаар тэжээл өгнө. Нарны шууд тусгалаас хол байлгана.</span>
-                </div>
-            </div>
-            <button onclick="closeQRModal()" class="w-full py-3 bg-stone-900 text-white uppercase text-xs tracking-widest font-medium hover:bg-luxuryGold transition" data-translate="close_btn">
-                Хаах
+        <div class="stage-color-bar">
+            <button class="stage-color-btn" onclick="selectColorFromStage(this, 'Хар (Classic Black)', 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80')">
+                <span class="color-dot" style="background:#000;"></span> Хар
+            </button>
+            <button class="stage-color-btn" onclick="selectColorFromStage(this, 'Бор (Deep Burgundy)', 'https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=800&q=80')">
+                <span class="color-dot" style="background:#4a1521;"></span> Бор
+            </button>
+            <button class="stage-color-btn active" onclick="selectColorFromStage(this, 'Бэйж (Ivory Cream)', 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80')">
+                <span class="color-dot" style="background:#e8e3d5;"></span> Бэйж
             </button>
         </div>
+
+        <div class="showcase-stage">
+            <div class="image-wrapper">
+                <img id="main-product-img" src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80" alt="Avionel Boot" class="product-image">
+                <div class="image-price-overlay" id="main-price-display">510,000 ₮</div>
+            </div>
+            
+            <div class="hotspot-wrapper active" id="hs-pos-1">
+                <div class="hotspot-dot" onclick="toggleHotspot(this)">1</div>
+                <div class="hotspot-tooltip">
+                    <div class="tooltip-title">① Урт түрий (Upper Shaft)</div>
+                    <div class="tooltip-desc">Байгалийн цэвэр зөөлөн үхрийн арьс.</div>
+                </div>
+            </div>
+
+            <div class="hotspot-wrapper" id="hs-pos-2">
+                <div class="hotspot-dot" onclick="toggleHotspot(this)">2</div>
+                <div class="hotspot-tooltip">
+                    <div class="tooltip-title">② Нугалаас (Slouch Folds)</div>
+                    <div class="tooltip-desc">Гар аргаар суулгасан нугалаас.</div>
+                </div>
+            </div>
+
+            <div class="hotspot-wrapper tooltip-left" id="hs-pos-3">
+                <div class="hotspot-dot" onclick="toggleHotspot(this)">3</div>
+                <div class="hotspot-tooltip">
+                    <div class="tooltip-title">③ Толгойн хэсэг (Toe Box)</div>
+                    <div class="tooltip-desc">Хэлбэрээ алдахгүй зөөлөвчтэй.</div>
+                </div>
+            </div>
+
+            <div class="hotspot-wrapper tooltip-left" id="hs-pos-4">
+                <div class="hotspot-dot" onclick="toggleHotspot(this)">4</div>
+                <div class="hotspot-tooltip">
+                    <div class="tooltip-title">④ Халилтаас хамгаалах ул</div>
+                    <div class="tooltip-desc">Премиум резинэн ул.</div>
+                </div>
+            </div>
+
+            <div class="hotspot-wrapper" id="hs-pos-5">
+                <div class="hotspot-dot" onclick="toggleHotspot(this)">5</div>
+                <div class="hotspot-tooltip">
+                    <div class="tooltip-title">⑤ Шевро Доторлогоо</div>
+                    <div class="tooltip-desc">Амьсгалдаг шевро дотор.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="gallery-thumbnails">
+            <div class="thumb-item" onclick="switchMainImage(this, 0, 480000, 'Classic Black Slouch')">
+                <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80" alt="Thumb 1">
+                <span class="thumb-price-tag">480,000₮</span>
+            </div>
+            <div class="thumb-item active" onclick="switchMainImage(this, 1, 510000, 'Burgundy Heritage Boot')">
+                <img src="https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=800&q=80" alt="Thumb 2">
+                <span class="thumb-price-tag">510,000₮</span>
+            </div>
+            <div class="thumb-item" onclick="switchMainImage(this, 2, 490000, 'Ivory Cream Luxe Boot')">
+                <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80" alt="Thumb 3">
+                <span class="thumb-price-tag">490,000₮</span>
+            </div>
+            <div class="thumb-item" onclick="switchMainImage(this, 3, 520000, 'Custom Edition Boot')">
+                <img src="https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?auto=format&fit=crop&w=800&q=80" alt="Thumb 4">
+                <span class="thumb-price-tag">520,000₮</span>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <div class="section-header">
+                <span class="section-title">Цэвэр арьс арчилгаа</span>
+                <span class="section-badge">Leather Care</span>
+            </div>
+            <div class="care-inline-box">
+                <div class="care-text-content">
+                    • Чийгнээс хол байлгаж, зөөлөн алчуураар арчина.<br>
+                    • Зориулалтын тосоор үе үе тослоно.<br>
+                    • Хэлбэр хадгалах тулгуур хэрэглэнэ.
+                </div>
+                <div class="care-animated-badge">✨</div>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <div class="section-header">
+                <span class="section-title">Хөлийн хэмжээ авах ба Тооцоолох</span>
+                <span class="section-badge">Size Guide</span>
+            </div>
+            <div class="foot-diagram-box">
+                <svg class="foot-svg" viewBox="0 0 200 280" fill="none">
+                    <path d="M100 20 C130 20, 150 40, 150 80 C150 120, 140 160, 140 210 C140 240, 125 255, 100 255 C75 255, 60 240, 60 210 C60 160, 50 120, 50 80 C50 40, 70 20, 100 20 Z" stroke="#d4af37" stroke-width="2" stroke-dasharray="4 4" fill="rgba(212, 175, 55, 0.05)"></path>
+                    <line x1="100" y1="12" x2="100" y2="263" stroke="#d4af37" stroke-width="1.5"></line>
+                    <text x="108" y="145" fill="#d4af37" font-size="11" font-weight="bold">Урт (мм)</text>
+                </svg>
+                <div class="diagram-caption">Зогссон байрлалаас баруун хөлний өсгийн ардаас хамгийн урт хурууны үзүүр хүртэл хэмжинэ</div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" style="color: var(--accent);">📐 Хэмжээ тооцоолох (мм-ээр бичих):</label>
+                <div class="calc-input-group">
+                    <input type="number" id="user-mm-input" class="form-control" placeholder="Жишээ нь: 245">
+                    <button class="btn-calc" onclick="calculateEUSize()">Бодох</button>
+                </div>
+                <div id="calc-result" class="calc-result-box"></div>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <div class="section-header">
+                <span class="section-title">Захиалгын сонголт</span>
+                <span class="section-badge">Custom Order</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Сонгосон загвар:</label>
+                <input type="text" id="selected-model-name" class="form-control" value="Ivory Cream Luxe Boot" readonly style="color: var(--accent); font-weight: 600;">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">1. Өнгө сонгох:</label>
+                <div class="color-selector">
+                    <div class="color-opt" onclick="syncColorSelection('Хар (Classic Black)')">
+                        <span class="color-dot" style="background:#000;"></span> Хар
+                    </div>
+                    <div class="color-opt" onclick="syncColorSelection('Бор (Deep Burgundy)')">
+                        <span class="color-dot" style="background:#4a1521;"></span> Бор
+                    </div>
+                    <div class="color-opt selected" onclick="syncColorSelection('Бэйж (Ivory Cream)')">
+                        <span class="color-dot" style="background:#e8e3d5;"></span> Бэйж
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">2. Стандарт хэмжээ (Размер):</label>
+                <div class="size-grid">
+                    <div class="size-btn" onclick="selectSize(this, '35')">35</div>
+                    <div class="size-btn" onclick="selectSize(this, '36')">36</div>
+                    <div class="size-btn" onclick="selectSize(this, '37')">37</div>
+                    <div class="size-btn" onclick="selectSize(this, '38')">38</div>
+                    <div class="size-btn selected" onclick="selectSize(this, '39')">39</div>
+                    <div class="size-btn" onclick="selectSize(this, '40')">40</div>
+                    <div class="size-btn" onclick="selectSize(this, '41')">41</div>
+                    <div class="size-btn" onclick="selectSize(this, '42')">42</div>
+                    <div class="size-btn" onclick="selectSize(this, '43')">43</div>
+                    <div class="size-btn" onclick="selectSize(this, '44')">44</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">3. Захиалагчийн мэдээлэл:</label>
+                <input type="text" id="cust-name" class="form-control" placeholder="Захиалагчийн нэр" style="margin-bottom:8px;">
+                <input type="tel" id="cust-phone" class="form-control" placeholder="Утасны дугаар" style="margin-bottom:8px;">
+                <input type="text" id="cust-address" class="form-control" placeholder="Хүргэлтийн хаяг (Дүүрэг, Хороо, Байр)">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">4. Төлбөрийн сонголт: <span style="font-size:10px; color:var(--accent);">(Хүргэлтийн төлбөр: 8,000₮)</span></label>
+                <div class="payment-options">
+                    <div class="pay-tab active" onclick="switchPayTab('bank')">Дансаар шилжүүлэх</div>
+                    <div class="pay-tab" onclick="switchPayTab('qpay')">QR Уншуулах</div>
+                </div>
+
+                <div id="pay-bank" class="pay-panel active">
+                    <div class="bank-details">
+                        <div class="bank-row"><span class="bank-label">Банк:</span><span class="bank-val">Голомт банк</span></div>
+                        <div class="bank-row"><span class="bank-label">Дансны дугаар:</span><span class="bank-val">1205138717</span></div>
+                        <div class="bank-row"><span class="bank-label">Дансны нэр:</span><span class="bank-val">Г.Янжиндулам</span></div>
+                        <div class="bank-row"><span class="bank-label">IBAN:</span><span class="bank-val">40001500</span></div>
+                        <div class="bank-row" style="border-bottom:none; margin-top:6px;"><span class="bank-label" style="color:var(--accent);">Анхааруулга:</span><span class="bank-val" style="color:var(--accent); font-size:10px;">Гүйлгээний утга дээр УТАCНЫ ДУГААРАА бичнэ үү!</span></div>
+                    </div>
+                </div>
+
+                <div id="pay-qpay" class="pay-panel">
+                    <div class="qpay-qr-container">
+                        <svg viewBox="0 0 100 100" width="100" height="100">
+                            <rect width="100" height="100" fill="#fff"/>
+                            <path d="M10 10h30v30H10zM60 10h30v30H60zM10 60h30v30H10z" fill="#000"/>
+                            <path d="M20 20h10v10H20zM70 20h10v10H70zM20 70h10v10H20z" fill="#fff"/>
+                        </svg>
+                    </div>
+                    <div style="font-size:11px; color:var(--text-muted); margin-bottom: 4px;">QR уншуулж төлөх үед:</div>
+                    <div style="font-size:11px; color:var(--accent); font-weight:bold;">⚠️ Гүйлгээний утга дээр Утасны дугаараа бичнэ үү!</div>
+                </div>
+            </div>
+
+            <button class="btn-checkout" id="submit-btn" onclick="showOrderModal()">Захиалах</button>
+        </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <div class="modal-overlay" id="order-modal">
+        <div class="modal-card">
+            <div class="modal-title">Захиалга баталгаажуулах</div>
+            <div class="modal-body" id="modal-summary-text"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn cancel" onclick="closeModal()">Буцах</button>
+                <button class="modal-btn confirm" id="modal-confirm-btn" onclick="confirmAndSendOrder()">Тийм, Баталгаажуулах</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-socials">
+            <a href="https://www.instagram.com/avionel.atelier" target="_blank" class="footer-social-btn">
+                <svg class="social-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> Instagram
+            </a>
+            <a href="https://www.facebook.com/avionel.atelier" target="_blank" class="footer-social-btn">
+                <svg class="social-icon" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.592 0 9 1.583 9 4.615V8z"/></svg> Facebook Page
+            </a>
+        </div>
+        <p>&copy; 2026 AVIONEL STUDIO. All Rights Reserved.</p>
+    </footer>
+
     <script>
-        // Products Database
-        const products = [
-            { id: 1, category: 'shoes', nameMN: 'L\'Éclat Сонгодог Гутал', nameEN: 'L\'Éclat Classic Oxford', price: '1,250,000 ₮', img: 'https://images.unsplash.com/photo-1533867617858-e7d9790a0ca0?q=80&w=800&auto=format&fit=crop', descMN: 'Бүтэн арьсан ултай, гараар оёсон бизнесийн загварын гутал.', descEN: 'Full leather sole, handcrafted business shoes with saddle stitch.' },
-            { id: 2, category: 'bags', nameMN: 'Avionel Business Цүнх', nameEN: 'Avionel Business Tote', price: '1,890,000 ₮', img: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=800&auto=format&fit=crop', descMN: 'Макбүүк болон бичиг баримт хийхэд зориулсан минимал загварын цүнх.', descEN: 'Minimalist leather tote designed for laptops and documents.' },
-            { id: 3, category: 'shoes', nameMN: 'Minimalist Loafer Гутал', nameEN: 'Minimalist Leather Loafer', price: '980,000 ₮', img: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=800&auto=format&fit=crop', descMN: 'Өдөр тутмын хэрэглээний эвтэйхэн, тансаг зэрэглэлийн лофер.', descEN: 'Comfortable and luxury everyday leather loafers.' },
-            { id: 4, category: 'accessories', nameMN: 'Арьсан Трийд Хэтэвч', nameEN: 'Signature Leather Wallet', price: '350,000 ₮', img: 'https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=800&auto=format&fit=crop', descMN: 'Картанд зориулсан нарийн хийцтэй хэтэвч.', descEN: 'Slim handcrafted leather card wallet.' },
-            { id: 5, category: 'bags', nameMN: 'Crossbody Цүнх', nameEN: 'Urban Crossbody Bag', price: '1,150,000 ₮', img: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=800&auto=format&fit=crop', descMN: 'Өдөр тутмын аялал болон хотын амьдралд зориулсан загвар.', descEN: 'Perfect daily compact leather crossbody bag.' },
-            { id: 6, category: 'accessories', nameMN: 'Түлхүүр болон Карт Эзэмшигч', nameEN: 'Leather Key & Card Holder', price: '220,000 ₮', img: 'https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?q=80&w=800&auto=format&fit=crop', descMN: 'Гараар оёж ирмэгийг нь будсан нарийн хийц.', descEN: 'Hand-painted edge key and card organizer.' }
-        ];
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
 
-        let currentLang = 'mn';
-        let cartCount = 0;
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
-        // Translation Dictionary
-        const translations = {
-            mn: {
-                nav_catalog: 'Каталог',
-                nav_about: 'Тухай',
-                nav_passport: 'QR Паспорт',
-                nav_contact: 'Холбоо барих',
-                hero_subtitle: 'Гар урлалын дээд зэрэглэлийн бренд',
-                hero_title: 'Байгалийн арьс, төгс шийдэл',
-                hero_desc: 'Цэвэр арьсаар гараар урласан гутал, цүнх болон тансаг зэрэглэлийн аксесуарууд.',
-                hero_btn: 'Каталог үзэх',
-                catalog_heading: 'Бүтээгдэхүүний Каталог',
-                catalog_subheading: 'Та өөрт тохирох ангиллаар шүүж үзнэ үү.',
-                cat_shoes: 'Гутал',
-                cat_bags: 'Цүнх',
-                cat_acc: 'Аксессуар',
-                qr_tag: 'Баглаа боодлын инноваци',
-                qr_title: 'Бүтээгдэхүүний Дижитал Паспорт & QR Код',
-                qr_desc: 'Avionel Atelier-ийн хайрцаг бүр дээрх QR кодыг гар утсаараа уншуулснаар тухайн загварын гарал үүсэл, гар урчуудын зарцуулсан цаг, арьсны онцлог болон арчилгааны зааврыг шууд үзэх боломжтой.',
-                qr_btn: 'Жишээ Паспорт Үзэх',
-                qr_scan_hint: 'Сав баглаа боодлын шошго дээрх QR',
-                footer_desc: 'Гар урлалын дээд зэрэглэлийн гутал, цүнх болон арьсан эдлэлийн бренд.',
-                footer_links: 'Цэс',
-                footer_contact: 'Холбоо барих',
-                passport_badge: 'Дижитал Паспорт & Арчилгаа',
-                passport_title: 'L\'Éclat Oxford Boot #04',
-                p_origin: 'Гарал үүсэл & Материал:',
-                p_origin_desc: 'Италийн дээд зэрэглэлийн үхрийн арьс, 100% гар аргаар saddle stitch оёдлоор бүтээгдсэн.',
-                p_care: 'Арьс арчилгааны заавар:',
-                p_care_desc: 'Чийгтэй үед зөөлөн давуугаар арчиж хатаана. Сард 1 удаа зориулалтын арьсны тос/ваксаар тэжээл өгнө.',
-                close_btn: 'Хаах',
-                view_details: 'Дэлгэрэнгүй',
-                order_btn: 'Захиалах / QPay'
-            },
-            en: {
-                nav_catalog: 'Catalog',
-                nav_about: 'About',
-                nav_passport: 'QR Passport',
-                nav_contact: 'Contact',
-                hero_subtitle: 'Luxury Handcrafted Atelier',
-                hero_title: 'Natural Leather, Timeless Craft',
-                hero_desc: 'Handcrafted luxury footwear, leather bags, and bespoke accessories made from premium leather.',
-                hero_btn: 'Explore Catalog',
-                catalog_heading: 'Product Catalog',
-                catalog_subheading: 'Browse our complete collection by category.',
-                cat_shoes: 'Shoes',
-                cat_bags: 'Bags',
-                cat_acc: 'Accessories',
-                qr_tag: 'Packaging Innovation',
-                qr_title: 'Digital Product Passport & QR Code',
-                qr_desc: 'Scan the QR code included in every Avionel Atelier luxury box to discover origin details, artisan hours, leather characteristics, and care guidelines.',
-                qr_btn: 'View Sample Passport',
-                qr_scan_hint: 'Scan on package box',
-                footer_desc: 'A premier luxury atelier specializing in handcrafted footwear and leather goods.',
-                footer_links: 'Navigation',
-                footer_contact: 'Contact Us',
-                passport_badge: 'Digital Passport & Care',
-                passport_title: 'L\'Éclat Oxford Boot #04',
-                p_origin: 'Origin & Material:',
-                p_origin_desc: 'Premium Italian calfskin leather, 100% handcrafted using traditional saddle stitch techniques.',
-                p_care: 'Leather Care Instructions:',
-                p_care_desc: 'Wipe clean with a soft dry cloth when exposed to moisture. Apply leather conditioner monthly.',
-                close_btn: 'Close',
-                view_details: 'View Details',
-                order_btn: 'Order / QPay'
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedY = Math.random() * 0.5 + 0.1;
+                this.opacity = Math.random() * 0.5 + 0.2;
             }
-        };
+            update() {
+                this.y -= this.speedY;
+                if (this.y < 0) {
+                    this.y = canvas.height;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            draw() {
+                ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
 
-        function toggleLanguage() {
-            currentLang = currentLang === 'mn' ? 'en' : 'mn';
-            document.getElementById('lang-btn').innerText = currentLang === 'mn' ? 'EN' : 'MN';
-            
-            // Update static elements
-            document.querySelectorAll('[data-translate]').forEach(el => {
-                const key = el.getAttribute('data-translate');
-                if (translations[currentLang][key]) {
-                    el.innerText = translations[currentLang][key];
+        for (let i = 0; i < 50; i++) particles.push(new Particle());
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        let selectedSize = '39';
+        let selectedColor = 'Бэйж (Ivory Cream)';
+        let selectedModel = 'Ivory Cream Luxe Boot';
+        let currentPrice = 510000;
+        const deliveryFee = 8000;
+        let measuredMM = '';
+
+        function toggleHotspot(element) {
+            element.parentElement.classList.toggle('active');
+        }
+
+        function getEUSizeFromMM(mm) {
+            if (mm <= 225) return '35';
+            if (mm <= 230) return '36';
+            if (mm <= 235) return '37';
+            if (mm <= 245) return '38';
+            if (mm <= 250) return '39';
+            if (mm <= 255) return '40';
+            if (mm <= 265) return '41';
+            if (mm <= 270) return '42';
+            if (mm <= 280) return '43';
+            return '44';
+        }
+
+        function selectSize(element, size) {
+            document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedSize = size;
+        }
+
+        function calculateEUSize() {
+            const mm = parseFloat(document.getElementById('user-mm-input').value);
+            const resultBox = document.getElementById('calc-result');
+            if (mm) {
+                let eu = getEUSizeFromMM(mm);
+                measuredMM = mm + 'mm';
+                resultBox.innerText = `Таны хөлийн урт: ${mm} mm → Санал болгох размер: EU ${eu}`;
+                resultBox.style.display = 'block';
+
+                document.querySelectorAll('.size-btn').forEach(btn => {
+                    if (btn.innerText === eu) {
+                        selectSize(btn, eu);
+                    }
+                });
+            } else {
+                alert('Хөлийн урт mm утгаа оруулна уу!');
+            }
+        }
+
+        function selectColor(colorName, imgUrl) {
+            selectedColor = colorName;
+            document.getElementById('main-product-img').src = imgUrl;
+
+            document.querySelectorAll('.stage-color-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.innerText.includes(colorName.split(' ')[0])) {
+                    btn.classList.add('active');
                 }
             });
-            filterCatalog(currentFilter);
+
+            document.querySelectorAll('.color-opt').forEach(opt => {
+                opt.classList.remove('selected');
+                if(opt.innerText.includes(colorName.split(' ')[0])) {
+                    opt.classList.add('selected');
+                }
+            });
         }
 
-        let currentFilter = 'all';
+        function selectColorFromStage(element, colorName, imgUrl) {
+            selectColor(colorName, imgUrl);
+        }
 
-        function filterCatalog(category) {
-            currentFilter = category;
-            
-            // Update button styles
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('bg-stone-900', 'text-white', 'border-stone-900');
-                btn.classList.add('border-stone-300', 'text-stone-700');
-            });
-            const activeBtn = document.getElementById(`filter-${category}`);
-            if(activeBtn) {
-                activeBtn.classList.add('bg-stone-900', 'text-white', 'border-stone-900');
-                activeBtn.classList.remove('border-stone-300', 'text-stone-700');
+        function syncColorSelection(colorName) {
+            let imgUrl = 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80';
+            if(colorName.includes('Хар')) {
+                imgUrl = 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80';
+            } else if(colorName.includes('Бор')) {
+                imgUrl = 'https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=800&q=80';
+            }
+            selectColor(colorName, imgUrl);
+        }
+
+        function switchMainImage(element, index, price, modelName) {
+            document.querySelectorAll('.thumb-item').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+            currentPrice = price;
+            document.getElementById('main-price-display').innerText = price.toLocaleString() + ' ₮';
+            document.getElementById('selected-model-name').value = modelName;
+            selectedModel = modelName;
+        }
+
+        function switchPayTab(type) {
+            document.querySelectorAll('.pay-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.pay-panel').forEach(panel => panel.classList.remove('active'));
+            if (type === 'qpay') {
+                document.querySelectorAll('.pay-tab')[1].classList.add('active');
+                document.getElementById('pay-qpay').classList.add('active');
+            } else {
+                document.querySelectorAll('.pay-tab')[0].classList.add('active');
+                document.getElementById('pay-bank').classList.add('active');
+            }
+        }
+
+        function showOrderModal() {
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const address = document.getElementById('cust-address').value;
+
+            if (!name || !phone || !address) {
+                alert('Нэр, утасны дугаар болон хүргэлтийн хаягаа бүрэн оруулна уу!');
+                return;
             }
 
-            const grid = document.getElementById('product-grid');
-            grid.innerHTML = '';
+            let mmDisplay = measuredMM ? ` (${measuredMM})` : ' (Заагаагүй)';
+            let totalPrice = currentPrice + deliveryFee;
 
-            const filtered = category === 'all' ? products : products.filter(p => p.category === category);
-
-            filtered.forEach(p => {
-                const name = currentLang === 'mn' ? p.nameMN : p.nameEN;
-                const desc = currentLang === 'mn' ? p.descMN : p.descEN;
-                const btnText = translations[currentLang].view_details;
-
-                const card = document.createElement('div');
-                card.className = 'bg-white border border-stone-200 group overflow-hidden shadow-sm hover:shadow-md transition duration-300';
-                card.innerHTML = `
-                    <div class="overflow-hidden aspect-[4/5] bg-stone-100">
-                        <img src="${p.img}" alt="${name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-serif text-xl mb-1">${name}</h3>
-                        <p class="text-xs text-stone-500 mb-4 line-clamp-2">${desc}</p>
-                        <div class="flex items-center justify-between">
-                            <span class="font-semibold text-stone-900">${p.price}</span>
-                            <button onclick="openProductModal(${p.id})" class="px-4 py-2 bg-stone-900 text-white text-xs uppercase tracking-widest hover:bg-luxuryGold transition">${btnText}</button>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function openProductModal(id) {
-            const p = products.find(item => item.id === id);
-            const name = currentLang === 'mn' ? p.nameMN : p.nameEN;
-            const desc = currentLang === 'mn' ? p.descMN : p.descEN;
-            const orderText = translations[currentLang].order_btn;
-
-            const modalContent = document.getElementById('modal-content');
-            modalContent.innerHTML = `
-                <div class="aspect-square bg-stone-100 overflow-hidden">
-                    <img src="${p.img}" alt="${name}" class="w-full h-full object-cover">
-                </div>
-                <div class="flex flex-col justify-between">
-                    <div>
-                        <h3 class="font-serif text-2xl mb-2">${name}</h3>
-                        <p class="text-luxuryGold font-semibold text-lg mb-4">${p.price}</p>
-                        <p class="text-xs text-stone-600 leading-relaxed mb-6">${desc}</p>
-                        <div class="mb-6">
-                            <label class="block text-[11px] uppercase tracking-widest font-semibold text-stone-700 mb-2">Хэмжээ (Size / EU):</label>
-                            <div class="flex gap-2">
-                                <button onclick="selectSize(this)" class="px-3.5 py-1.5 border border-stone-300 text-xs hover:border-stone-900 font-medium">38</button>
-                                <button onclick="selectSize(this)" class="px-3.5 py-1.5 border border-stone-300 text-xs hover:border-stone-900 font-medium">39</button>
-                                <button onclick="selectSize(this)" class="px-3.5 py-1.5 border border-stone-900 bg-stone-900 text-white text-xs font-medium">40</button>
-                                <button onclick="selectSize(this)" class="px-3.5 py-1.5 border border-stone-300 text-xs hover:border-stone-900 font-medium">41</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button onclick="addToCart()" class="w-full py-3.5 bg-luxuryGold text-white uppercase text-xs tracking-widest font-semibold hover:bg-[#b08d4c] transition">${orderText}</button>
-                </div>
+            const summaryHTML = `
+                📌 <b>Загвар:</b> ${selectedModel}<br>
+                🎨 <b>Өнгө:</b> ${selectedColor}<br>
+                📏 <b>Размер:</b> EU ${selectedSize}${mmDisplay}<br>
+                💵 <b>Гутал:</b> ${currentPrice.toLocaleString()} ₮<br>
+                🚚 <b>Хүргэлт:</b> ${deliveryFee.toLocaleString()} ₮<br>
+                💰 <b>Нийт төлөх дүн:</b> <span style="color:var(--accent); font-weight:bold;">${totalPrice.toLocaleString()} ₮</span><br><br>
+                👤 <b>Захиалагч:</b> ${name}<br>
+                📞 <b>Утас:</b> ${phone}<br>
+                📍 <b>Хаяг:</b> ${address}<br><br>
+                💡 <span style="color:var(--accent);">Шилжүүлэг хийхдээ гүйлгээний утга дээр УТАСНЫ ДУГААРАА бичнэ үү!</span>
             `;
-            document.getElementById('product-modal').classList.remove('hidden');
+            document.getElementById('modal-summary-text').innerHTML = summaryHTML;
+            document.getElementById('order-modal').style.display = 'flex';
         }
 
-        function selectSize(btn) {
-            Array.from(btn.parentElement.children).forEach(b => {
-                b.classList.remove('bg-stone-900', 'text-white');
-                b.classList.add('border-stone-300');
-            });
-            btn.classList.add('bg-stone-900', 'text-white');
-            btn.classList.remove('border-stone-300');
+        function closeModal() {
+            document.getElementById('order-modal').style.display = 'none';
         }
 
-        function closeProductModal() {
-            document.getElementById('product-modal').classList.add('hidden');
-        }
+        function confirmAndSendOrder() {
+            closeModal();
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const address = document.getElementById('cust-address').value;
+            const btn = document.getElementById('submit-btn');
 
-        function openQRModal() {
-            document.getElementById('qr-modal').classList.remove('hidden');
-        }
+            btn.disabled = true;
+            btn.innerText = 'Илгээж байна...';
 
-        function closeQRModal() {
-            document.getElementById('qr-modal').classList.add('hidden');
-        }
+            const botToken = '9214691951:AAHZrtZ8I7NCRsDIfrw8NPLV_lH0uVIPmZg';
+            const chatId = '1512971066';
+            let totalPrice = currentPrice + deliveryFee;
+            let mmDisplay = measuredMM ? ` (${measuredMM})` : '';
 
-        function openCartModal() {
-            cartCount++;
-            document.getElementById('cart-badge').innerText = cartCount;
-            alert(currentLang === 'mn' ? 'Бүтээгдэхүүн сагсанд нэмэгдлээ!' : 'Product added to cart!');
-        }
+            const telegramMessage = `🛍 *ШИНЭ ЗАХИАЛГА ИРЛЭЭ!*\n\n` +
+                                    `👠 *Загвар:* ${selectedModel}\n` +
+                                    `🎨 *Өнгө:* ${selectedColor}\n` +
+                                    `📏 *Размер:* EU ${selectedSize}${mmDisplay}\n` +
+                                    `💵 *Бүтээгдэхүүн:* ${currentPrice.toLocaleString()} ₮\n` +
+                                    `🚚 *Хүргэлт:* ${deliveryFee.toLocaleString()} ₮\n` +
+                                    `💰 *Нийт дүн:* ${totalPrice.toLocaleString()} ₮\n\n` +
+                                    `👤 *Захиалагч:* ${name}\n` +
+                                    `📞 *Утас:* ${phone}\n` +
+                                    `📍 *Хаяг:* ${address}\n` +
+                                    `💡 *Гүйлгээний утга:* ${phone}`;
 
-        function addToCart() {
-            closeProductModal();
-            cartCount++;
-            document.getElementById('cart-badge').innerText = cartCount;
-            alert(currentLang === 'mn' ? 'Амжилттай захиалгад бүртгэгдлээ. QPay төлбөрийн цонх руу шилжиж байна.' : 'Order initiated successfully. Redirecting to QPay.');
-        }
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(telegramMessage)}&parse_mode=Markdown`)
+            .then(res => console.log('Telegram success'))
+            .catch(err => console.log('Telegram err:', err));
 
-        // Initialize catalog on load
-        window.onload = () => {
-            filterCatalog('all');
-        };
+            // ⚠️ ЭНЭ ХЭСЭГТ ӨӨРИЙН GOOGLE SCRIPT WEB APP URL-АА ЗААВАЛ ТАВИНА УУ!
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwNer2ceOnolKIOrpq_a83oGrXka_tRPxa1-277ZD-IS3zGNTKbcAwkKNSs4OVCqcuIZQ/exec';
+            
+            const formData = new FormData();
+            formData.append('Model', selectedModel);
+            formData.append('Color', selectedColor);
+            formData.append('Size', 'EU ' + selectedSize);
+            formData.append('FootMM', measuredMM || 'Заагаагүй');
+            formData.append('Name', name);
+            formData.append('Phone', phone);
+            formData.append('Address', address);
+            formData.append('Price', totalPrice.toLocaleString() + ' ₮ (Хүргэлттэй)');
+
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => {
+                    alert('Захиалга амжилттай баталгаажиж бүртгэгдлээ!');
+                    btn.disabled = false;
+                    btn.innerText = 'Захиалах';
+                })
+                .catch(error => {
+                    alert('Захиалга амжилттай илгээгдлээ!');
+                    btn.disabled = false;
+                    btn.innerText = 'Захиалах';
+                });
+        }
     </script>
 </body>
 </html>
