@@ -974,8 +974,8 @@
     </footer>
 
     <script>
-        // GOOGLE APPS SCRIPT WEB APP URL (Энд өөрийн Deploy хийсэн URL-аа тавина уу)
-        const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwtq0Jizmr3s4369x8erkqgy4SDQ_2e1szdSW7V8nMzHI6RlX2p2TmPpQnx_ABHAQAOTg/exec';
+        // GOOGLE APPS SCRIPT WEB APP URL
+        const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwqT8u-XqztPsnNhLYGbEeQUfSDoZ0Xi...';
 
         let currentLang = 'mn';
         let currentProductPrice = 490000;
@@ -1317,7 +1317,6 @@
             document.getElementById('order-modal').style.display = 'none';
         }
 
-        // Send Data to Google Apps Script (which handles both Google Sheets & Telegram)
         function confirmAndSendOrder() {
             if (!activeOrderData) return;
 
@@ -1325,13 +1324,13 @@
             confirmBtn.innerText = currentLang === 'mn' ? 'Илгээж байна...' : 'Sending...';
             confirmBtn.disabled = true;
 
-            if (GOOGLE_SHEETS_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbwtq0Jizmr3s4369x8erkqgy4SDQ_2e1szdSW7V8nMzHI6RlX2p2TmPpQnx_ABHAQAOTg/exec') {
+            if (GOOGLE_SHEETS_SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
                 fetch(GOOGLE_SHEETS_SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(activeOrderData)
-                }).catch(err => console.error('Submission Error:', err));
+                }).catch(err => console.error('Script Error:', err));
             }
 
             setTimeout(() => {
