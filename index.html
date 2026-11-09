@@ -975,7 +975,7 @@
 
     <script>
         // GOOGLE APPS SCRIPT WEB APP URL (Энд өөрийн Deploy хийсэн URL-аа тавина уу)
-        const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwz-yz_yMq_izDxXdTlrbNUR31__FkSidUpfhvw7uIUhZlG1kw0HTdHeuFD_eHTTeN8Yg/exec';
+        const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwqT0u-XqztPsnNhLYGbEeqUFsDDZoXHhyr36vUF6NxLNUqh5nOavXTuJcvNzU3OmDxKA/exec';
 
         let currentLang = 'mn';
         let currentProductPrice = 490000;
@@ -1325,7 +1325,7 @@
             confirmBtn.innerText = currentLang === 'mn' ? 'Илгээж байна...' : 'Sending...';
             confirmBtn.disabled = true;
 
-            if (GOOGLE_SHEETS_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbwz-yz_yMq_izDxXdTlrbNUR31__FkSidUpfhvw7uIUhZlG1kw0HTdHeuFD_eHTTeN8Yg/exec') {
+            if (GOOGLE_SHEETS_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbwqT0u-XqztPsnNhLYGbEeqUFsDDZoXHhyr36vUF6NxLNUqh5nOavXTuJcvNzU3OmDxKA/exec') {
                 fetch(GOOGLE_SHEETS_SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
