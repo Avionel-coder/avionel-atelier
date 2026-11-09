@@ -1317,29 +1317,30 @@
             document.getElementById('order-modal').style.display = 'none';
         }
 
-        function confirmAndSendOrder() {
-            if (!activeOrderData) return;
+function confirmAndSendOrder() {
+    if (!activeOrderData) return;
 
-            const confirmBtn = document.getElementById('modal-confirm-btn');
-            confirmBtn.innerText = currentLang === 'mn' ? 'Илгээж байна...' : 'Sending...';
-            confirmBtn.disabled = true;
+    const confirmBtn = document.getElementById('modal-confirm-btn');
+    confirmBtn.innerText = currentLang === 'mn' ? 'Илгээж байна...' : 'Sending...';
+    confirmBtn.disabled = true;
 
-            if (GOOGLE_SHEETS_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbxzoBUOz_4ycx4LhkbeKrJP5_OtSC06njAP43e7918V8UGRIU31YXhJprX-AQc_yR-5F4nw/exec') {
-                fetch(GOOGLE_SHEETS_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(activeOrderData)
-                }).catch(err => console.error('Script Error:', err));
-            }
+    // Хоосон биш бол шууд илгээнэ (Шалгалтыг зассан хэсэг)
+    if (GOOGLE_SHEETS_SCRIPT_URL && GOOGLE_SHEETS_SCRIPT_URL !== '') {
+        fetch(GOOGLE_SHEETS_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(activeOrderData)
+        }).catch(err => console.error('Script Error:', err));
+    }
 
-            setTimeout(() => {
-                alert(currentLang === 'mn' ? 'Таны захиалга амжилттай бүртгэгдэж илгээгдлээ! Баярлалаа.' : 'Order successfully submitted! Thank you.');
-                confirmBtn.innerText = currentLang === 'mn' ? 'Тийм, Баталгаажуулах' : 'Yes, Confirm';
-                confirmBtn.disabled = false;
-                closeModal();
-            }, 800);
-        }
+    setTimeout(() => {
+        alert(currentLang === 'mn' ? 'Таны захиалга амжилттай бүртгэгдэж илгээгдлээ! Баярлалаа.' : 'Order successfully submitted! Thank you.');
+        confirmBtn.innerText = currentLang === 'mn' ? 'Тийм, Баталгаажуулах' : 'Yes, Confirm';
+        confirmBtn.disabled = false;
+        closeModal();
+    }, 800);
+}
     </script>
 </body>
 </html>
