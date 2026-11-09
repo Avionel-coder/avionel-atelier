@@ -57,8 +57,15 @@
         }
 
         header {
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 10px 0 20px 0;
+        }
+
+        .brand-container {
+            text-align: center;
+            flex: 1;
         }
 
         .brand-title {
@@ -77,6 +84,24 @@
             color: var(--accent);
             text-transform: uppercase;
             margin-top: 4px;
+        }
+
+        .lang-switch-btn {
+            background: rgba(15, 22, 38, 0.9);
+            border: 1px solid var(--border-color);
+            color: var(--accent);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.25s ease;
+        }
+
+        .lang-switch-btn:hover {
+            background: var(--accent);
+            color: #000;
         }
 
         .stage-color-bar {
@@ -315,6 +340,8 @@
             color: var(--accent);
             letter-spacing: 1px;
             text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: underline;
         }
 
         .care-inline-box {
@@ -685,19 +712,23 @@
 
     <div class="app-container">
         <header>
-            <div class="brand-title">AVIONEL</div>
-            <div class="brand-subtitle">ATELIER — LEATHER CRAFT</div>
+            <button class="lang-switch-btn" id="lang-btn" onclick="toggleLanguage()">EN</button>
+            <div class="brand-container">
+                <div class="brand-title">AVIONEL</div>
+                <div class="brand-subtitle" data-tr="brand_sub">ATELIER — LEATHER CRAFT</div>
+            </div>
+            <div style="width: 45px;"></div>
         </header>
 
         <div class="stage-color-bar">
             <button class="stage-color-btn" onclick="selectColorFromStage(this, 'Хар (Classic Black)', 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80')">
-                <span class="color-dot" style="background:#000;"></span> Хар
+                <span class="color-dot" style="background:#000;"></span> <span data-tr="color_black">Хар</span>
             </button>
             <button class="stage-color-btn" onclick="selectColorFromStage(this, 'Бор (Deep Burgundy)', 'https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=800&q=80')">
-                <span class="color-dot" style="background:#4a1521;"></span> Бор
+                <span class="color-dot" style="background:#4a1521;"></span> <span data-tr="color_burgundy">Бор</span>
             </button>
             <button class="stage-color-btn active" onclick="selectColorFromStage(this, 'Бэйж (Ivory Cream)', 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80')">
-                <span class="color-dot" style="background:#e8e3d5;"></span> Бэйж
+                <span class="color-dot" style="background:#e8e3d5;"></span> <span data-tr="color_ivory">Бэйж</span>
             </button>
         </div>
 
@@ -710,40 +741,40 @@
             <div class="hotspot-wrapper active" id="hs-pos-1">
                 <div class="hotspot-dot" onclick="toggleHotspot(this)">1</div>
                 <div class="hotspot-tooltip">
-                    <div class="tooltip-title">① Урт түрий (Upper Shaft)</div>
-                    <div class="tooltip-desc">Байгалийн цэвэр зөөлөн үхрийн арьс.</div>
+                    <div class="tooltip-title" data-tr="hs1_title">① Урт түрий (Upper Shaft)</div>
+                    <div class="tooltip-desc" data-tr="hs1_desc">Байгалийн цэвэр зөөлөн үхрийн арьс.</div>
                 </div>
             </div>
 
             <div class="hotspot-wrapper" id="hs-pos-2">
                 <div class="hotspot-dot" onclick="toggleHotspot(this)">2</div>
                 <div class="hotspot-tooltip">
-                    <div class="tooltip-title">② Нугалаас (Slouch Folds)</div>
-                    <div class="tooltip-desc">Гар аргаар суулгасан нугалаас.</div>
+                    <div class="tooltip-title" data-tr="hs2_title">② Нугалаас (Slouch Folds)</div>
+                    <div class="tooltip-desc" data-tr="hs2_desc">Гар аргаар суулгасан нугалаас.</div>
                 </div>
             </div>
 
             <div class="hotspot-wrapper tooltip-left" id="hs-pos-3">
                 <div class="hotspot-dot" onclick="toggleHotspot(this)">3</div>
                 <div class="hotspot-tooltip">
-                    <div class="tooltip-title">③ Толгойн хэсэг (Toe Box)</div>
-                    <div class="tooltip-desc">Хэлбэрээ алдахгүй зөөлөвчтэй.</div>
+                    <div class="tooltip-title" data-tr="hs3_title">③ Толгойн хэсэг (Toe Box)</div>
+                    <div class="tooltip-desc" data-tr="hs3_desc">Хэлбэрээ алдахгүй зөөлөвчтэй.</div>
                 </div>
             </div>
 
             <div class="hotspot-wrapper tooltip-left" id="hs-pos-4">
                 <div class="hotspot-dot" onclick="toggleHotspot(this)">4</div>
                 <div class="hotspot-tooltip">
-                    <div class="tooltip-title">④ Халилтаас хамгаалах ул</div>
-                    <div class="tooltip-desc">Премиум резинэн ул.</div>
+                    <div class="tooltip-title" data-tr="hs4_title">④ Халилтаас хамгаалах ул</div>
+                    <div class="tooltip-desc" data-tr="hs4_desc">Премиум резинэн ул.</div>
                 </div>
             </div>
 
             <div class="hotspot-wrapper" id="hs-pos-5">
                 <div class="hotspot-dot" onclick="toggleHotspot(this)">5</div>
                 <div class="hotspot-tooltip">
-                    <div class="tooltip-title">⑤ Шевро Доторлогоо</div>
-                    <div class="tooltip-desc">Амьсгалдаг шевро дотор.</div>
+                    <div class="tooltip-title" data-tr="hs5_title">⑤ Шевро Доторлогоо</div>
+                    <div class="tooltip-desc" data-tr="hs5_desc">Амьсгалдаг шевро дотор.</div>
                 </div>
             </div>
         </div>
@@ -769,11 +800,11 @@
 
         <div class="section-card">
             <div class="section-header">
-                <span class="section-title">Цэвэр арьс арчилгаа</span>
-                <span class="section-badge">Leather Care</span>
+                <span class="section-title" data-tr="care_title">Цэвэр арьс арчилгаа</span>
+                <span class="section-badge" onclick="openQRModal()" data-tr="care_badge">QR Паспорт</span>
             </div>
             <div class="care-inline-box">
-                <div class="care-text-content">
+                <div class="care-text-content" data-tr="care_text">
                     • Чийгнээс хол байлгаж, зөөлөн алчуураар арчина.<br>
                     • Зориулалтын тосоор үе үе тослоно.<br>
                     • Хэлбэр хадгалах тулгуур хэрэглэнэ.
@@ -784,23 +815,23 @@
 
         <div class="section-card">
             <div class="section-header">
-                <span class="section-title">Хөлийн хэмжээ авах ба Тооцоолох</span>
+                <span class="section-title" data-tr="size_guide_title">Хөлийн хэмжээ авах ба Тооцоолох</span>
                 <span class="section-badge">Size Guide</span>
             </div>
             <div class="foot-diagram-box">
                 <svg class="foot-svg" viewBox="0 0 200 280" fill="none">
                     <path d="M100 20 C130 20, 150 40, 150 80 C150 120, 140 160, 140 210 C140 240, 125 255, 100 255 C75 255, 60 240, 60 210 C60 160, 50 120, 50 80 C50 40, 70 20, 100 20 Z" stroke="#d4af37" stroke-width="2" stroke-dasharray="4 4" fill="rgba(212, 175, 55, 0.05)"></path>
                     <line x1="100" y1="12" x2="100" y2="263" stroke="#d4af37" stroke-width="1.5"></line>
-                    <text x="108" y="145" fill="#d4af37" font-size="11" font-weight="bold">Урт (мм)</text>
+                    <text x="108" y="145" fill="#d4af37" font-size="11" font-weight="bold" data-tr="diagram_len">Урт (мм)</text>
                 </svg>
-                <div class="diagram-caption">Зогссон байрлалаас баруун хөлний өсгийн ардаас хамгийн урт хурууны үзүүр хүртэл хэмжинэ</div>
+                <div class="diagram-caption" data-tr="diagram_desc">Зогссон байрлалаас баруун хөлний өсгийн ардаас хамгийн урт хурууны үзүүр хүртэл хэмжинэ</div>
             </div>
 
             <div class="form-group">
-                <label class="form-label" style="color: var(--accent);">📐 Хэмжээ тооцоолох (мм-ээр бичих):</label>
+                <label class="form-label" style="color: var(--accent);" data-tr="calc_label">📐 Хэмжээ тооцоолох (мм-ээр бичих):</label>
                 <div class="calc-input-group">
                     <input type="number" id="user-mm-input" class="form-control" placeholder="Жишээ нь: 245">
-                    <button class="btn-calc" onclick="calculateEUSize()">Бодох</button>
+                    <button class="btn-calc" onclick="calculateEUSize()" data-tr="calc_btn">Бодох</button>
                 </div>
                 <div id="calc-result" class="calc-result-box"></div>
             </div>
@@ -808,32 +839,32 @@
 
         <div class="section-card">
             <div class="section-header">
-                <span class="section-title">Захиалгын сонголт</span>
+                <span class="section-title" data-tr="order_title">Захиалгын сонголт</span>
                 <span class="section-badge">Custom Order</span>
             </div>
 
             <div class="form-group">
-                <label class="form-label">Сонгосон загвар:</label>
+                <label class="form-label" data-tr="sel_model_label">Сонгосон загвар:</label>
                 <input type="text" id="selected-model-name" class="form-control" value="Ivory Cream Luxe Boot" readonly style="color: var(--accent); font-weight: 600;">
             </div>
 
             <div class="form-group">
-                <label class="form-label">1. Өнгө сонгох:</label>
+                <label class="form-label" data-tr="color_sel_label">1. Өнгө сонгох:</label>
                 <div class="color-selector">
                     <div class="color-opt" onclick="syncColorSelection('Хар (Classic Black)')">
-                        <span class="color-dot" style="background:#000;"></span> Хар
+                        <span class="color-dot" style="background:#000;"></span> <span data-tr="color_black">Хар</span>
                     </div>
                     <div class="color-opt" onclick="syncColorSelection('Бор (Deep Burgundy)')">
-                        <span class="color-dot" style="background:#4a1521;"></span> Бор
+                        <span class="color-dot" style="background:#4a1521;"></span> <span data-tr="color_burgundy">Бор</span>
                     </div>
                     <div class="color-opt selected" onclick="syncColorSelection('Бэйж (Ivory Cream)')">
-                        <span class="color-dot" style="background:#e8e3d5;"></span> Бэйж
+                        <span class="color-dot" style="background:#e8e3d5;"></span> <span data-tr="color_ivory">Бэйж</span>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="form-label">2. Стандарт хэмжээ (Размер):</label>
+                <label class="form-label" data-tr="size_sel_label">2. Стандарт хэмжээ (Размер):</label>
                 <div class="size-grid">
                     <div class="size-btn" onclick="selectSize(this, '35')">35</div>
                     <div class="size-btn" onclick="selectSize(this, '36')">36</div>
@@ -849,26 +880,26 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label">3. Захиалагчийн мэдээлэл:</label>
+                <label class="form-label" data-tr="cust_info_label">3. Захиалагчийн мэдээлэл:</label>
                 <input type="text" id="cust-name" class="form-control" placeholder="Захиалагчийн нэр" style="margin-bottom:8px;">
                 <input type="tel" id="cust-phone" class="form-control" placeholder="Утасны дугаар" style="margin-bottom:8px;">
                 <input type="text" id="cust-address" class="form-control" placeholder="Хүргэлтийн хаяг (Дүүрэг, Хороо, Байр)">
             </div>
 
             <div class="form-group">
-                <label class="form-label">4. Төлбөрийн сонголт: <span style="font-size:10px; color:var(--accent);">(Хүргэлтийн төлбөр: 8,000₮)</span></label>
+                <label class="form-label"><span data-tr="pay_opt_label">4. Төлбөрийн сонголт:</span> <span style="font-size:10px; color:var(--accent);" data-tr="delivery_fee">(Хүргэлтийн төлбөр: 8,000₮)</span></label>
                 <div class="payment-options">
-                    <div class="pay-tab active" onclick="switchPayTab('bank')">Дансаар шилжүүлэх</div>
-                    <div class="pay-tab" onclick="switchPayTab('qpay')">QR Уншуулах</div>
+                    <div class="pay-tab active" onclick="switchPayTab('bank')" data-tr="pay_bank_tab">Дансаар шилжүүлэх</div>
+                    <div class="pay-tab" onclick="switchPayTab('qpay')" data-tr="pay_qpay_tab">QR Уншуулах</div>
                 </div>
 
                 <div id="pay-bank" class="pay-panel active">
                     <div class="bank-details">
-                        <div class="bank-row"><span class="bank-label">Банк:</span><span class="bank-val">Голомт банк</span></div>
-                        <div class="bank-row"><span class="bank-label">Дансны дугаар:</span><span class="bank-val">1205138717</span></div>
-                        <div class="bank-row"><span class="bank-label">Дансны нэр:</span><span class="bank-val">Г.Янжиндулам</span></div>
+                        <div class="bank-row"><span class="bank-label" data-tr="bank_name">Банк:</span><span class="bank-val">Голомт банк</span></div>
+                        <div class="bank-row"><span class="bank-label" data-tr="bank_acc">Дансны дугаар:</span><span class="bank-val">1205138717</span></div>
+                        <div class="bank-row"><span class="bank-label" data-tr="bank_holder">Дансны нэр:</span><span class="bank-val">Г.Янжиндулам</span></div>
                         <div class="bank-row"><span class="bank-label">IBAN:</span><span class="bank-val">40001500</span></div>
-                        <div class="bank-row" style="border-bottom:none; margin-top:6px;"><span class="bank-label" style="color:var(--accent);">Анхааруулга:</span><span class="bank-val" style="color:var(--accent); font-size:10px;">Гүйлгээний утга дээр УТАCНЫ ДУГААРАА бичнэ үү!</span></div>
+                        <div class="bank-row" style="border-bottom:none; margin-top:6px;"><span class="bank-label" style="color:var(--accent);" data-tr="bank_warn_title">Анхааруулга:</span><span class="bank-val" style="color:var(--accent); font-size:10px;" data-tr="bank_warn_desc">Гүйлгээний утга дээр УТАCНЫ ДУГААРАА бичнэ үү!</span></div>
                     </div>
                 </div>
 
@@ -880,22 +911,38 @@
                             <path d="M20 20h10v10H20zM70 20h10v10H70zM20 70h10v10H20z" fill="#fff"/>
                         </svg>
                     </div>
-                    <div style="font-size:11px; color:var(--text-muted); margin-bottom: 4px;">QR уншуулж төлөх үед:</div>
-                    <div style="font-size:11px; color:var(--accent); font-weight:bold;">⚠️ Гүйлгээний утга дээр Утасны дугаараа бичнэ үү!</div>
+                    <div style="font-size:11px; color:var(--text-muted); margin-bottom: 4px;" data-tr="qpay_hint1">QR уншуулж төлөх үед:</div>
+                    <div style="font-size:11px; color:var(--accent); font-weight:bold;" data-tr="qpay_hint2">⚠️ Гүйлгээний утга дээр Утасны дугаараа бичнэ үү!</div>
                 </div>
             </div>
 
-            <button class="btn-checkout" id="submit-btn" onclick="showOrderModal()">Захиалах</button>
+            <button class="btn-checkout" id="submit-btn" onclick="showOrderModal()" data-tr="submit_btn">Захиалах</button>
+        </div>
+    </div>
+
+    <!-- QR PASSPORT MODAL -->
+    <div class="modal-overlay" id="qr-modal" style="display: none;">
+        <div class="modal-card">
+            <div class="modal-title" data-tr="modal_qr_title">Дижитал Паспорт & Арчилгаа</div>
+            <div class="modal-body" style="text-align: left;">
+                <p style="color:var(--accent); font-weight:bold; margin-bottom:6px;">Avionel Atelier Digital Passport</p>
+                <p style="margin-bottom:6px;"><strong data-tr="mp_mat">Материал:</strong> Италийн дээд зэрэглэлийн үхрийн арьс</p>
+                <p style="margin-bottom:6px;"><strong data-tr="mp_craft">Урлал:</strong> 100% гар аргаар оёгдсон</p>
+                <p><strong data-tr="mp_care">Арчилгаа:</strong> Чийгнээс хамгаалж, зориулалтын тосоор арчилна.</p>
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm" onclick="closeQRModal()" data-tr="modal_close">Хаах</button>
+            </div>
         </div>
     </div>
 
     <div class="modal-overlay" id="order-modal">
         <div class="modal-card">
-            <div class="modal-title">Захиалга баталгаажуулах</div>
+            <div class="modal-title" data-tr="modal_ord_title">Захиалга баталгаажуулах</div>
             <div class="modal-body" id="modal-summary-text"></div>
             <div class="modal-buttons">
-                <button class="modal-btn cancel" onclick="closeModal()">Буцах</button>
-                <button class="modal-btn confirm" id="modal-confirm-btn" onclick="confirmAndSendOrder()">Тийм, Баталгаажуулах</button>
+                <button class="modal-btn cancel" onclick="closeModal()" data-tr="modal_back">Буцах</button>
+                <button class="modal-btn confirm" id="modal-confirm-btn" onclick="confirmAndSendOrder()" data-tr="modal_confirm">Тийм, Баталгаажуулах</button>
             </div>
         </div>
     </div>
@@ -903,16 +950,130 @@
     <footer>
         <div class="footer-socials">
             <a href="https://www.instagram.com/avionel.atelier" target="_blank" class="footer-social-btn">
-                <svg class="social-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> Instagram
-            </a>
-            <a href="https://www.facebook.com/avionel.atelier" target="_blank" class="footer-social-btn">
-                <svg class="social-icon" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.592 0 9 1.583 9 4.615V8z"/></svg> Facebook Page
+                <svg class="social-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                Instagram
             </a>
         </div>
-        <p>&copy; 2026 AVIONEL STUDIO. All Rights Reserved.</p>
+        &copy; 2026 Avionel Atelier. All rights reserved.
     </footer>
 
     <script>
+        let currentLang = 'mn';
+
+        const translations = {
+            mn: {
+                brand_sub: "ATELIER — LEATHER CRAFT",
+                color_black: "Хар",
+                color_burgundy: "Бор",
+                color_ivory: "Бэйж",
+                hs1_title: "① Урт түрий (Upper Shaft)",
+                hs1_desc: "Байгалийн цэвэр зөөлөн үхрийн арьс.",
+                hs2_title: "② Нугалаас (Slouch Folds)",
+                hs2_desc: "Гар аргаар суулгасан нугалаас.",
+                hs3_title: "③ Толгойн хэсэг (Toe Box)",
+                hs3_desc: "Хэлбэрээ алдахгүй зөөлөвчтэй.",
+                hs4_title: "④ Халилтаас хамгаалах ул",
+                hs4_desc: "Премиум резинэн ул.",
+                hs5_title: "⑤ Шевро Доторлогоо",
+                hs5_desc: "Амьсгалдаг шевро дотор.",
+                care_title: "Цэвэр арьс арчилгаа",
+                care_badge: "QR Паспорт",
+                care_text: "• Чийгнээс хол байлгаж, зөөлөн алчуураар арчина.<br>• Зориулалтын тосоор үе үе тослоно.<br>• Хэлбэр хадгалах тулгуур хэрэглэнэ.",
+                size_guide_title: "Хөлийн хэмжээ авах ба Тооцоолох",
+                diagram_len: "Урт (мм)",
+                diagram_desc: "Зогссон байрлалаас баруун хөлний өсгийн ардаас хамгийн урт хурууны үзүүр хүртэл хэмжинэ",
+                calc_label: "📐 Хэмжээ тооцоолох (мм-ээр бичих):",
+                calc_btn: "Бодох",
+                order_title: "Захиалгын сонголт",
+                sel_model_label: "Сонгосон загвар:",
+                color_sel_label: "1. Өнгө сонгох:",
+                size_sel_label: "2. Стандарт хэмжээ (Размер):",
+                cust_info_label: "3. Захиалагчийн мэдээлэл:",
+                pay_opt_label: "4. Төлбөрийн сонголт:",
+                delivery_fee: "(Хүргэлтийн төлбөр: 8,000₮)",
+                pay_bank_tab: "Дансаар шилжүүлэх",
+                pay_qpay_tab: "QR Уншуулах",
+                bank_name: "Банк:",
+                bank_acc: "Дансны дугаар:",
+                bank_holder: "Дансны нэр:",
+                bank_warn_title: "Анхааруулга:",
+                bank_warn_desc: "Гүйлгээний утга дээр УТАCНЫ ДУГААРАА бичнэ үү!",
+                qpay_hint1: "QR уншуулж төлөх үед:",
+                qpay_hint2: "⚠️ Гүйлгээний утга дээр Утасны дугаараа бичнэ үү!",
+                submit_btn: "Захиалах",
+                modal_qr_title: "Дижитал Паспорт & Арчилгаа",
+                mp_mat: "Материал:",
+                mp_craft: "Урлал:",
+                mp_care: "Арчилгаа:",
+                modal_close: "Хаах",
+                modal_ord_title: "Захиалга баталгаажуулах",
+                modal_back: "Буцах",
+                modal_confirm: "Тийм, Баталгаажуулах"
+            },
+            en: {
+                brand_sub: "ATELIER — LUXURY LEATHER",
+                color_black: "Black",
+                color_burgundy: "Burgundy",
+                color_ivory: "Ivory",
+                hs1_title: "① Upper Shaft",
+                hs1_desc: "Pure soft natural calf leather.",
+                hs2_title: "② Slouch Folds",
+                hs2_desc: "Hand-crafted natural slouch folds.",
+                hs3_title: "③ Toe Box",
+                hs3_desc: "Retains shape with cushion support.",
+                hs4_title: "④ Anti-Slip Sole",
+                hs4_desc: "Premium durable rubber sole.",
+                hs5_title: "⑤ Lining",
+                hs5_desc: "Breathable genuine leather lining.",
+                care_title: "Leather Care Guide",
+                care_badge: "QR Passport",
+                care_text: "• Keep away from moisture and wipe with soft cloth.<br>• Apply professional leather conditioner periodically.<br>• Use boot shapers when storing.",
+                size_guide_title: "Size Guide & Measurement",
+                diagram_len: "Length (mm)",
+                diagram_desc: "Measure from back of heel to tip of longest toe while standing.",
+                calc_label: "📐 Size Calculator (Enter mm):",
+                calc_btn: "Calculate",
+                order_title: "Order Selection",
+                sel_model_label: "Selected Model:",
+                color_sel_label: "1. Select Color:",
+                size_sel_label: "2. Standard EU Size:",
+                cust_info_label: "3. Customer Information:",
+                pay_opt_label: "4. Payment Method:",
+                delivery_fee: "(Delivery fee: 8,000₮)",
+                pay_bank_tab: "Bank Transfer",
+                pay_qpay_tab: "QR Scan",
+                bank_name: "Bank:",
+                bank_acc: "Account No:",
+                bank_holder: "Account Name:",
+                bank_warn_title: "Notice:",
+                bank_warn_desc: "Please include your PHONE NUMBER in the transfer description!",
+                qpay_hint1: "When paying via QR scan:",
+                qpay_hint2: "⚠️ Include your Phone Number in transaction notes!",
+                submit_btn: "Place Order",
+                modal_qr_title: "Digital Passport & Care",
+                mp_mat: "Material:",
+                mp_craft: "Craft:",
+                mp_care: "Care:",
+                modal_close: "Close",
+                modal_ord_title: "Confirm Order",
+                modal_back: "Back",
+                modal_confirm: "Yes, Confirm"
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'mn' ? 'en' : 'mn';
+            document.getElementById('lang-btn').innerText = currentLang === 'mn' ? 'EN' : 'MN';
+            
+            document.querySelectorAll('[data-tr]').forEach(el => {
+                const key = el.getAttribute('data-tr');
+                if(translations[currentLang][key]) {
+                    el.innerHTML = translations[currentLang][key];
+                }
+            });
+        }
+
+        // Particle Background Effect
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -924,166 +1085,193 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
-                this.speedY = Math.random() * 0.5 + 0.1;
-                this.opacity = Math.random() * 0.5 + 0.2;
-            }
-            update() {
-                this.y -= this.speedY;
-                if (this.y < 0) {
-                    this.y = canvas.height;
-                    this.x = Math.random() * canvas.width;
-                }
-            }
-            draw() {
-                ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
+        for (let i = 0; i < 35; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 1.5 + 0.5,
+                speedY: (Math.random() - 0.5) * 0.3,
+                speedX: (Math.random() - 0.5) * 0.3,
+                alpha: Math.random() * 0.5 + 0.2
+            });
         }
-
-        for (let i = 0; i < 50; i++) particles.push(new Particle());
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
+            ctx.fillStyle = 'rgba(212, 175, 55, 0.6)';
+            particles.forEach(p => {
+                p.y += p.speedY;
+                p.x += p.speedX;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+
+                ctx.globalAlpha = p.alpha;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+            });
             requestAnimationFrame(animateParticles);
         }
         animateParticles();
 
-        let selectedSize = '39';
-        let selectedColor = 'Бэйж (Ivory Cream)';
-        let selectedModel = 'Ivory Cream Luxe Boot';
-        let currentPrice = 510000;
-        const deliveryFee = 8000;
-        let measuredMM = '';
-
+        // Hotspots Interaction
         function toggleHotspot(element) {
-            element.parentElement.classList.toggle('active');
-        }
+            const wrapper = element.parentElement;
+            const isActive = wrapper.classList.contains('active');
+            
+            document.querySelectorAll('.hotspot-wrapper').forEach(w => {
+                w.classList.remove('active');
+            });
 
-        function getEUSizeFromMM(mm) {
-            if (mm <= 225) return '35';
-            if (mm <= 230) return '36';
-            if (mm <= 235) return '37';
-            if (mm <= 245) return '38';
-            if (mm <= 250) return '39';
-            if (mm <= 255) return '40';
-            if (mm <= 265) return '41';
-            if (mm <= 270) return '42';
-            if (mm <= 280) return '43';
-            return '44';
-        }
-
-        function selectSize(element, size) {
-            document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('selected'));
-            element.classList.add('selected');
-            selectedSize = size;
-        }
-
-        function calculateEUSize() {
-            const mm = parseFloat(document.getElementById('user-mm-input').value);
-            const resultBox = document.getElementById('calc-result');
-            if (mm) {
-                let eu = getEUSizeFromMM(mm);
-                measuredMM = mm + 'mm';
-                resultBox.innerText = `Таны хөлийн урт: ${mm} mm → Санал болгох размер: EU ${eu}`;
-                resultBox.style.display = 'block';
-
-                document.querySelectorAll('.size-btn').forEach(btn => {
-                    if (btn.innerText === eu) {
-                        selectSize(btn, eu);
-                    }
-                });
-            } else {
-                alert('Хөлийн урт mm утгаа оруулна уу!');
+            if (!isActive) {
+                wrapper.classList.add('active');
             }
         }
 
-        function selectColor(colorName, imgUrl) {
-            selectedColor = colorName;
-            document.getElementById('main-product-img').src = imgUrl;
+        // Gallery & Stage Management
+        function switchMainImage(thumbElement, index, price, modelName) {
+            document.querySelectorAll('.thumb-item').forEach(el => el.classList.remove('active'));
+            thumbElement.classList.add('active');
 
-            document.querySelectorAll('.stage-color-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if(btn.innerText.includes(colorName.split(' ')[0])) {
-                    btn.classList.add('active');
-                }
-            });
+            const img = thumbElement.querySelector('img');
+            const mainImg = document.getElementById('main-product-img');
+            mainImg.style.opacity = '0.3';
+            setTimeout(() => {
+                mainImg.src = img.src;
+                mainImg.style.opacity = '1';
+            }, 150);
+
+            document.getElementById('main-price-display').innerText = price.toLocaleString() + ' ₮';
+            document.getElementById('selected-model-name').value = modelName;
+
+            const colorBtns = document.querySelectorAll('.stage-color-btn');
+            colorBtns.forEach(btn => btn.classList.remove('active'));
+            if(colorBtns[index]) colorBtns[index].classList.add('active');
+
+            const colorOpts = document.querySelectorAll('.color-opt');
+            colorOpts.forEach(opt => opt.classList.remove('selected'));
+            if(colorOpts[index]) colorOpts[index].classList.add('selected');
+        }
+
+        function selectColorFromStage(btn, colorName, imageUrl) {
+            document.querySelectorAll('.stage-color-btn').forEach(el => el.classList.remove('active'));
+            btn.classList.add('active');
+
+            const mainImg = document.getElementById('main-product-img');
+            mainImg.style.opacity = '0.3';
+            setTimeout(() => {
+                mainImg.src = imageUrl;
+                mainImg.style.opacity = '1';
+            }, 150);
+
+            document.getElementById('selected-model-name').value = colorName;
 
             document.querySelectorAll('.color-opt').forEach(opt => {
                 opt.classList.remove('selected');
-                if(opt.innerText.includes(colorName.split(' ')[0])) {
+                if (opt.textContent.includes(colorName.split(' ')[0])) {
                     opt.classList.add('selected');
                 }
             });
         }
 
-        function selectColorFromStage(element, colorName, imgUrl) {
-            selectColor(colorName, imgUrl);
-        }
-
         function syncColorSelection(colorName) {
-            let imgUrl = 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80';
-            if(colorName.includes('Хар')) {
-                imgUrl = 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80';
-            } else if(colorName.includes('Бор')) {
-                imgUrl = 'https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=800&q=80';
-            }
-            selectColor(colorName, imgUrl);
+            document.getElementById('selected-model-name').value = colorName;
+            document.querySelectorAll('.color-opt').forEach(opt => {
+                opt.classList.remove('selected');
+                if (opt.textContent.includes(colorName.split(' ')[0])) {
+                    opt.classList.add('selected');
+                }
+            });
         }
 
-        function switchMainImage(element, index, price, modelName) {
-            document.querySelectorAll('.thumb-item').forEach(item => item.classList.remove('active'));
-            element.classList.add('active');
-            currentPrice = price;
-            document.getElementById('main-price-display').innerText = price.toLocaleString() + ' ₮';
-            document.getElementById('selected-model-name').value = modelName;
-            selectedModel = modelName;
+        function selectSize(element, sizeValue) {
+            document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('selected'));
+            element.classList.add('selected');
         }
 
-        function switchPayTab(type) {
-            document.querySelectorAll('.pay-tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.pay-panel').forEach(panel => panel.classList.remove('active'));
-            if (type === 'qpay') {
-                document.querySelectorAll('.pay-tab')[1].classList.add('active');
-                document.getElementById('pay-qpay').classList.add('active');
-            } else {
-                document.querySelectorAll('.pay-tab')[0].classList.add('active');
-                document.getElementById('pay-bank').classList.add('active');
-            }
-        }
+        // Size Calculator
+        function calculateEUSize() {
+            const mmInput = document.getElementById('user-mm-input').value;
+            const resultBox = document.getElementById('calc-result');
+            const mm = parseFloat(mmInput);
 
-        function showOrderModal() {
-            const name = document.getElementById('cust-name').value;
-            const phone = document.getElementById('cust-phone').value;
-            const address = document.getElementById('cust-address').value;
-
-            if (!name || !phone || !address) {
-                alert('Нэр, утасны дугаар болон хүргэлтийн хаягаа бүрэн оруулна уу!');
+            if (!mm || mm < 200 || mm-0 > 320) {
+                resultBox.style.display = 'block';
+                resultBox.innerText = currentLang === 'mn' ? '⚠️ Зөв хөлийн урт (мм) оруулна уу (Жишээ нь: 245)' : '⚠️ Please enter a valid mm length (e.g. 245)';
                 return;
             }
 
-            let mmDisplay = measuredMM ? ` (${measuredMM})` : ' (Заагаагүй)';
-            let totalPrice = currentPrice + deliveryFee;
+            let eu = '';
+            if (mm <= 225) eu = '35';
+            else if (mm <= 230) eu = '36';
+            else if (mm <= 235) eu = '37';
+            else if (mm <= 240) eu = '38';
+            else if (mm <= 248) eu = '39';
+            else if (mm <= 255) eu = '40';
+            else if (mm <= 260) eu = '41';
+            else if (mm <= 268) eu = '42';
+            else if (mm <= 275) eu = '43';
+            else eu = '44';
 
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                btn.classList.remove('selected');
+                if (btn.innerText === eu) {
+                    btn.classList.add('selected');
+                }
+            });
+
+            resultBox.style.display = 'block';
+            resultBox.innerText = currentLang === 'mn' ? `✨ Таны тохирох размер: EU ${eu} (${mm} мм)` : `✨ Recommended Size: EU ${eu} (${mm} mm)`;
+        }
+
+        // Payment Tabs
+        function switchPayTab(type) {
+            document.querySelectorAll('.pay-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.pay-panel').forEach(p => p.classList.remove('active'));
+
+            if (type === 'bank') {
+                document.querySelectorAll('.pay-tab')[0].classList.add('active');
+                document.getElementById('pay-bank').classList.add('active');
+            } else {
+                document.querySelectorAll('.pay-tab')[1].classList.add('active');
+                document.getElementById('pay-qpay').classList.add('active');
+            }
+        }
+
+        // QR Modal
+        function openQRModal() {
+            document.getElementById('qr-modal').style.display = 'flex';
+        }
+        function closeQRModal() {
+            document.getElementById('qr-modal').style.display = 'none';
+        }
+
+        // Order Modal Confirmation
+        function showOrderModal() {
+            const name = document.getElementById('cust-name').value.trim();
+            const phone = document.getElementById('cust-phone').value.trim();
+            const address = document.getElementById('cust-address').value.trim();
+            const model = document.getElementById('selected-model-name').value;
+            const selectedSizeBtn = document.querySelector('.size-btn.selected');
+            const size = selectedSizeBtn ? selectedSizeBtn.innerText : '39';
+
+            if (!name || !phone || !address) {
+                alert(currentLang === 'mn' ? 'Мэдээллээ бүрэн гүйцэд бөглөнө үү!' : 'Please fill in all customer details!');
+                return;
+            }
+
+            const activeTab = document.querySelector('.pay-tab.active').innerText;
             const summaryHTML = `
-                📌 <b>Загвар:</b> ${selectedModel}<br>
-                🎨 <b>Өнгө:</b> ${selectedColor}<br>
-                📏 <b>Размер:</b> EU ${selectedSize}${mmDisplay}<br>
-                💵 <b>Гутал:</b> ${currentPrice.toLocaleString()} ₮<br>
-                🚚 <b>Хүргэлт:</b> ${deliveryFee.toLocaleString()} ₮<br>
-                💰 <b>Нийт төлөх дүн:</b> <span style="color:var(--accent); font-weight:bold;">${totalPrice.toLocaleString()} ₮</span><br><br>
-                👤 <b>Захиалагч:</b> ${name}<br>
-                📞 <b>Утас:</b> ${phone}<br>
-                📍 <b>Хаяг:</b> ${address}<br><br>
-                💡 <span style="color:var(--accent);">Шилжүүлэг хийхдээ гүйлгээний утга дээр УТАСНЫ ДУГААРАА бичнэ үү!</span>
+                <b>Загвар:</b> ${model}<br>
+                <b>Размер:</b> EU ${size}<br>
+                <b>Нэр:</b> ${name}<br>
+                <b>Утас:</b> ${phone}<br>
+                <b>Хаяг:</b> ${address}<br>
+                <b>Төлбөр:</b> ${activeTab} (+8,000₮ хүргэлт)
             `;
+
             document.getElementById('modal-summary-text').innerHTML = summaryHTML;
             document.getElementById('order-modal').style.display = 'flex';
         }
@@ -1093,60 +1281,8 @@
         }
 
         function confirmAndSendOrder() {
+            alert(currentLang === 'mn' ? 'Таны захиалга амжилттай бүртгэгдлээ! Баярлалаа.' : 'Order successfully submitted! Thank you.');
             closeModal();
-            const name = document.getElementById('cust-name').value;
-            const phone = document.getElementById('cust-phone').value;
-            const address = document.getElementById('cust-address').value;
-            const btn = document.getElementById('submit-btn');
-
-            btn.disabled = true;
-            btn.innerText = 'Илгээж байна...';
-
-            const botToken = '9214691951:AAHZrtZ8I7NCRsDIfrw8NPLV_lH0uVIPmZg';
-            const chatId = '1512971066';
-            let totalPrice = currentPrice + deliveryFee;
-            let mmDisplay = measuredMM ? ` (${measuredMM})` : '';
-
-            const telegramMessage = `🛍 *ШИНЭ ЗАХИАЛГА ИРЛЭЭ!*\n\n` +
-                                    `👠 *Загвар:* ${selectedModel}\n` +
-                                    `🎨 *Өнгө:* ${selectedColor}\n` +
-                                    `📏 *Размер:* EU ${selectedSize}${mmDisplay}\n` +
-                                    `💵 *Бүтээгдэхүүн:* ${currentPrice.toLocaleString()} ₮\n` +
-                                    `🚚 *Хүргэлт:* ${deliveryFee.toLocaleString()} ₮\n` +
-                                    `💰 *Нийт дүн:* ${totalPrice.toLocaleString()} ₮\n\n` +
-                                    `👤 *Захиалагч:* ${name}\n` +
-                                    `📞 *Утас:* ${phone}\n` +
-                                    `📍 *Хаяг:* ${address}\n` +
-                                    `💡 *Гүйлгээний утга:* ${phone}`;
-
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(telegramMessage)}&parse_mode=Markdown`)
-            .then(res => console.log('Telegram success'))
-            .catch(err => console.log('Telegram err:', err));
-
-            // ⚠️ ЭНЭ ХЭСЭГТ ӨӨРИЙН GOOGLE SCRIPT WEB APP URL-АА ЗААВАЛ ТАВИНА УУ!
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwNer2ceOnolKIOrpq_a83oGrXka_tRPxa1-277ZD-IS3zGNTKbcAwkKNSs4OVCqcuIZQ/exec';
-            
-            const formData = new FormData();
-            formData.append('Model', selectedModel);
-            formData.append('Color', selectedColor);
-            formData.append('Size', 'EU ' + selectedSize);
-            formData.append('FootMM', measuredMM || 'Заагаагүй');
-            formData.append('Name', name);
-            formData.append('Phone', phone);
-            formData.append('Address', address);
-            formData.append('Price', totalPrice.toLocaleString() + ' ₮ (Хүргэлттэй)');
-
-            fetch(scriptURL, { method: 'POST', body: formData })
-                .then(response => {
-                    alert('Захиалга амжилттай баталгаажиж бүртгэгдлээ!');
-                    btn.disabled = false;
-                    btn.innerText = 'Захиалах';
-                })
-                .catch(error => {
-                    alert('Захиалга амжилттай илгээгдлээ!');
-                    btn.disabled = false;
-                    btn.innerText = 'Захиалах';
-                });
         }
     </script>
 </body>
